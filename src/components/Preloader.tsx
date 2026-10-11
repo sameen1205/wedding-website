@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { Sparkles } from 'lucide-react';
 import { weddingDetails } from '@/data/weddingData';
 
 interface PreloaderProps {
@@ -10,16 +12,26 @@ interface PreloaderProps {
 
 export default function Preloader({ onLoadingComplete }: PreloaderProps) {
   const [isVisible, setIsVisible] = useState(true);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Reveal full embossed gold foil at 1.4s
+    const revealTimer = setTimeout(() => {
+      setRevealed(true);
+    }, 1400);
+
+    // Complete loading and slide preloader away at 3.4s
+    const exitTimer = setTimeout(() => {
       setIsVisible(false);
       if (onLoadingComplete) {
         onLoadingComplete();
       }
-    }, 2800);
+    }, 3400);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(revealTimer);
+      clearTimeout(exitTimer);
+    };
   }, [onLoadingComplete]);
 
   return (
@@ -31,143 +43,165 @@ export default function Preloader({ onLoadingComplete }: PreloaderProps) {
           exit={{
             y: '-100%',
             transition: {
-              duration: 1.1,
+              duration: 1.15,
               ease: [0.77, 0, 0.175, 1],
             },
           }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-b from-crimson-deep via-[#300512] to-royalvelvet-deep text-ivory overflow-hidden bg-banarasi-pattern"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center text-ivory overflow-hidden bg-patola-pattern select-none"
           style={{ willChange: 'transform' }}
         >
-          {/* Subtle Ambient Golden Halo */}
-          <div className="absolute w-[500px] h-[500px] rounded-full bg-gold/15 blur-3xl -z-10 pointer-events-none" />
+          {/* Radial Darkening Vignette Scrim */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(0,0,0,0.85)_100%)] pointer-events-none" />
 
-          <div className="relative flex flex-col items-center justify-center px-6 text-center">
-            {/* SVG Ornate Royal Indian Crest & Monogram */}
-            <div className="relative w-48 h-48 sm:w-56 sm:h-56 mb-6 flex items-center justify-center">
-              <svg
-                viewBox="0 0 200 200"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-full h-full"
-              >
-                {/* Rotating Outer Sacred Mandala / Sunburst */}
-                <motion.circle
-                  cx="100"
-                  cy="100"
-                  r="92"
-                  stroke="#FFD700"
-                  strokeWidth="1.2"
-                  strokeDasharray="6 8"
-                  initial={{ rotate: 0, opacity: 0 }}
-                  animate={{ rotate: 180, opacity: 0.8 }}
-                  transition={{ duration: 3.5, ease: 'easeInOut' }}
-                />
+          {/* Golden Radiant Ambient Halo behind Monogram */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: [0.9, 1.15, 1], opacity: [0.3, 0.65, 0.5] }}
+            transition={{ duration: 3, ease: 'easeInOut' }}
+            className="absolute w-[450px] h-[350px] sm:w-[650px] sm:h-[500px] rounded-full bg-gradient-to-r from-amber-400/20 via-gold-metallic/30 to-amber-500/20 blur-3xl -z-10 pointer-events-none"
+          />
 
-                {/* Inner Archway Lotus Ring */}
-                <motion.circle
-                  cx="100"
-                  cy="100"
-                  r="80"
-                  stroke="#D4AF37"
-                  strokeWidth="0.8"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 0.9 }}
-                  transition={{ duration: 2, ease: [0.65, 0, 0.35, 1] }}
-                />
-
-                {/* Royal Mughal Crest Top Dome */}
-                <motion.path
-                  d="M80 32 C85 24 100 16 100 16 C100 16 115 24 120 32"
-                  stroke="#FFD700"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1.5, delay: 0.2 }}
-                />
-
-                {/* Monogram Path "S" (Sameen) */}
-                <motion.path
-                  d="M90 66 C72 54 58 68 58 82 C58 98 92 102 92 120 C92 136 76 144 58 134"
-                  stroke="#FFFDF9"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1.8, delay: 0.4, ease: [0.65, 0, 0.35, 1] }}
-                />
-
-                {/* Romantic Ampersand "&" with Gold Zari Flourish */}
-                <motion.path
-                  d="M106 105 C112 112 120 112 123 106 C127 99 119 89 105 81 C97 76 93 69 93 62 C93 53 101 46 109 46 C117 46 123 52 123 60 C123 71 107 91 83 121 C77 128 79 136 86 140 C93 143 104 141 114 131 L127 143"
-                  stroke="#FFD700"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 0.95 }}
-                  transition={{ duration: 2, delay: 0.7, ease: [0.65, 0, 0.35, 1] }}
-                />
-
-                {/* Monogram Path "A" (Anula) */}
-                <motion.path
-                  d="M122 140 L138 58 L154 140 M127 114 H149"
-                  stroke="#FFFDF9"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1.8, delay: 0.9, ease: [0.65, 0, 0.35, 1] }}
-                />
-              </svg>
-            </div>
-
-            {/* Auspicious Blessing Tag */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-              className="text-xs sm:text-sm tracking-luxury uppercase font-sans text-gold-zari font-medium mb-1"
-            >
-              ✦ {weddingDetails.couple.blessing} ✦
-            </motion.p>
-
-            {/* Names Reveal */}
-            <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.4, ease: [0.25, 1, 0.5, 1] }}
-              className="font-serif text-3xl sm:text-4xl tracking-widest text-ivory font-light uppercase"
-            >
-              {weddingDetails.couple.groom} & {weddingDetails.couple.bride}
-            </motion.h2>
-
-            {/* Subtitle & Date */}
+          <div className="relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-4xl text-center">
+            {/* Auspicious Blessing Header Tag */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.9 }}
-              transition={{ duration: 0.9, delay: 1.8 }}
-              className="mt-3 flex items-center gap-3 text-xs tracking-widest text-amber-200/90 uppercase font-sans"
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-gold-metallic/40 mb-5 sm:mb-7 shadow-xl"
             >
-              <span>{weddingDetails.location.city}, {weddingDetails.location.state}</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-gold-metallic inline-block" />
-              <span>{weddingDetails.date.short}</span>
+              <Sparkles className="w-3.5 h-3.5 text-gold-metallic animate-pulse" />
+              <span className="font-serif italic text-xs sm:text-sm tracking-widest text-amber-200">
+                ॥ शुभ विवाह ॥ • {weddingDetails.couple.blessing}
+              </span>
+              <Sparkles className="w-3.5 h-3.5 text-gold-metallic animate-pulse" />
             </motion.div>
 
-            {/* Zari Gold Loading Bar */}
+            {/* GRAND FORMING OF MONOGRAM CARD (Much Bigger & in Exact Style) */}
             <motion.div
-              className="w-36 h-[2px] bg-white/20 mt-8 overflow-hidden rounded-full relative"
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-[340px] sm:max-w-[480px] md:max-w-[560px] aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.85)] border-2 border-gold-metallic/50"
+            >
+              {/* Card Background: Authentic Patola Fabric with Scalloped Cartouche */}
+              <div className="absolute inset-0">
+                <Image
+                  src="/images/patola-card.png"
+                  alt="Sameen and Anula Royal Monogram Card"
+                  fill
+                  priority
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 90vw, 560px"
+                />
+              </div>
+
+              {/* Animated Forming Overlay (SVG stroke drawing the S-A Monogram & Scalloped Cartouche) */}
+              <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                <svg
+                  viewBox="0 0 440 330"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-full h-full"
+                >
+                  <defs>
+                    <linearGradient id="goldStrokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#FFF2B2" />
+                      <stop offset="40%" stopColor="#FFD700" />
+                      <stop offset="70%" stopColor="#D4AF37" />
+                      <stop offset="100%" stopColor="#B8860B" />
+                    </linearGradient>
+                    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="3" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  {/* 1. Scalloped Cartouche Inner Gold Rim Animation */}
+                  <motion.path
+                    d="M 68 165 C 68 115, 115 68, 165 68 C 190 68, 205 60, 220 54 C 235 60, 250 68, 275 68 C 325 68, 372 115, 372 165 C 372 190, 380 205, 386 220 C 380 235, 372 250, 372 275 C 372 325, 325 372, 275 372 C 250 372, 235 380, 220 386 C 205 380, 190 372, 165 372 C 115 372, 68 325, 68 275 Z"
+                    transform="scale(0.85 0.72) translate(38, 25)"
+                    stroke="url(#goldStrokeGrad)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    filter="url(#goldGlow)"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: revealed ? 0 : 0.95 }}
+                    transition={{ duration: 1.3, ease: 'easeInOut' }}
+                  />
+
+                  {/* 2. Forming of the Cursive "A" Sweeping Flourish Loop */}
+                  <motion.path
+                    d="M 125 245 C 95 240, 80 185, 120 155 C 160 125, 230 160, 250 200 C 265 230, 240 270, 185 272 C 145 274, 115 245, 155 190 C 185 145, 235 105, 255 105 C 260 105, 265 110, 255 135 L 210 240 M 235 125 L 295 245 M 195 205 L 275 205"
+                    stroke="url(#goldStrokeGrad)"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    filter="url(#goldGlow)"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: revealed ? 0 : 1 }}
+                    transition={{ duration: 1.6, delay: 0.25, ease: [0.65, 0, 0.35, 1] }}
+                  />
+
+                  {/* 3. Forming of the Classical Serif "S" Interlocking through the "A" */}
+                  <motion.path
+                    d="M 285 105 C 275 90, 255 88, 240 96 C 220 106, 220 126, 235 142 C 255 162, 285 178, 285 205 C 285 230, 265 248, 240 248 C 220 248, 205 235, 200 220 M 283 100 L 290 108"
+                    stroke="url(#goldStrokeGrad)"
+                    strokeWidth="4.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    filter="url(#goldGlow)"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: revealed ? 0 : 1 }}
+                    transition={{ duration: 1.5, delay: 0.5, ease: [0.65, 0, 0.35, 1] }}
+                  />
+                </svg>
+              </div>
+
+              {/* Shimmer Light Beam Effect when fully formed */}
+              {revealed && (
+                <motion.div
+                  initial={{ x: '-100%', opacity: 0 }}
+                  animate={{ x: '100%', opacity: [0, 0.7, 0] }}
+                  transition={{ duration: 1.4, ease: 'easeInOut' }}
+                  className="absolute inset-0 z-30 bg-gradient-to-r from-transparent via-white/35 to-transparent skew-x-12 pointer-events-none"
+                />
+              )}
+            </motion.div>
+
+            {/* Date from the reference image: "21 November, 2026" */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 1.5 }}
+              className="mt-6 flex flex-col items-center"
+            >
+              <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-amber-100 tracking-wide font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                21 November, 2026
+              </h3>
+
+              <p className="font-sans text-xs sm:text-sm tracking-luxury uppercase text-amber-200/90 font-medium mt-1.5 flex items-center gap-2">
+                <span>{weddingDetails.couple.groom}</span>
+                <span className="text-gold-metallic font-script text-lg">&</span>
+                <span>{weddingDetails.couple.bride}</span>
+                <span className="text-gold-metallic mx-1">•</span>
+                <span>Bangalore Palace</span>
+              </p>
+            </motion.div>
+
+            {/* Elegant Zari Gold Loading Progress Line */}
+            <motion.div
+              className="w-48 sm:w-64 h-[2px] bg-white/20 mt-7 overflow-hidden rounded-full relative"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.6 }}
             >
               <motion.div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-amber-400 via-gold-metallic to-rose-400"
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-amber-300 via-gold-metallic to-amber-500 shadow-[0_0_10px_#FFD700]"
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
-                transition={{ duration: 2.2, ease: 'easeInOut' }}
+                transition={{ duration: 2.5, ease: 'easeInOut' }}
               />
             </motion.div>
           </div>

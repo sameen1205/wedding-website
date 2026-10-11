@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { Volume2, VolumeX, Menu, X, Sparkles } from 'lucide-react';
 import { weddingDetails } from '@/data/weddingData';
 
@@ -79,12 +80,16 @@ export default function Navbar() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="group flex items-center gap-2.5 text-left focus:outline-none"
           >
-            <div className="w-8 h-8 rounded-full border border-gold/50 flex items-center justify-center bg-gold/10">
-              <span className="font-serif text-xs font-bold text-gold-metallic">
-                {weddingDetails.couple.monogram}
-              </span>
+            <div className="relative w-9 h-7 rounded-md overflow-hidden border border-gold-metallic/60 shadow-md bg-black/40">
+              <Image
+                src="/images/monogram-cartouche.png"
+                alt="Sameen & Anula Royal Monogram"
+                fill
+                className="object-cover object-center"
+                sizes="36px"
+              />
             </div>
-            <span className="font-serif text-xl sm:text-2xl tracking-widest font-light text-ivory">
+            <span className="font-serif text-xl sm:text-2xl tracking-widest font-normal text-ivory hero-text-shadow">
               {weddingDetails.couple.groom}
               <span className="text-gold-metallic font-script text-2xl sm:text-3xl mx-1.5">&</span>
               {weddingDetails.couple.bride}
@@ -175,11 +180,17 @@ export default function Navbar() {
           >
             {/* Top Bar */}
             <div className="flex items-center justify-between border-b border-gold/30 pb-4">
-              <div className="flex items-center gap-2">
-                <span className="font-serif text-2xl tracking-widest text-gold-metallic">
-                  {weddingDetails.couple.monogram}
-                </span>
-                <span className="text-xs text-amber-200/80 font-sans tracking-luxury uppercase">
+              <div className="flex items-center gap-3">
+                <div className="relative w-10 h-8 rounded-md overflow-hidden border border-gold-metallic/60 shadow-md">
+                  <Image
+                    src="/images/monogram-cartouche.png"
+                    alt="Sameen & Anula Royal Monogram"
+                    fill
+                    className="object-cover object-center"
+                    sizes="40px"
+                  />
+                </div>
+                <span className="text-xs text-amber-200/90 font-sans tracking-luxury uppercase font-semibold">
                   ✦ Bangalore 2026
                 </span>
               </div>

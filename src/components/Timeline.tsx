@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { 
   Sparkles, 
@@ -15,12 +15,30 @@ import {
   Heart, 
   Check, 
   CheckCircle2,
-  Share2
+  Share2,
+  ZoomIn,
+  Eye,
+  X,
+  Download
 } from 'lucide-react';
 import { weddingDetails, IndianFunction } from '@/data/weddingData';
 
 export default function Timeline() {
   const [activeTab, setActiveTab] = useState<string>('haldi');
+  const [selectedInvite, setSelectedInvite] = useState<{
+    src: string;
+    title: string;
+    subtitle: string;
+    downloadName: string;
+  } | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedInvite(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const generateSingleEventIcs = (fn: IndianFunction) => {
     let startIso = '';
@@ -165,10 +183,13 @@ export default function Timeline() {
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className={`relative rounded-3xl overflow-hidden border-2 border-gold/40 shadow-2xl ${fn.patternClass} text-ivory`}
               >
-                {/* Zari Gold Foil Accent Border Top */}
-                <div className="h-2 w-full bg-gradient-to-r from-gold-antique via-gold-metallic to-gold-antique" />
+                {/* Textile Scrim for 100% Crisp Text Contrast & Readability */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90 pointer-events-none" />
 
-                <div className="p-8 sm:p-12 lg:p-16">
+                {/* Zari Gold Foil Accent Border Top */}
+                <div className="relative z-10 h-2 w-full bg-gradient-to-r from-gold-antique via-gold-metallic to-gold-antique" />
+
+                <div className="relative z-10 p-8 sm:p-12 lg:p-16">
                   {/* Top Day & Date Header Banner */}
                   <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gold/30 pb-6 mb-10">
                     <div className="flex items-center gap-3">
@@ -180,7 +201,7 @@ export default function Timeline() {
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2 text-xs font-sans text-amber-100 bg-black/40 backdrop-blur-sm px-4 py-1.5 rounded-full border border-gold/30">
+                    <div className="flex items-center gap-2 text-xs font-sans text-amber-100 bg-black/50 backdrop-blur-sm px-4 py-1.5 rounded-full border border-gold/30">
                       <Clock className="w-3.5 h-3.5 text-gold-metallic" />
                       <span className="font-medium">{fn.timing}</span>
                     </div>
@@ -190,31 +211,162 @@ export default function Timeline() {
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
                     {/* Visual Photography with Arch Frame & Overlays */}
                     <div className="lg:col-span-6 relative">
-                      <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group">
-                        <Image
-                          src={fn.image}
-                          alt={fn.alt}
-                          fill
-                          className="object-cover object-center brightness-90 contrast-[1.08] transition-transform duration-1000 group-hover:scale-105"
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                      {fn.id === 'haldi' ? (
+                        /* Dedicated Showcase for Haldi Ceremony Invitation Artwork */
+                        <div className="relative flex flex-col items-center">
+                          <div
+                            onClick={() =>
+                              setSelectedInvite({
+                                src: '/images/haldi-invite.png',
+                                title: 'Royal Haldi Ceremony Invitation',
+                                subtitle: 'Sameen & Anula • Friday, 20th November 2026',
+                                downloadName: 'Sameen-Anula-Haldi-Invitation.png',
+                              })
+                            }
+                            className="relative aspect-[3/4] w-full max-w-[420px] rounded-2xl overflow-hidden border-4 border-amber-400/80 shadow-[0_20px_50px_rgba(0,0,0,0.9)] cursor-pointer group transition-all duration-500 hover:shadow-[0_25px_60px_rgba(245,158,11,0.45)] hover:scale-[1.02]"
+                          >
+                            <Image
+                              src="/images/haldi-invite.png"
+                              alt="Sameen and Anula Royal Haldi Ceremony Invitation"
+                              fill
+                              className="object-contain sm:object-cover object-center bg-[#FFFBEB] transition-transform duration-700 group-hover:scale-105"
+                              sizes="(max-width: 1024px) 100vw, 420px"
+                            />
 
-                        {/* Location Tag */}
-                        <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-gold/50 text-gold-metallic text-xs font-sans tracking-wider">
-                            <MapPin className="w-3.5 h-3.5" />
-                            {fn.location}
-                          </span>
-                        </div>
+                            {/* Inner Scalloped Gold & Rani Pink Border */}
+                            <div className="absolute inset-2 rounded-xl border border-rose-600/50 pointer-events-none" />
 
-                        {/* Poetic Quote Overlay on Image */}
-                        <div className="absolute bottom-4 left-4 right-4 text-ivory">
-                          <p className="font-script text-2xl sm:text-3xl text-amber-200 italic mb-1">
-                            &ldquo;{fn.quote}&rdquo;
-                          </p>
+                            {/* Top Badge */}
+                            <div className="absolute top-3 left-3 right-3 flex justify-between items-start pointer-events-none">
+                              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 backdrop-blur-md border border-amber-400/60 text-amber-300 text-[11px] font-sans font-semibold tracking-wider">
+                                <Sparkles className="w-3 h-3 text-amber-400" />
+                                Official Haldi Patrika
+                              </span>
+                            </div>
+
+                            {/* Hover Zoom Overlay */}
+                            <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center">
+                              <div className="w-14 h-14 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-charcoal flex items-center justify-center shadow-xl mb-3 transform group-hover:scale-110 transition-transform">
+                                <ZoomIn className="w-6 h-6" />
+                              </div>
+                              <p className="font-serif text-xl text-white font-medium drop-shadow-md">
+                                View Full Haldi Invitation
+                              </p>
+                              <span className="text-xs text-amber-200 font-sans tracking-luxury uppercase mt-1">
+                                Click to Inspect Motifs & Artwork
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Quick Enlarge Prompt Button */}
+                          <button
+                            onClick={() =>
+                              setSelectedInvite({
+                                src: '/images/haldi-invite.png',
+                                title: 'Royal Haldi Ceremony Invitation',
+                                subtitle: 'Sameen & Anula • Friday, 20th November 2026',
+                                downloadName: 'Sameen-Anula-Haldi-Invitation.png',
+                              })
+                            }
+                            className="mt-3.5 inline-flex items-center gap-2 text-xs font-sans text-amber-300 hover:text-amber-100 tracking-wider uppercase transition-colors"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>Click to Expand Full Invitation Artwork</span>
+                          </button>
                         </div>
-                      </div>
+                      ) : fn.id === 'nikah-muhurat' ? (
+                        /* Nikah & Muhurat with Authentic Patola Monogram Badge */
+                        <div className="relative">
+                          <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group">
+                            <Image
+                              src={fn.image}
+                              alt={fn.alt}
+                              fill
+                              className="object-cover object-center brightness-90 contrast-[1.08] transition-transform duration-1000 group-hover:scale-105"
+                              sizes="(max-width: 1024px) 100vw, 50vw"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+                            {/* Location Tag */}
+                            <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-gold/50 text-gold-metallic text-xs font-sans tracking-wider">
+                                <MapPin className="w-3.5 h-3.5" />
+                                {fn.location}
+                              </span>
+                            </div>
+
+                            {/* Poetic Quote Overlay on Image */}
+                            <div className="absolute bottom-4 left-4 right-4 text-ivory">
+                              <p className="font-script text-2xl sm:text-3xl text-amber-200 italic mb-1">
+                                &ldquo;{fn.quote}&rdquo;
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Patola Monogram Card Quick View */}
+                          <div className="mt-4 flex items-center justify-between p-3.5 rounded-xl bg-black/60 border border-gold/40">
+                            <div className="flex items-center gap-3">
+                              <div className="relative w-12 h-9 rounded-lg overflow-hidden border border-gold/50">
+                                <Image
+                                  src="/images/monogram-cartouche.png"
+                                  alt="S-A Monogram Cartouche"
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                              <div>
+                                <span className="text-xs font-serif text-amber-100 block font-medium">
+                                  Royal Vivah Patola Monogram
+                                </span>
+                                <span className="text-[11px] text-amber-300/80 font-sans">
+                                  21 November, 2026
+                                </span>
+                              </div>
+                            </div>
+                            <button
+                              onClick={() =>
+                                setSelectedInvite({
+                                  src: '/images/patola-card-full.png',
+                                  title: 'Royal Nikah & Vivah Patola Card',
+                                  subtitle: 'Sameen & Anula • 21 November, 2026',
+                                  downloadName: 'Sameen-Anula-Patola-Monogram-Card.png',
+                                })
+                              }
+                              className="px-3.5 py-1.5 rounded-full bg-gold-metallic/20 hover:bg-gold-metallic/35 border border-gold-metallic/50 text-xs font-sans text-gold-metallic flex items-center gap-1.5 transition-all"
+                            >
+                              <Eye className="w-3 h-3" />
+                              <span>View Monogram</span>
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        /* Standard Function Visual (Sangeet & Reception) */
+                        <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group">
+                          <Image
+                            src={fn.image}
+                            alt={fn.alt}
+                            fill
+                            className="object-cover object-center brightness-90 contrast-[1.08] transition-transform duration-1000 group-hover:scale-105"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+                          {/* Location Tag */}
+                          <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-gold/50 text-gold-metallic text-xs font-sans tracking-wider">
+                              <MapPin className="w-3.5 h-3.5" />
+                              {fn.location}
+                            </span>
+                          </div>
+
+                          {/* Poetic Quote Overlay on Image */}
+                          <div className="absolute bottom-4 left-4 right-4 text-ivory">
+                            <p className="font-script text-2xl sm:text-3xl text-amber-200 italic mb-1">
+                              &ldquo;{fn.quote}&rdquo;
+                            </p>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Detailed Content & Celebratory Breakdown */}
@@ -314,6 +466,77 @@ export default function Timeline() {
           })}
         </div>
       </div>
+
+      {/* Interactive Full-Screen Invitation Lightbox Modal */}
+      <AnimatePresence>
+        {selectedInvite && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-xl"
+            onClick={() => setSelectedInvite(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="relative max-w-2xl w-full bg-[#18030B] border-2 border-gold-metallic/60 rounded-3xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Top Header */}
+              <div className="p-4 sm:p-5 flex items-center justify-between border-b border-gold/30 bg-black/60">
+                <div>
+                  <h3 className="font-serif text-lg sm:text-2xl text-amber-200 font-medium">
+                    {selectedInvite.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-sans text-amber-100/70">
+                    {selectedInvite.subtitle}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedInvite(null)}
+                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-ivory flex items-center justify-center transition-colors border border-gold/30"
+                  aria-label="Close modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Modal Image Showcase */}
+              <div className="relative aspect-[3/4] max-h-[70vh] w-full bg-[#FFFBEB] flex items-center justify-center p-2">
+                <div className="relative w-full h-full">
+                  <Image
+                    src={selectedInvite.src}
+                    alt={selectedInvite.title}
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Modal Footer with Actions */}
+              <div className="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 border-t border-gold/30 bg-black/80">
+                <span className="text-xs font-sans text-amber-300 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Sameen & Anula • Royal Bangalore Wedding
+                </span>
+
+                <a
+                  href={selectedInvite.src}
+                  download={selectedInvite.downloadName}
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-gold-metallic via-amber-400 to-gold-antique text-charcoal font-sans text-xs tracking-wider uppercase font-bold hover:shadow-lg hover:shadow-gold/30 transition-all"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Download Card</span>
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

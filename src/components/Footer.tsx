@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Heart, ArrowUp, Sparkles, Flower2 } from 'lucide-react';
 import { weddingDetails } from '@/data/weddingData';
 
@@ -15,7 +16,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#170513] text-ivory py-20 px-6 sm:px-8 border-t-2 border-gold/40 overflow-hidden bg-banarasi-pattern bg-blend-soft-light">
+    <footer className="relative bg-[#170513] text-ivory py-20 px-6 sm:px-8 border-t-2 border-gold/40 overflow-hidden bg-patola-pattern bg-blend-soft-light">
       {/* Decorative Royal Velvet Gradient Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-96 bg-gradient-to-b from-crimson/20 via-marigold/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
@@ -23,14 +24,18 @@ export default function Footer() {
       <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-transparent via-gold-metallic to-transparent opacity-80" />
 
       <div className="max-w-5xl mx-auto flex flex-col items-center text-center relative z-10">
-        {/* Royal Crest Medallion with Mandala Frame */}
+        {/* Royal Crest Scalloped Monogram Cartouche */}
         <div className="relative mb-6">
-          <div className="w-20 h-20 rounded-full border-2 border-gold-metallic/60 bg-royalvelvet/80 flex items-center justify-center shadow-xl shadow-crimson/30 backdrop-blur-md">
-            <span className="font-serif text-2xl font-medium tracking-widest bg-gradient-to-br from-gold-light via-gold-metallic to-gold-dark bg-clip-text text-transparent">
-              {weddingDetails.couple.monogram}
-            </span>
+          <div className="relative w-28 h-20 sm:w-32 sm:h-24 rounded-2xl overflow-hidden border-2 border-gold-metallic/60 shadow-2xl bg-black/60">
+            <Image
+              src="/images/monogram-cartouche.png"
+              alt="Sameen & Anula Royal Monogram"
+              fill
+              className="object-cover object-center"
+              sizes="128px"
+            />
           </div>
-          <div className="absolute -inset-2 rounded-full border border-dashed border-gold/30 animate-[spin_60s_linear_infinite] pointer-events-none" />
+          <div className="absolute -inset-2 rounded-2xl border border-dashed border-gold/40 pointer-events-none" />
         </div>
 
         {/* Auspicious Blessing Tag */}
