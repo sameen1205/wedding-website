@@ -43,12 +43,12 @@ export default function Timeline() {
     const icsData = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Kabir and Zoya Wedding//EN',
+      'PRODID:-//Sameen and Anula Wedding//EN',
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
       'BEGIN:VEVENT',
-      `UID:${fn.id}-kabir-zoya-2026@udaipurwedding.com`,
-      `SUMMARY:${fn.title} - Kabir & Zoya Wedding`,
+      `UID:${fn.id}-sameen-anula-2026@bangalorewedding.com`,
+      `SUMMARY:${fn.title} - Sameen & Anula Wedding`,
       `DESCRIPTION:${fn.description.replace(/\n/g, ' ')} Dress Code: ${fn.dressCode}`,
       `LOCATION:${fn.location}, ${weddingDetails.location.city}`,
       `DTSTART:${startIso}`,
@@ -62,7 +62,7 @@ export default function Timeline() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `${fn.id}-Kabir-Zoya-Wedding.ics`);
+    link.setAttribute('download', `${fn.id}-Sameen-Anula-Wedding.ics`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

@@ -86,9 +86,9 @@ export default function Preloader({ onLoadingComplete }: PreloaderProps) {
                   transition={{ duration: 1.5, delay: 0.2 }}
                 />
 
-                {/* Monogram Path "K" */}
+                {/* Monogram Path "S" (Sameen) */}
                 <motion.path
-                  d="M70 56 V144 M70 100 L108 58 M80 90 L114 144"
+                  d="M90 66 C72 54 58 68 58 82 C58 98 92 102 92 120 C92 136 76 144 58 134"
                   stroke="#FFFDF9"
                   strokeWidth="2.4"
                   strokeLinecap="round"
@@ -110,9 +110,9 @@ export default function Preloader({ onLoadingComplete }: PreloaderProps) {
                   transition={{ duration: 2, delay: 0.7, ease: [0.65, 0, 0.35, 1] }}
                 />
 
-                {/* Monogram Path "Z" */}
+                {/* Monogram Path "A" (Anula) */}
                 <motion.path
-                  d="M125 60 H155 L125 140 H155"
+                  d="M122 140 L138 58 L154 140 M127 114 H149"
                   stroke="#FFFDF9"
                   strokeWidth="2.4"
                   strokeLinecap="round"

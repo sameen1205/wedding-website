@@ -59,7 +59,7 @@ export default function Hero() {
         >
           <Image
             src={weddingDetails.hero.backgroundImage}
-            alt="Royal Indian Wedding Udaipur Palace Hero"
+            alt="Royal Indian Wedding Bangalore Palace Hero"
             fill
             priority
             className="object-cover object-center brightness-[0.72] contrast-[1.1]"

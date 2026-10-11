@@ -63,7 +63,7 @@ export default function Footer() {
             <span className="font-semibold">Blessings & Ashirwaad</span>
           </div>
           <p className="font-serif text-sm sm:text-base text-sand-light/90 italic leading-relaxed">
-            &ldquo;Your presence, smiles, and heartfelt prayers at our wedding celebrations across Lake Pichola are the most precious gifts we could ever ask for. In the spirit of our royal festivities, blessings are affectionately requested; no boxed gifts please.&rdquo;
+            &ldquo;Your presence, smiles, and heartfelt prayers at our wedding celebrations in Bangalore are the most precious gifts we could ever ask for. In the spirit of our royal festivities, blessings are affectionately requested; no boxed gifts please.&rdquo;
           </p>
         </div>
 
@@ -80,10 +80,10 @@ export default function Footer() {
         {/* Bottom Bar / Copyright */}
         <div className="mt-14 pt-8 border-t border-gold/20 w-full flex flex-col sm:flex-row items-center justify-between text-xs font-sans tracking-wider text-sand/60 gap-4">
           <p>
-            Kabir & Zoya • Celebrating Love, Heritage & Unity
+            Sameen & Anula • Celebrating Love, Heritage & Unity
           </p>
           <p className="flex items-center gap-1.5">
-            <span>Udaipur, Rajasthan</span>
+            <span>Bangalore, Karnataka</span>
             <span className="text-gold-metallic">•</span>
             <Heart className="w-3.5 h-3.5 text-crimson fill-crimson inline" />
           </p>

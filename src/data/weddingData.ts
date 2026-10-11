@@ -42,11 +42,11 @@ export interface GalleryItem {
 
 export const weddingDetails = {
   couple: {
-    groom: "Kabir",
-    bride: "Zoya",
-    groomFull: "Kabir Singhania",
-    brideFull: "Zoya Mirza",
-    monogram: "K & Z",
+    groom: "Sameen",
+    bride: "Anula",
+    groomFull: "Sameen",
+    brideFull: "Anula",
+    monogram: "S & A",
     blessing: "Shubh Vivah & Khushamdeed",
   },
   date: {
@@ -55,12 +55,12 @@ export const weddingDetails = {
     iso: "2026-11-20T10:30:00+05:30",
   },
   location: {
-    venue: "The Jagmandir Island Palace",
-    estate: "City Palace Complex, Lake Pichola",
-    city: "Udaipur",
-    state: "Rajasthan",
+    venue: "The Bangalore Palace",
+    estate: "Palace Grounds, Jayamahal",
+    city: "Bangalore",
+    state: "Karnataka",
     country: "India",
-    fullAddress: "Lake Pichola, Udaipur, Rajasthan 313001, India",
+    fullAddress: "Palace Grounds, Jayamahal, Bengaluru, Karnataka 560006, India",
   },
   hero: {
     tagline: "Together with our families, we invite you to three days of sacred rituals, music, and royal celebration",
@@ -70,10 +70,10 @@ export const weddingDetails = {
   ourStory: [
     {
       year: "2021",
-      title: "Chai & Conversations in Old Delhi",
+      title: "Conversations in Bangalore",
       subtitle: "Chapter I — Where Traditions Met",
       description:
-        "Over fragrant cups of ginger chai and quiet laughter amidst the heritage alleyways of Chandni Chowk, two souls from diverse worlds discovered a profound, shared rhythm.",
+        "Over fragrant cups of South Indian filter coffee and quiet laughter amidst the lush green canopies of Bangalore, two souls discovered a profound, shared rhythm.",
       quote: "Ishq wahi jo rooh se jud jaaye (True love is that which binds the soul).",
       image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=80",
       alt: "Couple in traditional Indian attire smiling together",
@@ -83,20 +83,20 @@ export const weddingDetails = {
       title: "Across Horizons & Constellations",
       subtitle: "Chapter II — The Journey Together",
       description:
-        "From spontaneous midnight drives through the monsoon rain to celebrating Diwali and Eid side by side, every milestone brought families together into one warm, harmonious tapestry.",
+        "From spontaneous drives through the monsoon rain to celebrating festivals side by side with family, every milestone brought hearts together into one warm, harmonious tapestry.",
       quote: "Two traditions, one heartbeat.",
       image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
       alt: "Intimate celebration of love",
     },
     {
       year: "2025",
-      title: "The Sunset at Lake Pichola",
+      title: "A Starlit Palace Promise",
       subtitle: "Chapter III — The Royal Promise",
       description:
-        "Aboard an antique wooden boat drifting upon the tranquil waters of Udaipur as the City Palace glowed gold in the twilight, Kabir asked Zoya to spend eternity with him.",
+        "Beneath the illuminated Tudor arches and glowing chandeliers of Bangalore, Sameen asked Anula to spend eternity with him.",
       quote: "Hazaaron mein kisi ek se judti hai taqdeer (Destiny unites us beyond thousands).",
       image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
-      alt: "Heritage Indian palace sunset overlooking lake",
+      alt: "Heritage palace illuminated at twilight",
     },
   ] as StoryChapter[],
 
@@ -109,7 +109,7 @@ export const weddingDetails = {
       title: "The Radiant Haldi",
       subtitle: "Ubtan, Marigolds & Phoolon Ki Holi",
       timing: "10:30 AM — 2:30 PM",
-      location: "Zanana Mahal Courtyard • City Palace",
+      location: "The Mango Grove Courtyard • Palace Grounds, Bangalore",
       theme: "Radiant Turmeric Sunshine & Marigold Bandhani",
       dressCode: "Sunshine Yellows, Mustard, Floral Bandhani Kurtas & Lehengas",
       colorSwatches: [
@@ -132,7 +132,7 @@ export const weddingDetails = {
         "Live Nashik & Punjabi Dhol face-off",
         "Bangle-making & custom floral jewelry stall",
       ],
-      cuisine: "Authentic Rajasthani Haldi Brunch: Dal Baati Churma, Pyaaz Kachoris, Jalebi-Rabdi & Spiced Thandai.",
+      cuisine: "Royal South Indian & Festive Brunch: Bisi Bele Bath, Crisp Medu Vadas, Dal Baati Churma, Jalebi-Rabdi & Spiced Thandai.",
     },
     {
       id: "sangeet",
@@ -141,7 +141,7 @@ export const weddingDetails = {
       title: "The Royal Sangeet & Mehendi",
       subtitle: "A Night of Rhythm, Henna & Bollywood Beats",
       timing: "7:00 PM onwards",
-      location: "The Manek Chowk • Illuminated City Palace",
+      location: "The Glass Pavilion & Royal Ballroom • Bangalore Palace",
       theme: "Peacock Teal, Royal Emerald & Leheriya Silk",
       dressCode: "Glamorous Indo-Western, Royal Emerald Sherwanis, Mirror-work Lehengas",
       colorSwatches: [
@@ -157,14 +157,14 @@ export const weddingDetails = {
       alt: "Sangeet night celebrations with colorful lights and music",
       quote: "Sur, taal aur sangeet se saji ek yaadgaar shaam.",
       description:
-        "As the sun sets over Lake Pichola, the illuminated palace transforms into a royal amphitheater. Master mehendi artisans weave intricate bridal henna tales, while families clash in joyous choreographed Bollywood dance battles. With a live celebrity fusion band and DJ spinning till the early hours, get ready to set the dance floor on fire!",
+        "As twilight settles over the royal grounds, the illuminated Bangalore Palace transforms into an open-air amphitheater. Master mehendi artisans weave intricate bridal henna tales, while families clash in joyous choreographed Bollywood dance battles. With a live celebrity fusion band and DJ spinning till the early hours, get ready to set the dance floor on fire!",
       highlights: [
         "Artisanal bridal Mehendi with organic sojat henna",
-        "Singhania vs Mirza Bollywood Family Dance Face-off",
-        "Live Sufi-Rock Band performance by the lake",
-        "Royal Hookah & Cocktails lounge under the stars",
+        "Sameen vs Anula Bollywood Family Dance Face-off",
+        "Live Fusion Band & Dhol performance under the stars",
+        "Royal Cocktails & Chaat Bazaar lounge",
       ],
-      cuisine: "Chandni Chowk Live Street Food Carts, Galouti Kebabs, Wood-fired Naans, Chaat Bazaar & Signature Cocktails.",
+      cuisine: "Live Street Food Carts, Galouti Kebabs, Wood-fired Naans, Chaat Bazaar & Signature Cocktails.",
     },
     {
       id: "nikah-muhurat",
@@ -173,7 +173,7 @@ export const weddingDetails = {
       title: "Nikah & Auspicious Muhurat",
       subtitle: "The Sacred Vows, Baraat & Holy Union",
       timing: "11:00 AM — 4:30 PM",
-      location: "The Promenade & Durbar Hall • Jagmandir Island",
+      location: "The Sheesh Mahal & Durbar Hall • Bangalore Palace",
       theme: "Royal Crimson, Sindoor Red & Pure Banarasi Zari Silk",
       dressCode: "Regal Indian Traditional: Crimson & Ivory Banarasi Sarees, Embroidered Sherwanis with Safas (Turbans)",
       colorSwatches: [
@@ -189,14 +189,14 @@ export const weddingDetails = {
       alt: "Traditional Indian wedding Nikah and sacred rituals ceremony",
       quote: "Qubool Hai, aur saat janmon ka pavitra vachan.",
       description:
-        "The sacred zenith of our wedding journey. Guests arrive via decorated royal heritage boats across Lake Pichola. A grand royal Baraat with brass bands and royal horses precedes Zoya's ethereal entrance under a fragrant floral chadar of tuberoses and red roses. In a majestic pavilion framed by carved marble arches, Kabir and Zoya solemnize their holy Nikah and Auspicious Muhurat rituals.",
+        "The sacred zenith of our wedding journey. A grand royal Baraat with celebratory brass bands and horses precedes Anula's ethereal entrance under a fragrant floral chadar of tuberoses and red roses. In a majestic pavilion framed by carved palace arches, Sameen and Anula solemnize their holy Nikah and Auspicious Muhurat rituals.",
       highlights: [
-        "Royal Heritage Boat arrival across Lake Pichola",
-        "Grand Baraat procession with Rajasthani Brass Band & Safa tying",
+        "Grand Baraat procession with Royal Brass Band & Safa tying",
         "Phoolon ki Chaadar bridal entrance with classical Shehnai",
-        "Sacred Nikah & Muhurat vows in historic marble pavilions",
+        "Sacred Nikah & Muhurat vows in historic royal durbar halls",
+        "Sacred varmala exchange amidst showering rose petals",
       ],
-      cuisine: "Imperial Dawat-e-Khaas: Awadhi Dum Biryani, Shahi Paneer, Raan Musallam, Zafrani Pulao, Phirni & Malai Kulfi.",
+      cuisine: "Imperial Royal Dawat: Awadhi Dum Biryani, Shahi Paneer, Zafrani Pulao, Elaneer Payasam & Malai Kulfi.",
     },
     {
       id: "reception",
@@ -205,7 +205,7 @@ export const weddingDetails = {
       title: "The Grand Royal Reception",
       subtitle: "An Evening of Imperial Elegance & Celebrations",
       timing: "8:00 PM onwards",
-      location: "The Courtyard of Kings & Lake Garden Terrace",
+      location: "The Grand Royal Lawns • The Bangalore Palace",
       theme: "Imperial Velvet, Starlight Midnight & Champagne Gold",
       dressCode: "Black Tie / Royal Velvet Tuxedos, Heavy Designer Lehengas & Gowns",
       colorSwatches: [
@@ -221,12 +221,12 @@ export const weddingDetails = {
       alt: "Grand luxury wedding reception with candlelit banquet and fireworks",
       quote: "Nayi shuruat, hazaaron duaaon ke saath.",
       description:
-        "The grand finale celebration welcoming Kabir & Zoya as a newly wedded couple. An enchanting gala under thousands of floating crystal chandeliers and candlelit royal tablescapes. Featuring an address by the families, a multi-tiered royal cake cutting, a 40-piece live Indo-Western fusion orchestra, and a breathtaking coastal fireworks display illuminating the Udaipur skyline.",
+        "The grand finale celebration welcoming Sameen & Anula as a newly wedded couple. An enchanting gala under thousands of floating crystal chandeliers and candlelit royal tablescapes. Featuring an address by the families, a multi-tiered royal cake cutting, a 40-piece live Indo-Western fusion orchestra, and a breathtaking fireworks display illuminating the Bangalore skyline.",
       highlights: [
         "Red Carpet arrival with royal guard of honor",
         "Grand champagne tower & 5-tier royal cake cutting",
         "40-piece live Indo-Western Symphony Orchestra",
-        "Synchronized Lake Pichola Palace Fireworks show",
+        "Grand Palace Starlight Fireworks show",
       ],
       cuisine: "Grand Global Culinary Banquet: Live Mediterranean Stations, Truffle Risottos, Royal Mughlai Delicacies & Artisanal Dessert Bar.",
     },

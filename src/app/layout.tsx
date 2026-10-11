@@ -26,26 +26,26 @@ const pinyon = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Julian & Genevieve | September 19, 2026 — Villa Cimbrone, Ravello",
+  title: "Sameen & Anula | November 20 — 22, 2026 — Bangalore Palace",
   description:
-    "Together with their families, Julian Montgomery Vance and Genevieve Aurelia Rossi invite you to celebrate their wedding at Villa Cimbrone, Ravello, Amalfi Coast, Italy.",
+    "Together with their families, Sameen and Anula invite you to three days of sacred rituals, music, and royal celebration at The Bangalore Palace, Karnataka, India.",
   keywords: [
-    "Julian and Genevieve Wedding",
+    "Sameen and Anula Wedding",
+    "Royal Indian Wedding Website",
+    "Bangalore Palace Wedding",
+    "Sameen Anula Vivah",
     "Luxury Wedding Website",
-    "Villa Cimbrone",
-    "Ravello Wedding",
-    "Amalfi Coast Wedding",
   ],
   openGraph: {
-    title: "Julian & Genevieve Wedding Celebration",
-    description: "September 19, 2026 • Villa Cimbrone, Ravello, Amalfi Coast",
+    title: "Sameen & Anula Royal Wedding Celebration",
+    description: "November 20 — 22, 2026 • The Bangalore Palace, Karnataka",
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
+        url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80",
         width: 1200,
         height: 630,
-        alt: "Julian & Genevieve Wedding",
+        alt: "Sameen & Anula Royal Wedding Celebration",
       },
     ],
   },

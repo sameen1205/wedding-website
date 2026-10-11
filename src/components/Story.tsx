@@ -62,7 +62,7 @@ export default function Story() {
             transition={{ duration: 0.9, delay: 0.2 }}
             className="mt-4 text-charcoal-soft/80 font-sans text-sm sm:text-base leading-relaxed"
           >
-            A love story born in heritage alleyways, nurtured across horizons, and blessed beneath the starlit palaces of Rajasthan.
+            A love story born in heritage alleyways, nurtured across horizons, and blessed beneath the starlit skies of Bangalore.
           </motion.p>
         </div>
 
@@ -91,11 +91,11 @@ export default function Story() {
               <div className="w-16 h-[2px] bg-gradient-to-r from-gold via-marigold to-crimson my-6" />
 
               <p className="font-sans text-sm sm:text-base text-charcoal-soft/85 leading-relaxed">
-                What started over ginger chai in Old Delhi grew into an unbreakable bond that brought two vibrant families together in laughter, respect, and boundless love.
+                What started over warm coffee in Bangalore grew into an unbreakable bond that brought two vibrant families together in laughter, respect, and boundless love.
               </p>
 
               <p className="font-sans text-sm sm:text-base text-charcoal-soft/85 leading-relaxed mt-4">
-                Now, surrounded by the heritage waters of Lake Pichola, we invite you to be part of our most sacred vows, vibrant folk dances, and unforgettable feasts.
+                Now, surrounded by the heritage grandeur of Bangalore Palace, we invite you to be part of our most sacred vows, vibrant folk dances, and unforgettable feasts.
               </p>
 
               {/* Couple Crest Seal */}
@@ -105,7 +105,7 @@ export default function Story() {
                     {weddingDetails.couple.groom} & {weddingDetails.couple.bride}
                   </p>
                   <p className="text-[11px] font-sans tracking-luxury uppercase text-crimson font-medium mt-0.5">
-                    Udaipur • November 2026
+                    Bangalore • November 2026
                   </p>
                 </div>
                 <div className="w-12 h-12 rounded-full border border-gold bg-gold/10 flex items-center justify-center text-crimson">

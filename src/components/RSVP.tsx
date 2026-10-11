@@ -147,7 +147,7 @@ export default function RSVP() {
             transition={{ duration: 0.9, delay: 0.2 }}
             className="mt-4 text-charcoal-soft/80 font-sans text-sm sm:text-base leading-relaxed"
           >
-            Please confirm your presence by October 15, 2026 so we may prepare your royal hospitality in Udaipur.
+            Please confirm your presence by October 15, 2026 so we may prepare your royal hospitality in Bangalore.
           </motion.p>
         </div>
 
@@ -418,13 +418,13 @@ export default function RSVP() {
 
                 <p className="font-sans text-sm sm:text-base text-charcoal-soft/85 mt-4 max-w-md leading-relaxed">
                   {formData.attending === 'yes'
-                    ? "We are overjoyed and blessed to celebrate this sacred journey with you in Udaipur! A confirmation with your itinerary and hospitality details has been dispatched."
-                    : "We will dearly miss your presence by our side in Udaipur, but your heartfelt love and blessings will remain with us throughout our sacred rituals."}
+                    ? "We are overjoyed and blessed to celebrate this sacred journey with you in Bangalore! A confirmation with your itinerary and hospitality details has been dispatched."
+                    : "We will dearly miss your presence by our side in Bangalore, but your heartfelt love and blessings will remain with us throughout our sacred rituals."}
                 </p>
 
                 <div className="mt-8 pt-6 border-t border-gold/30 w-full max-w-md flex flex-col items-center gap-3">
                   <p className="text-xs uppercase tracking-luxury text-crimson font-sans font-semibold">
-                    November 20 — 22, 2026 • Udaipur, Rajasthan
+                    November 20 — 22, 2026 • Bangalore, Karnataka
                   </p>
 
                   <button

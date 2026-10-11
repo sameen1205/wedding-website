@@ -180,7 +180,7 @@ export default function Navbar() {
                   {weddingDetails.couple.monogram}
                 </span>
                 <span className="text-xs text-amber-200/80 font-sans tracking-luxury uppercase">
-                  ✦ Udaipur 2026
+                  ✦ Bangalore 2026
                 </span>
               </div>
               <button
