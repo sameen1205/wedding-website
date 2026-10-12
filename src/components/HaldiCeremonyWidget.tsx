@@ -437,7 +437,7 @@ export default function HaldiCeremonyWidget({
 /**
  * Top Center: Delicate traditional Indian floral / marigold mandala icon
  */
-function TopMarigoldMandala() {
+export function TopMarigoldMandala() {
   return (
     <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -480,7 +480,7 @@ function TopMarigoldMandala() {
 /**
  * Hanging Marigold & Mango Leaves Garland (Toran) across top
  */
-function HangingFloralToran() {
+export function HangingFloralToran() {
   return (
     <svg width="420" height="48" viewBox="0 0 420 48" fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Curved Hanging Golden Thread */}
@@ -517,7 +517,7 @@ function HangingFloralToran() {
 /**
  * Ornate Scalloped Corner Ornaments for the Rani-Pink Frame
  */
-function CornerOrnaments() {
+export function CornerOrnaments() {
   return (
     <>
       {/* Top Left */}
@@ -563,7 +563,7 @@ function CornerOrnaments() {
  * 4.1 LEFT ILLUSTRATION: Ceremonial Umbrella (Chhatri) with Swaying Tassels,
  * Golden Haldi Urli Bowl with Pestle, Raw Turmeric, and Banana Leaves.
  */
-function LeftChhatriAndUrli() {
+export function LeftChhatriAndUrli() {
   return (
     <svg
       viewBox="0 0 260 210"
@@ -752,7 +752,7 @@ function LeftChhatriAndUrli() {
  * 4.2 RIGHT ILLUSTRATION: Lush Upright Green Banana Leaves (Wind-Rustle Animation),
  * Rani-Pink Ceremonial Bolster Cushion, and Traditional Indian Dholak Drum with Marigolds.
  */
-function RightBananaLeavesAndDholak() {
+export function RightBananaLeavesAndDholak() {
   return (
     <svg
       viewBox="0 0 280 210"

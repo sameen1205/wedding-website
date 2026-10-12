@@ -22,11 +22,16 @@ import {
   Download
 } from 'lucide-react';
 import { weddingDetails, IndianFunction } from '@/data/weddingData';
-import HaldiCeremonyWidget from '@/components/HaldiCeremonyWidget';
+import { 
+  LeftChhatriAndUrli, 
+  RightBananaLeavesAndDholak, 
+  TopMarigoldMandala, 
+  HangingFloralToran, 
+  CornerOrnaments 
+} from '@/components/HaldiCeremonyWidget';
 
 export default function Timeline() {
   const [activeTab, setActiveTab] = useState<string>('haldi');
-  const [haldiViewMode, setHaldiViewMode] = useState<'animated' | 'artwork'>('animated');
   const [selectedInvite, setSelectedInvite] = useState<{
     src: string;
     title: string;
@@ -50,14 +55,17 @@ export default function Timeline() {
       startIso = '20261120T050000Z'; // 10:30 AM IST
       endIso = '20261120T090000Z';   // 2:30 PM IST
     } else if (fn.id === 'sangeet') {
-      startIso = '20261120T133000Z'; // 7:00 PM IST
-      endIso = '20261120T190000Z';   // 12:30 AM IST
-    } else if (fn.id === 'nikah-muhurat') {
-      startIso = '20261121T053000Z'; // 11:00 AM IST
-      endIso = '20261121T110000Z';   // 4:30 PM IST
+      startIso = '20261120T123000Z'; // 6:00 PM IST
+      endIso = '20261120T180000Z';   // 11:30 PM IST
+    } else if (fn.id === 'nikah') {
+      startIso = '20261121T043000Z'; // 10:00 AM IST
+      endIso = '20261121T083000Z';   // 2:00 PM IST
+    } else if (fn.id === 'muhurat') {
+      startIso = '20261121T123000Z'; // 6:00 PM IST
+      endIso = '20261121T153000Z';   // 9:00 PM IST
     } else {
-      startIso = '20261122T143000Z'; // 8:00 PM IST
-      endIso = '20261122T203000Z';   // 2:00 AM IST
+      startIso = '20261120T050000Z';
+      endIso = '20261120T090000Z';
     }
 
     const icsData = [
@@ -144,7 +152,7 @@ export default function Timeline() {
             transition={{ duration: 0.9, delay: 0.2 }}
             className="mt-4 text-amber-100/80 font-sans text-sm sm:text-base leading-relaxed max-w-2xl mx-auto"
           >
-            From the vibrant marigold showers of the Haldi to the euphoric beats of the Sangeet, the sacred union of Nikah & Muhurat, and the majesty of the Grand Reception.
+            From the radiant marigold showers of the Haldi to the euphoric beats of the Grand Sangeet, the sacred vows of the Nikah, and the auspicious rituals of the Muhurat.
           </motion.p>
 
           {/* Quick Jump Function Navigation Bar */}
@@ -163,8 +171,8 @@ export default function Timeline() {
                 >
                   {fn.id === 'haldi' && <Sun className="w-3.5 h-3.5" />}
                   {fn.id === 'sangeet' && <Music className="w-3.5 h-3.5" />}
-                  {fn.id === 'nikah-muhurat' && <Heart className="w-3.5 h-3.5" />}
-                  {fn.id === 'reception' && <Moon className="w-3.5 h-3.5" />}
+                  {fn.id === 'nikah' && <Heart className="w-3.5 h-3.5" />}
+                  {fn.id === 'muhurat' && <Sparkles className="w-3.5 h-3.5" />}
                   <span>{fn.title}</span>
                 </button>
               );
@@ -214,132 +222,142 @@ export default function Timeline() {
                     {/* Visual Photography with Arch Frame & Overlays */}
                     <div className="lg:col-span-6 relative">
                       {fn.id === 'haldi' ? (
-                        /* Dedicated Showcase for Haldi Ceremony: Interactive Animated Widget or Original Patrika */
-                        <div className="relative flex flex-col items-center w-full">
-                          {/* Festive View Switcher Header */}
-                          <div className="mb-5 flex items-center p-1 rounded-full bg-black/70 border border-amber-400/50 backdrop-blur-md shadow-xl z-20">
-                            <button
-                              type="button"
-                              onClick={() => setHaldiViewMode('animated')}
-                              className={`px-4 py-1.5 rounded-full text-xs font-sans tracking-luxury uppercase font-semibold transition-all duration-300 flex items-center gap-1.5 ${
-                                haldiViewMode === 'animated'
-                                  ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-charcoal shadow-md font-bold scale-102'
-                                  : 'text-amber-200/80 hover:text-white'
-                              }`}
-                            >
-                              <Sparkles className="w-3.5 h-3.5" />
-                              <span>✦ Interactive Animated Card</span>
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setHaldiViewMode('artwork')}
-                              className={`px-4 py-1.5 rounded-full text-xs font-sans tracking-luxury uppercase font-semibold transition-all duration-300 flex items-center gap-1.5 ${
-                                haldiViewMode === 'artwork'
-                                  ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-charcoal shadow-md font-bold scale-102'
-                                  : 'text-amber-200/80 hover:text-white'
-                              }`}
-                            >
-                              <Eye className="w-3.5 h-3.5" />
-                              <span>Print Patrika</span>
-                            </button>
-                          </div>
+                        /* Traditional Framed Haldi Ceremony Card (Direct Framing, No Nested Cards, No Tabs, No RSVP Button) */
+                        <div
+                          className="relative w-full rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-6 shadow-2xl overflow-hidden"
+                          style={{
+                            background:
+                              'repeating-linear-gradient(45deg, #FACC15, #FACC15 14px, #FFFFFF 14px, #FFFFFF 26px)',
+                          }}
+                        >
+                          {/* Inner Border: Solid Rani Pink / Hot Pink Frame */}
+                          <div className="relative rounded-xl sm:rounded-2xl border-[8px] sm:border-[10px] md:border-[12px] border-[#FF4B91] shadow-xl overflow-hidden bg-[#FAF7F2]">
+                            {/* Inner Golden Piping */}
+                            <div className="absolute inset-1.5 sm:inset-2 rounded-lg border border-[#D4AF37]/50 pointer-events-none z-30" />
+                            <div className="absolute inset-2 sm:inset-2.5 rounded-md border border-[#FF4B91]/30 pointer-events-none z-30" />
 
-                          {haldiViewMode === 'animated' ? (
-                            /* Live Animated Haldi Ceremony Widget (Handcrafted SVGs, Swaying Tassels, Wind Rustle) */
-                            <div className="w-full">
-                              <HaldiCeremonyWidget
-                                title="The Haldi Ceremony"
-                                subtitle="॥ शुभ हल्दी ॥ • Auspicious Turmeric Blessing"
-                                invitationText="Join us as we bathe Sameen & Anula in sacred turmeric, fragrant marigold petals, and joyous laughter under the golden sun."
-                                date="Friday, 20th November 2026"
-                                time="10:30 AM — 2:30 PM"
-                                location="The Mango Grove Courtyard"
-                                address="Palace Grounds, Jayamahal, Bangalore"
-                                dressCode="Sunshine Yellows & Vibrant Festive"
-                                coupleNames="Sameen & Anula"
-                                className="px-0 py-0 max-w-full"
+                            {/* Ornate Corner Ornaments */}
+                            <CornerOrnaments />
+
+                            {/* Hanging Floral Toran Across Top */}
+                            <div className="absolute top-0 left-0 right-0 h-10 sm:h-12 overflow-hidden pointer-events-none flex justify-center z-20">
+                              <HangingFloralToran />
+                            </div>
+
+                            {/* Inner Canvas Content */}
+                            <div className="relative z-10 px-5 sm:px-8 md:px-10 pt-7 sm:pt-9 pb-44 sm:pb-52 md:pb-60 flex flex-col items-center text-center">
+                              {/* Gentle Matte Paper Grain Texture */}
+                              <div
+                                className="absolute inset-0 opacity-40 mix-blend-multiply pointer-events-none"
+                                style={{
+                                  backgroundImage:
+                                    'radial-gradient(#F59E0B 0.5px, transparent 0.5px), radial-gradient(#FF4B91 0.5px, #FAF7F2 0.5px)',
+                                  backgroundSize: '24px 24px',
+                                  backgroundPosition: '0 0, 12px 12px',
+                                }}
                               />
 
-                              <div className="mt-2 text-center">
-                                <button
-                                  type="button"
-                                  onClick={() => setHaldiViewMode('artwork')}
-                                  className="inline-flex items-center gap-1.5 text-[11px] font-sans text-amber-300/80 hover:text-amber-100 uppercase tracking-widest transition-colors"
-                                >
-                                  <Eye className="w-3 h-3" />
-                                  <span>Switch to Scanned Print Invitation View</span>
-                                </button>
+                              {/* Top Center: Delicate Traditional Marigold Mandala */}
+                              <div className="mt-2 mb-2 sm:mb-3 relative flex items-center justify-center">
+                                <TopMarigoldMandala />
                               </div>
-                            </div>
-                          ) : (
-                            /* Dedicated Showcase for Original Haldi Ceremony Invitation Artwork */
-                            <div className="relative flex flex-col items-center w-full">
-                              <div
-                                onClick={() =>
-                                  setSelectedInvite({
-                                    src: '/images/haldi-invite.png',
-                                    title: 'Royal Haldi Ceremony Invitation',
-                                    subtitle: 'Sameen & Anula • Friday, 20th November 2026',
-                                    downloadName: 'Sameen-Anula-Haldi-Invitation.png',
-                                  })
-                                }
-                                className="relative aspect-[3/4] w-full max-w-[420px] rounded-2xl overflow-hidden border-4 border-amber-400/80 shadow-[0_20px_50px_rgba(0,0,0,0.9)] cursor-pointer group transition-all duration-500 hover:shadow-[0_25px_60px_rgba(245,158,11,0.45)] hover:scale-[1.02]"
-                              >
-                                <Image
-                                  src="/images/haldi-invite.png"
-                                  alt="Sameen and Anula Royal Haldi Ceremony Invitation"
-                                  fill
-                                  className="object-contain sm:object-cover object-center bg-[#FFFBEB] transition-transform duration-700 group-hover:scale-105"
-                                  sizes="(max-width: 1024px) 100vw, 420px"
-                                />
 
-                                {/* Inner Scalloped Gold & Rani Pink Border */}
-                                <div className="absolute inset-2 rounded-xl border border-rose-600/50 pointer-events-none" />
+                              {/* Auspicious Invocation Tag */}
+                              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFF1F2] border border-[#FF4B91]/40 mb-3 shadow-xs">
+                                <Sparkles className="w-3 h-3 text-[#FF4B91]" />
+                                <span className="font-serif italic text-xs tracking-widest text-[#BE185D] font-medium">
+                                  ॥ शुभ हल्दी ॥ • Auspicious Turmeric Blessing
+                                </span>
+                                <Sparkles className="w-3 h-3 text-[#FF4B91]" />
+                              </div>
 
-                                {/* Top Badge */}
-                                <div className="absolute top-3 left-3 right-3 flex justify-between items-start pointer-events-none">
-                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 backdrop-blur-md border border-amber-400/60 text-amber-300 text-[11px] font-sans font-semibold tracking-wider">
-                                    <Sparkles className="w-3 h-3 text-amber-400" />
-                                    Official Haldi Patrika
-                                  </span>
+                              {/* Ceremony Title */}
+                              <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-[#1C1917] tracking-tight leading-tight">
+                                {fn.title}
+                              </h3>
+
+                              {/* Couple Name */}
+                              <p className="font-script text-2xl sm:text-3xl text-[#FF4B91] mt-1 mb-2">
+                                Sameen & Anula
+                              </p>
+
+                              {/* Invitation Description */}
+                              <p className="font-sans text-xs sm:text-sm text-[#44403C] max-w-sm leading-relaxed mb-4">
+                                Join us as we bathe Sameen & Anula in sacred turmeric, fragrant marigold petals, and joyous laughter under the golden sun.
+                              </p>
+
+                              {/* Date, Time & Venue Details (Clean & Readable) */}
+                              <div className="w-full max-w-sm space-y-2 mb-3">
+                                <div className="flex items-center justify-center gap-2 text-xs font-sans text-[#292524] bg-white/90 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-amber-300 shadow-xs">
+                                  <Clock className="w-3.5 h-3.5 text-[#F59E0B] shrink-0" />
+                                  <span className="font-medium">{fn.dayDate} • {fn.timing}</span>
                                 </div>
 
-                                {/* Hover Zoom Overlay */}
-                                <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center">
-                                  <div className="w-14 h-14 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-charcoal flex items-center justify-center shadow-xl mb-3 transform group-hover:scale-110 transition-transform">
-                                    <ZoomIn className="w-6 h-6" />
-                                  </div>
-                                  <p className="font-serif text-xl text-white font-medium drop-shadow-md">
-                                    View Full Haldi Invitation
-                                  </p>
-                                  <span className="text-xs text-amber-200 font-sans tracking-luxury uppercase mt-1">
-                                    Click to Inspect Motifs & Artwork
-                                  </span>
+                                <div className="flex items-center justify-center gap-2 text-xs font-sans text-[#292524] bg-white/90 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-amber-300 shadow-xs">
+                                  <MapPin className="w-3.5 h-3.5 text-[#FF4B91] shrink-0" />
+                                  <span className="font-medium">{fn.location}, Bangalore</span>
                                 </div>
                               </div>
 
-                              {/* Quick Enlarge Prompt Button */}
-                              <button
-                                onClick={() =>
-                                  setSelectedInvite({
-                                    src: '/images/haldi-invite.png',
-                                    title: 'Royal Haldi Ceremony Invitation',
-                                    subtitle: 'Sameen & Anula • Friday, 20th November 2026',
-                                    downloadName: 'Sameen-Anula-Haldi-Invitation.png',
-                                  })
-                                }
-                                className="mt-3.5 inline-flex items-center gap-2 text-xs font-sans text-amber-300 hover:text-amber-100 tracking-wider uppercase transition-colors"
-                              >
-                                <Eye className="w-3.5 h-3.5" />
-                                <span>Click to Expand Full Invitation Artwork</span>
-                              </button>
+                              {/* Dress Code Subtext */}
+                              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FEF3C7] border border-amber-300/80 text-[11px] font-sans text-[#78350F] font-semibold tracking-wide">
+                                <span>Dress Code: {fn.dressCode}</span>
+                              </div>
                             </div>
-                          )}
+
+                            {/* Bottom Decorative Fringe Elements: Absolute-Positioned */}
+                            {/* Left: Ceremonial Umbrella (Chhatri), Haldi Bowl & Banana Leaves */}
+                            <div className="absolute bottom-0 left-0 w-[44%] sm:w-[40%] pointer-events-none z-20">
+                              <LeftChhatriAndUrli />
+                            </div>
+
+                            {/* Right: Lush Banana Leaves & Dholak */}
+                            <div className="absolute bottom-0 right-0 w-[44%] sm:w-[40%] pointer-events-none z-20">
+                              <RightBananaLeavesAndDholak />
+                            </div>
+                          </div>
                         </div>
-                      ) : fn.id === 'nikah-muhurat' ? (
-                        /* Nikah & Muhurat with Authentic Patola Monogram Badge */
+                      ) : fn.id === 'nikah' ? (
+                        /* The Sacred Nikah Visual Showcase */
+                        <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group">
+                          <Image
+                            src={fn.image}
+                            alt={fn.alt}
+                            fill
+                            className="object-cover object-center brightness-90 contrast-[1.08] transition-transform duration-1000 group-hover:scale-105"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+
+                          {/* Location Tag */}
+                          <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-gold/50 text-gold-metallic text-xs font-sans tracking-wider">
+                              <MapPin className="w-3.5 h-3.5" />
+                              {fn.location}
+                            </span>
+                          </div>
+
+                          {/* Poetic Quote Overlay on Image */}
+                          <div className="absolute bottom-4 left-4 right-4 text-ivory">
+                            <p className="font-script text-2xl sm:text-3xl text-amber-200 italic mb-1">
+                              &ldquo;{fn.quote}&rdquo;
+                            </p>
+                          </div>
+                        </div>
+                      ) : fn.id === 'muhurat' ? (
+                        /* The Auspicious Muhurat with Authentic Patola Artwork */
                         <div className="relative">
-                          <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group">
+                          <div 
+                            onClick={() =>
+                              setSelectedInvite({
+                                src: '/images/patola-card-full.png',
+                                title: 'Royal Vivah Patola Card',
+                                subtitle: 'Sameen & Anula • 21 November, 2026',
+                                downloadName: 'Sameen-Anula-Patola-Card.png',
+                              })
+                            }
+                            className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group cursor-pointer"
+                          >
                             <Image
                               src={fn.image}
                               alt={fn.alt}
@@ -363,9 +381,19 @@ export default function Timeline() {
                                 &ldquo;{fn.quote}&rdquo;
                               </p>
                             </div>
+
+                            {/* Hover Overlay */}
+                            <div className="absolute inset-0 bg-black/50 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4">
+                              <div className="w-12 h-12 rounded-full bg-gold-metallic text-charcoal flex items-center justify-center mb-2">
+                                <ZoomIn className="w-6 h-6" />
+                              </div>
+                              <span className="text-xs font-sans uppercase tracking-widest text-amber-200 font-bold">
+                                Click to View Full Patola Card
+                              </span>
+                            </div>
                           </div>
 
-                          {/* Patola Monogram Card Quick View */}
+                          {/* Patola Monogram Card Quick Bar */}
                           <div className="mt-4 flex items-center justify-between p-3.5 rounded-xl bg-black/60 border border-gold/40">
                             <div className="flex items-center gap-3">
                               <div className="relative w-12 h-9 rounded-lg overflow-hidden border border-gold/50">
@@ -389,9 +417,9 @@ export default function Timeline() {
                               onClick={() =>
                                 setSelectedInvite({
                                   src: '/images/patola-card-full.png',
-                                  title: 'Royal Nikah & Vivah Patola Card',
+                                  title: 'Royal Vivah Patola Card',
                                   subtitle: 'Sameen & Anula • 21 November, 2026',
-                                  downloadName: 'Sameen-Anula-Patola-Monogram-Card.png',
+                                  downloadName: 'Sameen-Anula-Patola-Card.png',
                                 })
                               }
                               className="px-3.5 py-1.5 rounded-full bg-gold-metallic/20 hover:bg-gold-metallic/35 border border-gold-metallic/50 text-xs font-sans text-gold-metallic flex items-center gap-1.5 transition-all"
@@ -402,7 +430,7 @@ export default function Timeline() {
                           </div>
                         </div>
                       ) : (
-                        /* Standard Function Visual (Sangeet & Reception) */
+                        /* The Grand Sangeet Visual Showcase */
                         <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group">
                           <Image
                             src={fn.image}
