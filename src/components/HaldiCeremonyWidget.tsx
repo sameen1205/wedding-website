@@ -24,10 +24,10 @@ export default function HaldiCeremonyWidget({
   title = "The Haldi Ceremony",
   subtitle = "॥ शुभ हल्दी ॥ • Auspicious Turmeric Blessing",
   invitationText = "Join us as we bathe the bride & groom in sacred turmeric, fragrant marigold petals, and joyous laughter under the golden sun.",
-  date = "Wednesday, October 14, 2026",
+  date = "Friday, 20th November 2026",
   time = "10:30 AM onwards",
-  location = "The Courtyard, Villa de l'Amour",
-  address = "Palace Grounds, Jayamahal, Bangalore",
+  location = "Dwapara Convention Centre",
+  address = "Bangalore",
   dressCode = "Yellow & Vibrant Festive",
   mapUrl,
   onRsvpClick,
@@ -833,7 +833,7 @@ export function RightBananaLeavesAndDholak() {
         {/* Bolster Base Drop Shadow */}
         <ellipse cx="65" cy="80" rx="52" ry="10" fill="#000000" opacity="0.25" />
 
-        {/* Cylindrical Bolster Body in Royal Rani-Pink Silk */}
+        {/* Cylindrical Bolster Body in Rani-Pink Silk */}
         <rect
           x="18"
           y="35"

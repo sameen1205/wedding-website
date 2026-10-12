@@ -88,7 +88,7 @@ export default function Preloader({ onLoadingComplete }: PreloaderProps) {
               <div className="absolute inset-0">
                 <Image
                   src="/images/patola-card.png"
-                  alt="Sameen and Anula Royal Monogram Card"
+                  alt="Sameen and Anula Monogram Card"
                   fill
                   priority
                   className="object-cover object-center"
@@ -186,7 +186,7 @@ export default function Preloader({ onLoadingComplete }: PreloaderProps) {
                 <span className="text-gold-metallic font-script text-lg">&</span>
                 <span>{weddingDetails.couple.bride}</span>
                 <span className="text-gold-metallic mx-1">•</span>
-                <span>Bangalore Palace</span>
+                <span>Dwapara Convention Centre, Bangalore</span>
               </p>
             </motion.div>
 

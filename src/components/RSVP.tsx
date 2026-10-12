@@ -147,7 +147,7 @@ export default function RSVP() {
             transition={{ duration: 0.9, delay: 0.2 }}
             className="mt-4 text-charcoal-soft/80 font-sans text-sm sm:text-base leading-relaxed"
           >
-            Please confirm your presence by October 15, 2026 so we may prepare your royal hospitality in Bangalore.
+            Please confirm your presence by October 15, 2026 so we may prepare your hospitality in Bangalore.
           </motion.p>
         </div>
 
@@ -321,7 +321,7 @@ export default function RSVP() {
                   <div className="relative sm:col-span-2">
                     <div className="flex items-center gap-2 mb-2 text-xs font-sans tracking-luxury uppercase text-charcoal font-bold">
                       <Utensils className="w-3.5 h-3.5 text-gold" />
-                      <span>Dietary Preference for Royal Feasts</span>
+                      <span>Dietary Preference for Wedding Feasts</span>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                       {[
@@ -388,7 +388,7 @@ export default function RSVP() {
                         </>
                       ) : (
                         <>
-                          <span>Confirm Royal RSVP</span>
+                          <span>Confirm RSVP</span>
                           <Send className="w-3.5 h-3.5" />
                         </>
                       )}

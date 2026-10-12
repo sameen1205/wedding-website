@@ -8,7 +8,6 @@ import {
   Clock, 
   MapPin, 
   Music, 
-  Utensils, 
   Calendar, 
   Sun, 
   Moon, 
@@ -63,6 +62,9 @@ export default function Timeline() {
     } else if (fn.id === 'muhurat') {
       startIso = '20261121T123000Z'; // 6:00 PM IST
       endIso = '20261121T153000Z';   // 9:00 PM IST
+    } else if (fn.id === 'reception') {
+      startIso = '20261122T133000Z'; // 7:00 PM IST
+      endIso = '20261122T183000Z';   // 12:00 AM IST
     } else {
       startIso = '20261120T050000Z';
       endIso = '20261120T090000Z';
@@ -129,7 +131,7 @@ export default function Timeline() {
             <span className="w-12 h-[1.5px] bg-gradient-to-r from-transparent via-gold-metallic to-gold" />
             <span className="text-xs uppercase tracking-luxury font-sans text-amber-300 font-bold flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-gold-metallic" />
-              The Grand Royal Itinerary • Shubh Karyakram
+              The Grand Itinerary
               <Sparkles className="w-3.5 h-3.5 text-gold-metallic" />
             </span>
             <span className="w-12 h-[1.5px] bg-gradient-to-l from-transparent via-gold-metallic to-gold" />
@@ -173,6 +175,7 @@ export default function Timeline() {
                   {fn.id === 'sangeet' && <Music className="w-3.5 h-3.5" />}
                   {fn.id === 'nikah' && <Heart className="w-3.5 h-3.5" />}
                   {fn.id === 'muhurat' && <Sparkles className="w-3.5 h-3.5" />}
+                  {fn.id === 'reception' && <Moon className="w-3.5 h-3.5" />}
                   <span>{fn.title}</span>
                 </button>
               );
@@ -351,7 +354,7 @@ export default function Timeline() {
                             onClick={() =>
                               setSelectedInvite({
                                 src: '/images/patola-card-full.png',
-                                title: 'Royal Vivah Patola Card',
+                                title: 'Vivah Patola Card',
                                 subtitle: 'Sameen & Anula • 21 November, 2026',
                                 downloadName: 'Sameen-Anula-Patola-Card.png',
                               })
@@ -406,7 +409,7 @@ export default function Timeline() {
                               </div>
                               <div>
                                 <span className="text-xs font-serif text-amber-100 block font-medium">
-                                  Royal Vivah Patola Monogram
+                                  Vivah Patola Monogram
                                 </span>
                                 <span className="text-[11px] text-amber-300/80 font-sans">
                                   21 November, 2026
@@ -417,7 +420,7 @@ export default function Timeline() {
                               onClick={() =>
                                 setSelectedInvite({
                                   src: '/images/patola-card-full.png',
-                                  title: 'Royal Vivah Patola Card',
+                                  title: 'Vivah Patola Card',
                                   subtitle: 'Sameen & Anula • 21 November, 2026',
                                   downloadName: 'Sameen-Anula-Patola-Card.png',
                                 })
@@ -527,17 +530,6 @@ export default function Timeline() {
                         </div>
                       </div>
 
-                      {/* Shaahi Dawat / Cuisine Note */}
-                      <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-100 text-xs font-sans">
-                        <Utensils className="w-4 h-4 text-gold-metallic shrink-0 mt-0.5" />
-                        <div>
-                          <strong className="text-gold-metallic font-semibold uppercase tracking-wider block mb-0.5">
-                            Shaahi Dawat (Feast)
-                          </strong>
-                          <span>{fn.cuisine}</span>
-                        </div>
-                      </div>
-
                       {/* Add to Calendar Action */}
                       <div className="pt-2 flex flex-wrap gap-4">
                         <button
@@ -611,7 +603,7 @@ export default function Timeline() {
               <div className="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 border-t border-gold/30 bg-black/80">
                 <span className="text-xs font-sans text-amber-300 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5" />
-                  Sameen & Anula • Royal Bangalore Wedding
+                  Sameen & Anula • Bangalore Wedding
                 </span>
 
                 <a

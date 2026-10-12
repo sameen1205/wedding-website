@@ -93,7 +93,7 @@ export default function Gallery() {
             { id: 'sangeet', label: 'Sangeet & Dhol' },
             { id: 'nikah', label: 'Nikah & Muhurat' },
             { id: 'reception', label: 'Reception Gala' },
-            { id: 'details', label: 'Royal Details' },
+            { id: 'details', label: 'Wedding Details' },
           ] as const).map((filter) => (
             <button
               key={filter.id}

@@ -27,7 +27,7 @@ export interface IndianFunction {
   quote: string;
   description: string;
   highlights: string[];
-  cuisine: string;
+  cuisine?: string;
 }
 
 export interface GalleryItem {
@@ -47,7 +47,7 @@ export const weddingDetails = {
     groomFull: "Sameen",
     brideFull: "Anula",
     monogram: "S & A",
-    blessing: "Shubh Vivah & Khushamdeed",
+    blessing: "Sacred Wedding Celebrations",
   },
   date: {
     formatted: "November 20 — 22, 2026",
@@ -55,17 +55,17 @@ export const weddingDetails = {
     iso: "2026-11-20T10:30:00+05:30",
   },
   location: {
-    venue: "The Bangalore Palace",
-    estate: "Palace Grounds, Jayamahal",
+    venue: "Dwapara Convention Centre",
+    estate: "Bangalore",
     city: "Bangalore",
     state: "Karnataka",
     country: "India",
-    fullAddress: "Palace Grounds, Jayamahal, Bengaluru, Karnataka 560006, India",
+    fullAddress: "Dwapara Convention Centre, Bengaluru, Karnataka, India",
   },
   hero: {
-    tagline: "Together with our families, we invite you to three days of sacred rituals, music, and royal celebration",
+    tagline: "Together with our families, we invite you to three days of sacred rituals, music, and celebration",
     backgroundImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=2400&q=85",
-    ambientAudioUrl: "https://cdn.freesound.org/previews/415/415804_5121236-lq.mp3", // romantic instrumental melody
+    ambientAudioUrl: "https://cdn.freesound.org/previews/415/415804_5121236-lq.mp3",
   },
   ourStory: [
     {
@@ -91,12 +91,12 @@ export const weddingDetails = {
     {
       year: "2025",
       title: "A Starlit Palace Promise",
-      subtitle: "Chapter III — The Royal Promise",
+      subtitle: "Chapter III — The Forever Promise",
       description:
-        "Beneath the illuminated Tudor arches and glowing chandeliers of Bangalore, Sameen asked Anula to spend eternity with him.",
+        "Beneath the illuminated arches and glowing chandeliers of Bangalore, Sameen asked Anula to spend eternity with him.",
       quote: "Hazaaron mein kisi ek se judti hai taqdeer (Destiny unites us beyond thousands).",
       image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
-      alt: "Heritage palace illuminated at twilight",
+      alt: "Heritage venue illuminated at twilight",
     },
   ] as StoryChapter[],
 
@@ -109,7 +109,7 @@ export const weddingDetails = {
       title: "The Radiant Haldi",
       subtitle: "Ubtan, Marigolds & Phoolon Ki Holi",
       timing: "10:30 AM – 2:30 PM",
-      location: "The Mango Grove Courtyard",
+      location: "Dwapara Convention Centre",
       theme: "Radiant Turmeric Sunshine & Marigold Bandhani",
       dressCode: "Sunshine Yellows & Vibrant Festive",
       colorSwatches: [
@@ -132,7 +132,6 @@ export const weddingDetails = {
         "Live Nashik & Punjabi Dhol face-off",
         "Bangle-making & custom floral jewelry stall",
       ],
-      cuisine: "Royal South Indian & Festive Brunch: Bisi Bele Bath, Crisp Medu Vadas, Dal Baati Churma, Jalebi-Rabdi & Spiced Thandai.",
     },
     {
       id: "sangeet",
@@ -141,12 +140,12 @@ export const weddingDetails = {
       title: "The Grand Sangeet",
       subtitle: "A Night of Rhythm, Celebration & Bollywood Beats",
       timing: "6:00 PM Onwards",
-      location: "Royal Ballroom",
-      theme: "Peacock Teal, Royal Emerald & Leheriya Silk",
+      location: "Dwapara Convention Centre",
+      theme: "Peacock Teal, Emerald Green & Leheriya Silk",
       dressCode: "Glamorous & Traditional Evening Wear",
       colorSwatches: [
         { name: "Peacock Blue", hex: "#0F766E" },
-        { name: "Royal Emerald", hex: "#065F46" },
+        { name: "Emerald Green", hex: "#065F46" },
         { name: "Zari Gold", hex: "#D4AF37" },
         { name: "Midnight Teal", hex: "#042F2E" },
       ],
@@ -157,28 +156,27 @@ export const weddingDetails = {
       alt: "The Grand Sangeet evening of dance and music",
       quote: "Sur, taal aur sangeet se saji ek yaadgaar shaam.",
       description:
-        "As twilight settles over the palace grounds, the Royal Ballroom transforms into a grand musical arena. Families clash in joyous choreographed Bollywood dance battles, backed by a live celebrity fusion band and dynamic DJ sets carrying the celebration into the midnight hours.",
+        "As twilight settles, Dwapara Convention Centre transforms into a grand musical arena. Families clash in joyous choreographed Bollywood dance battles, backed by a live celebrity fusion band and dynamic DJ sets carrying the celebration into the midnight hours.",
       highlights: [
         "Sameen vs Anula Bollywood Family Dance Face-off",
         "Live Fusion Band & Dhol performance under starlight chandeliers",
-        "Signature Royal Cocktails & Gourmet Tasting Lounge",
+        "Signature Cocktails & Gourmet Tasting Lounge",
         "Midnight DJ celebration on the illuminated dance floor",
       ],
-      cuisine: "Imperial Street Food Stations, Galouti Kebabs on Sheermal, Wood-fired Naans, Chaat Bazaar & Signature Cocktails.",
     },
     {
       id: "nikah",
       dayNumber: "DAY 02",
       dayDate: "Saturday, 21st November 2026",
       title: "The Sacred Nikah",
-      subtitle: "The Holy Union, Sacred Vows & Royal Baraat",
+      subtitle: "The Holy Union, Sacred Vows & Grand Baraat",
       timing: "10:00 AM Onwards",
-      location: "Main Palace Lawn",
-      theme: "Pastel Royal, Rose Petals & Pure Banarasi Zari Silk",
-      dressCode: "Pastel Royal / Traditional Elegance",
+      location: "Dwapara Convention Centre",
+      theme: "Pastel Elegance, Rose Petals & Pure Banarasi Zari Silk",
+      dressCode: "Pastel Elegance / Traditional Elegance",
       colorSwatches: [
         { name: "Pastel Rose", hex: "#F43F5E" },
-        { name: "Royal Ivory", hex: "#FFFDF9" },
+        { name: "Ivory", hex: "#FFFDF9" },
         { name: "Zari Pure Gold", hex: "#FFD700" },
         { name: "Mint Sage", hex: "#10B981" },
       ],
@@ -189,14 +187,13 @@ export const weddingDetails = {
       alt: "The Sacred Nikah wedding ceremony",
       quote: "Qubool Hai — Bound by sacred vows, united by love.",
       description:
-        "The sacred zenith of our wedding journey. A grand royal Baraat with celebratory brass bands and horses precedes Anula's ethereal bridal entrance under a fragrant floral chadar of tuberoses and white roses. In a serene palace pavilion, Sameen and Anula solemnize their holy Nikah vows surrounded by loved ones.",
+        "The sacred zenith of our wedding journey. A grand Baraat procession with celebratory brass bands precedes Anula's ethereal bridal entrance under a fragrant floral chadar of tuberoses and white roses. Sameen and Anula solemnize their holy Nikah vows surrounded by loved ones.",
       highlights: [
-        "Grand Baraat procession with Royal Brass Band & Safa tying",
+        "Grand Baraat procession with Brass Band & Safa tying",
         "Phoolon ki Chaadar bridal entrance with classical Shehnai",
         "Sacred Nikah ceremony and solemnization of vows",
         "Rose petal blessing shower and family felicitations",
       ],
-      cuisine: "Imperial Royal Dawat: Awadhi Dum Biryani, Shahi Paneer, Zafrani Pulao, Elaneer Payasam & Malai Kulfi.",
     },
     {
       id: "muhurat",
@@ -205,7 +202,7 @@ export const weddingDetails = {
       title: "The Auspicious Muhurat",
       subtitle: "Vedic Mantras, Mangalsutra & Sacred Saat Phere",
       timing: "6:00 PM – 9:00 PM",
-      location: "The Grand Courtyard",
+      location: "Dwapara Convention Centre",
       theme: "Deep Crimson, Vermilion Red & Temple Gold",
       dressCode: "Festive Ethnic",
       colorSwatches: [
@@ -221,14 +218,44 @@ export const weddingDetails = {
       alt: "The Auspicious Muhurat sacred marriage rituals",
       quote: "Saat pheron ke saat pavitra vachan, ek jeevan bhar ka saath.",
       description:
-        "Under the twilight sky in the historic Grand Courtyard, sacred Vedic chants echo as Sameen and Anula circle the holy fire. With the tying of the mangalsutra, the exchange of garlands (Varmala), and the seven sacred steps (Saptapadi), their auspicious union is solemnized.",
+        "Under the starlit sky at Dwapara Convention Centre, sacred Vedic chants echo as Sameen and Anula circle the holy fire. With the tying of the mangalsutra, the exchange of garlands (Varmala), and the seven sacred steps (Saptapadi), their auspicious union is solemnized.",
       highlights: [
         "Auspicious Muhurat ceremony around the sacred Agni",
         "Traditional Varmala garland exchange",
         "Saptapadi (Seven Sacred Steps) & Mangalsutra blessing",
         "Classical Carnatic & Hindustani instrumental accompaniment",
       ],
-      cuisine: "Traditional Festive Sattvic Thali: Badam Halwa, Mysore Pak, Puran Poli, Bisi Bele Bath & Filter Coffee.",
+    },
+    {
+      id: "reception",
+      dayNumber: "DAY 03",
+      dayDate: "Sunday, 22nd November 2026",
+      title: "The Wedding Reception",
+      subtitle: "An Elegant Evening of Dinner, Felicitations & Celebrations",
+      timing: "7:00 PM Onwards",
+      location: "Dwapara Convention Centre",
+      theme: "Midnight Navy, Champagne Gold & Velvet Brocade",
+      dressCode: "Formal Evening / Contemporary Festive",
+      colorSwatches: [
+        { name: "Midnight Navy", hex: "#0F172A" },
+        { name: "Champagne Gold", hex: "#D4AF37" },
+        { name: "Wine Burgundy", hex: "#4C0519" },
+        { name: "Ivory Silk", hex: "#FAF7F2" },
+      ],
+      patternClass: "bg-leheriya-pattern",
+      accentColor: "#D4AF37",
+      badgeBg: "bg-amber-500/20 text-amber-200 border-amber-400/40",
+      image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=85",
+      alt: "The Wedding Reception evening celebration",
+      quote: "A toast to new beginnings and a lifetime of happiness.",
+      description:
+        "Join us for an elegant evening celebrating Sameen and Anula as husband and wife. An unforgettable night of felicitations, heartfelt speeches, music, and celebration with beloved family and friends.",
+      highlights: [
+        "Grand couple entrance & felicitation stage",
+        "Heartfelt family toasts & cake cutting",
+        "Live acoustic band & ambient music",
+        "Celebration dinner & photography lounge",
+      ],
     },
   ] as IndianFunction[],
 

@@ -1,16 +1,14 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { Volume2, VolumeX, Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 import { weddingDetails } from '@/data/weddingData';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,24 +23,9 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleAudio = () => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(() => {
-        setIsPlaying(false);
-      });
-    }
-  };
-
   const navLinks = [
     { label: 'Our Story', href: '#story', isFeatured: false },
     { label: 'The Grand Itinerary', href: '#itinerary', isFeatured: true },
-    { label: 'Festive Gallery', href: '#gallery', isFeatured: false },
     { label: 'RSVP', href: '#rsvp', isFeatured: false },
   ];
 
@@ -60,13 +43,6 @@ export default function Navbar() {
 
   return (
     <>
-      <audio
-        ref={audioRef}
-        src={weddingDetails.hero.ambientAudioUrl}
-        loop
-        preload="none"
-      />
-
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${
           isScrolled
@@ -83,7 +59,7 @@ export default function Navbar() {
             <div className="relative w-9 h-7 rounded-md overflow-hidden border border-gold-metallic/60 shadow-md bg-black/40">
               <Image
                 src="/images/monogram-cartouche.png"
-                alt="Sameen & Anula Royal Monogram"
+                alt="Sameen & Anula Monogram"
                 fill
                 className="object-cover object-center"
                 sizes="36px"
@@ -119,34 +95,6 @@ export default function Navbar() {
 
           {/* Right Action Controls */}
           <div className="flex items-center gap-3.5">
-            {/* Shehnai / Music Audio Toggle */}
-            <button
-              onClick={toggleAudio}
-              aria-label={isPlaying ? 'Mute royal celebration music' : 'Play royal celebration music'}
-              title={isPlaying ? 'Mute celebration music' : 'Play festive instrumental melody'}
-              className={`flex items-center gap-2 p-2 rounded-full border transition-all duration-300 ${
-                isPlaying
-                  ? 'bg-gold-metallic text-charcoal border-gold-metallic font-medium'
-                  : 'border-white/30 text-ivory hover:border-gold hover:text-gold-metallic'
-              }`}
-            >
-              {isPlaying ? (
-                <div className="flex items-center gap-1.5 px-2">
-                  <Volume2 className="w-3.5 h-3.5 text-charcoal animate-pulse" />
-                  <span className="hidden lg:inline text-[10px] tracking-widest uppercase font-sans font-bold">
-                    Music On
-                  </span>
-                </div>
-              ) : (
-                <div className="flex items-center gap-1.5 px-2">
-                  <VolumeX className="w-3.5 h-3.5 opacity-80" />
-                  <span className="hidden lg:inline text-[10px] tracking-widest uppercase font-sans opacity-90">
-                    Sitar Melody
-                  </span>
-                </div>
-              )}
-            </button>
-
             {/* Quick RSVP CTA Button */}
             <button
               onClick={() => handleLinkClick('#rsvp')}
@@ -167,7 +115,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Sleek Royal Indian Mobile Drawer Menu */}
+      {/* Sleek Indian Mobile Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -176,7 +124,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-gradient-to-b from-crimson-deep via-[#2A0410] to-royalvelvet-deep flex flex-col justify-between px-8 py-10 md:hidden bg-banarasi-pattern text-ivory"
+            className="fixed inset-0 z-50 bg-gradient-to-b from-crimson-deep via-[#2A0410] to-[#2E0854] flex flex-col justify-between px-8 py-10 md:hidden bg-banarasi-pattern text-ivory"
           >
             {/* Top Bar */}
             <div className="flex items-center justify-between border-b border-gold/30 pb-4">
@@ -184,7 +132,7 @@ export default function Navbar() {
                 <div className="relative w-10 h-8 rounded-md overflow-hidden border border-gold-metallic/60 shadow-md">
                   <Image
                     src="/images/monogram-cartouche.png"
-                    alt="Sameen & Anula Royal Monogram"
+                    alt="Sameen & Anula Monogram"
                     fill
                     className="object-cover object-center"
                     sizes="40px"

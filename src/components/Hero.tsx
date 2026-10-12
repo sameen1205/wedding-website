@@ -49,7 +49,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-between items-center text-ivory py-12">
-      {/* Background with Slow Zoom Ken Burns Effect & Deep Royal Midnight Vignette */}
+      {/* Background with Slow Zoom Ken Burns Effect & Deep Midnight Vignette */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div
           initial={{ scale: 1.15 }}
@@ -59,7 +59,7 @@ export default function Hero() {
         >
           <Image
             src={weddingDetails.hero.backgroundImage}
-            alt="Royal Indian Wedding Bangalore Palace Hero"
+            alt="Indian Wedding Celebration Hero"
             fill
             priority
             className="object-cover object-center brightness-[0.38] contrast-[1.2]"
@@ -67,7 +67,7 @@ export default function Hero() {
           />
         </motion.div>
 
-        {/* Deep Royal Midnight-Crimson Scrim for Absolute Text Contrast & Readability */}
+        {/* Deep Midnight-Crimson Scrim for Absolute Text Contrast & Readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-[#18030B]/80 to-[#16060B]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(24,3,11,0.5)_0%,_rgba(8,1,4,0.92)_100%)]" />
         <div className="absolute inset-0 bg-patola-pattern opacity-15 mix-blend-overlay pointer-events-none" />
@@ -78,7 +78,7 @@ export default function Hero() {
 
       {/* Main Foreground Typography & Monogram Showcase */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
-        {/* Royal Scalloped S-A Monogram Crest (From Attached Image) */}
+        {/* Scalloped S-A Monogram Crest (From Attached Image) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -87,7 +87,7 @@ export default function Hero() {
         >
           <Image
             src="/images/monogram-cartouche.png"
-            alt="Sameen & Anula Royal Monogram"
+            alt="Sameen & Anula Monogram"
             fill
             className="object-cover object-center"
             sizes="96px"

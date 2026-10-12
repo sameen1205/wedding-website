@@ -17,19 +17,19 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-[#170513] text-ivory py-20 px-6 sm:px-8 border-t-2 border-gold/40 overflow-hidden bg-patola-pattern bg-blend-soft-light">
-      {/* Decorative Royal Velvet Gradient Glow */}
+      {/* Decorative Velvet Gradient Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-96 bg-gradient-to-b from-crimson/20 via-marigold/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
       {/* Zari Gold Ribbon Trim Border at Top */}
       <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-transparent via-gold-metallic to-transparent opacity-80" />
 
       <div className="max-w-5xl mx-auto flex flex-col items-center text-center relative z-10">
-        {/* Royal Crest Scalloped Monogram Cartouche */}
+        {/* Scalloped Monogram Cartouche */}
         <div className="relative mb-6">
           <div className="relative w-28 h-20 sm:w-32 sm:h-24 rounded-2xl overflow-hidden border-2 border-gold-metallic/60 shadow-2xl bg-black/60">
             <Image
               src="/images/monogram-cartouche.png"
-              alt="Sameen & Anula Royal Monogram"
+              alt="Sameen & Anula Monogram"
               fill
               className="object-cover object-center"
               sizes="128px"
@@ -60,7 +60,7 @@ export default function Footer() {
         </p>
 
         {/* Blessings Note (Ashirwaad) */}
-        <div className="mt-10 p-6 sm:p-8 rounded-2xl bg-royalvelvet-dark/90 border border-gold/30 max-w-xl text-center shadow-2xl relative overflow-hidden">
+        <div className="mt-10 p-6 sm:p-8 rounded-2xl bg-[#240316]/90 border border-gold/30 max-w-xl text-center shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-marigold/5 rounded-full blur-2xl pointer-events-none" />
           
           <div className="flex items-center justify-center gap-2 text-gold-light text-xs font-sans tracking-luxury uppercase mb-3">
@@ -68,18 +68,18 @@ export default function Footer() {
             <span className="font-semibold">Blessings & Ashirwaad</span>
           </div>
           <p className="font-serif text-sm sm:text-base text-sand-light/90 italic leading-relaxed">
-            &ldquo;Your presence, smiles, and heartfelt prayers at our wedding celebrations in Bangalore are the most precious gifts we could ever ask for. In the spirit of our royal festivities, blessings are affectionately requested; no boxed gifts please.&rdquo;
+            &ldquo;Your presence, smiles, and heartfelt prayers at our wedding celebrations in Bangalore are the most precious gifts we could ever ask for. In the spirit of our festivities, blessings are affectionately requested; no boxed gifts please.&rdquo;
           </p>
         </div>
 
         {/* Scroll To Top */}
         <button
           onClick={scrollToTop}
-          className="mt-12 flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-gold/10 border border-gold/40 text-xs font-sans tracking-luxury uppercase text-gold-light hover:bg-gold hover:text-royalvelvet-dark hover:border-gold transition-all duration-300 group shadow-md"
+          className="mt-12 flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-gold/10 border border-gold/40 text-xs font-sans tracking-luxury uppercase text-gold-light hover:bg-gold hover:text-charcoal hover:border-gold transition-all duration-300 group shadow-md"
           aria-label="Scroll back to top"
         >
           <span>Return to Top</span>
-          <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-1 text-gold-metallic group-hover:text-royalvelvet-dark" />
+          <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-1 text-gold-metallic group-hover:text-charcoal" />
         </button>
 
         {/* Bottom Bar / Copyright */}

@@ -6,7 +6,6 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Story from '@/components/Story';
 import Timeline from '@/components/Timeline';
-import Gallery from '@/components/Gallery';
 import RSVP from '@/components/RSVP';
 import Footer from '@/components/Footer';
 
@@ -16,7 +15,7 @@ export default function Home() {
       {/* SVG Path Monogram Preloader with Curtain Reveal */}
       <Preloader />
 
-      {/* Floating Glassmorphism Navbar with Audio & Mobile Drawer */}
+      {/* Floating Glassmorphism Navbar with Mobile Drawer */}
       <Navbar />
 
       {/* Cinematic Ken Burns Hero Section */}
@@ -27,11 +26,6 @@ export default function Home() {
 
       {/* Scroll-Drawn Gold Line Timeline Itinerary */}
       <Timeline />
-
-      {/* Expansive Itinerary Showcase is the core centerpiece; Venue section removed */}
-
-      {/* Masonry Editorial Gallery with Lightbox */}
-      <Gallery />
 
       {/* Interactive Floating Card RSVP with Confetti & Spring Physics */}
       <RSVP />

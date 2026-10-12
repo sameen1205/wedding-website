@@ -95,7 +95,7 @@ export default function Story() {
               </p>
 
               <p className="font-sans text-sm sm:text-base text-charcoal-soft/85 leading-relaxed mt-4">
-                Now, surrounded by the heritage grandeur of Bangalore Palace, we invite you to be part of our most sacred vows, vibrant folk dances, and unforgettable feasts.
+                Now, surrounded by the joy of family and friends at Dwapara Convention Centre, Bangalore, we invite you to be part of our most sacred vows, vibrant folk dances, and celebratory moments.
               </p>
 
               {/* Couple Crest Seal */}

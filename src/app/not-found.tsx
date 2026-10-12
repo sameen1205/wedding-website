@@ -6,7 +6,7 @@ export default function NotFound() {
       <h2 className="font-serif text-5xl sm:text-6xl text-gold-metallic mb-4">404</h2>
       <p className="font-serif text-2xl sm:text-3xl text-amber-200 mb-6">Page Not Found</p>
       <p className="font-sans text-sm text-amber-100/70 max-w-md mb-8">
-        The royal corridor you are looking for does not exist. Please return to Sameen &amp; Anula&apos;s wedding celebrations.
+        The page you are looking for does not exist. Please return to Sameen &amp; Anula&apos;s wedding celebrations.
       </p>
       <Link
         href="/"

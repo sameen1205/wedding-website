@@ -26,26 +26,26 @@ const pinyon = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Sameen & Anula | November 20 — 22, 2026 — Bangalore Palace",
+  title: "Sameen & Anula | November 20 — 22, 2026 — Dwapara Convention Centre, Bangalore",
   description:
-    "Together with their families, Sameen and Anula invite you to three days of sacred rituals, music, and royal celebration at The Bangalore Palace, Karnataka, India.",
+    "Together with their families, Sameen and Anula invite you to three days of sacred rituals, music, and joyful celebration at Dwapara Convention Centre, Bangalore, India.",
   keywords: [
     "Sameen and Anula Wedding",
-    "Royal Indian Wedding Website",
-    "Bangalore Palace Wedding",
+    "Indian Wedding Website",
+    "Bangalore Wedding",
     "Sameen Anula Vivah",
     "Luxury Wedding Website",
   ],
   openGraph: {
-    title: "Sameen & Anula Royal Wedding Celebration",
-    description: "November 20 — 22, 2026 • The Bangalore Palace, Karnataka",
+    title: "Sameen & Anula Wedding Celebration",
+    description: "November 20 — 22, 2026 • Dwapara Convention Centre, Bangalore",
     type: "website",
     images: [
       {
         url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80",
         width: 1200,
         height: 630,
-        alt: "Sameen & Anula Royal Wedding Celebration",
+        alt: "Sameen & Anula Wedding Celebration",
       },
     ],
   },
