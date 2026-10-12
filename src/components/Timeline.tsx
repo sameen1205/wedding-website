@@ -22,9 +22,11 @@ import {
   Download
 } from 'lucide-react';
 import { weddingDetails, IndianFunction } from '@/data/weddingData';
+import HaldiCeremonyWidget from '@/components/HaldiCeremonyWidget';
 
 export default function Timeline() {
   const [activeTab, setActiveTab] = useState<string>('haldi');
+  const [haldiViewMode, setHaldiViewMode] = useState<'animated' | 'artwork'>('animated');
   const [selectedInvite, setSelectedInvite] = useState<{
     src: string;
     title: string;
@@ -212,67 +214,127 @@ export default function Timeline() {
                     {/* Visual Photography with Arch Frame & Overlays */}
                     <div className="lg:col-span-6 relative">
                       {fn.id === 'haldi' ? (
-                        /* Dedicated Showcase for Haldi Ceremony Invitation Artwork */
-                        <div className="relative flex flex-col items-center">
-                          <div
-                            onClick={() =>
-                              setSelectedInvite({
-                                src: '/images/haldi-invite.png',
-                                title: 'Royal Haldi Ceremony Invitation',
-                                subtitle: 'Sameen & Anula • Friday, 20th November 2026',
-                                downloadName: 'Sameen-Anula-Haldi-Invitation.png',
-                              })
-                            }
-                            className="relative aspect-[3/4] w-full max-w-[420px] rounded-2xl overflow-hidden border-4 border-amber-400/80 shadow-[0_20px_50px_rgba(0,0,0,0.9)] cursor-pointer group transition-all duration-500 hover:shadow-[0_25px_60px_rgba(245,158,11,0.45)] hover:scale-[1.02]"
-                          >
-                            <Image
-                              src="/images/haldi-invite.png"
-                              alt="Sameen and Anula Royal Haldi Ceremony Invitation"
-                              fill
-                              className="object-contain sm:object-cover object-center bg-[#FFFBEB] transition-transform duration-700 group-hover:scale-105"
-                              sizes="(max-width: 1024px) 100vw, 420px"
-                            />
-
-                            {/* Inner Scalloped Gold & Rani Pink Border */}
-                            <div className="absolute inset-2 rounded-xl border border-rose-600/50 pointer-events-none" />
-
-                            {/* Top Badge */}
-                            <div className="absolute top-3 left-3 right-3 flex justify-between items-start pointer-events-none">
-                              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 backdrop-blur-md border border-amber-400/60 text-amber-300 text-[11px] font-sans font-semibold tracking-wider">
-                                <Sparkles className="w-3 h-3 text-amber-400" />
-                                Official Haldi Patrika
-                              </span>
-                            </div>
-
-                            {/* Hover Zoom Overlay */}
-                            <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center">
-                              <div className="w-14 h-14 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-charcoal flex items-center justify-center shadow-xl mb-3 transform group-hover:scale-110 transition-transform">
-                                <ZoomIn className="w-6 h-6" />
-                              </div>
-                              <p className="font-serif text-xl text-white font-medium drop-shadow-md">
-                                View Full Haldi Invitation
-                              </p>
-                              <span className="text-xs text-amber-200 font-sans tracking-luxury uppercase mt-1">
-                                Click to Inspect Motifs & Artwork
-                              </span>
-                            </div>
+                        /* Dedicated Showcase for Haldi Ceremony: Interactive Animated Widget or Original Patrika */
+                        <div className="relative flex flex-col items-center w-full">
+                          {/* Festive View Switcher Header */}
+                          <div className="mb-5 flex items-center p-1 rounded-full bg-black/70 border border-amber-400/50 backdrop-blur-md shadow-xl z-20">
+                            <button
+                              type="button"
+                              onClick={() => setHaldiViewMode('animated')}
+                              className={`px-4 py-1.5 rounded-full text-xs font-sans tracking-luxury uppercase font-semibold transition-all duration-300 flex items-center gap-1.5 ${
+                                haldiViewMode === 'animated'
+                                  ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-charcoal shadow-md font-bold scale-102'
+                                  : 'text-amber-200/80 hover:text-white'
+                              }`}
+                            >
+                              <Sparkles className="w-3.5 h-3.5" />
+                              <span>✦ Interactive Animated Card</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setHaldiViewMode('artwork')}
+                              className={`px-4 py-1.5 rounded-full text-xs font-sans tracking-luxury uppercase font-semibold transition-all duration-300 flex items-center gap-1.5 ${
+                                haldiViewMode === 'artwork'
+                                  ? 'bg-gradient-to-r from-amber-400 to-yellow-500 text-charcoal shadow-md font-bold scale-102'
+                                  : 'text-amber-200/80 hover:text-white'
+                              }`}
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                              <span>Print Patrika</span>
+                            </button>
                           </div>
 
-                          {/* Quick Enlarge Prompt Button */}
-                          <button
-                            onClick={() =>
-                              setSelectedInvite({
-                                src: '/images/haldi-invite.png',
-                                title: 'Royal Haldi Ceremony Invitation',
-                                subtitle: 'Sameen & Anula • Friday, 20th November 2026',
-                                downloadName: 'Sameen-Anula-Haldi-Invitation.png',
-                              })
-                            }
-                            className="mt-3.5 inline-flex items-center gap-2 text-xs font-sans text-amber-300 hover:text-amber-100 tracking-wider uppercase transition-colors"
-                          >
-                            <Eye className="w-3.5 h-3.5" />
-                            <span>Click to Expand Full Invitation Artwork</span>
-                          </button>
+                          {haldiViewMode === 'animated' ? (
+                            /* Live Animated Haldi Ceremony Widget (Handcrafted SVGs, Swaying Tassels, Wind Rustle) */
+                            <div className="w-full">
+                              <HaldiCeremonyWidget
+                                title="The Haldi Ceremony"
+                                subtitle="॥ शुभ हल्दी ॥ • Auspicious Turmeric Blessing"
+                                invitationText="Join us as we bathe Sameen & Anula in sacred turmeric, fragrant marigold petals, and joyous laughter under the golden sun."
+                                date="Friday, 20th November 2026"
+                                time="10:30 AM — 2:30 PM"
+                                location="The Mango Grove Courtyard"
+                                address="Palace Grounds, Jayamahal, Bangalore"
+                                dressCode="Sunshine Yellows & Vibrant Festive"
+                                coupleNames="Sameen & Anula"
+                                className="px-0 py-0 max-w-full"
+                              />
+
+                              <div className="mt-2 text-center">
+                                <button
+                                  type="button"
+                                  onClick={() => setHaldiViewMode('artwork')}
+                                  className="inline-flex items-center gap-1.5 text-[11px] font-sans text-amber-300/80 hover:text-amber-100 uppercase tracking-widest transition-colors"
+                                >
+                                  <Eye className="w-3 h-3" />
+                                  <span>Switch to Scanned Print Invitation View</span>
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            /* Dedicated Showcase for Original Haldi Ceremony Invitation Artwork */
+                            <div className="relative flex flex-col items-center w-full">
+                              <div
+                                onClick={() =>
+                                  setSelectedInvite({
+                                    src: '/images/haldi-invite.png',
+                                    title: 'Royal Haldi Ceremony Invitation',
+                                    subtitle: 'Sameen & Anula • Friday, 20th November 2026',
+                                    downloadName: 'Sameen-Anula-Haldi-Invitation.png',
+                                  })
+                                }
+                                className="relative aspect-[3/4] w-full max-w-[420px] rounded-2xl overflow-hidden border-4 border-amber-400/80 shadow-[0_20px_50px_rgba(0,0,0,0.9)] cursor-pointer group transition-all duration-500 hover:shadow-[0_25px_60px_rgba(245,158,11,0.45)] hover:scale-[1.02]"
+                              >
+                                <Image
+                                  src="/images/haldi-invite.png"
+                                  alt="Sameen and Anula Royal Haldi Ceremony Invitation"
+                                  fill
+                                  className="object-contain sm:object-cover object-center bg-[#FFFBEB] transition-transform duration-700 group-hover:scale-105"
+                                  sizes="(max-width: 1024px) 100vw, 420px"
+                                />
+
+                                {/* Inner Scalloped Gold & Rani Pink Border */}
+                                <div className="absolute inset-2 rounded-xl border border-rose-600/50 pointer-events-none" />
+
+                                {/* Top Badge */}
+                                <div className="absolute top-3 left-3 right-3 flex justify-between items-start pointer-events-none">
+                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/85 backdrop-blur-md border border-amber-400/60 text-amber-300 text-[11px] font-sans font-semibold tracking-wider">
+                                    <Sparkles className="w-3 h-3 text-amber-400" />
+                                    Official Haldi Patrika
+                                  </span>
+                                </div>
+
+                                {/* Hover Zoom Overlay */}
+                                <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center">
+                                  <div className="w-14 h-14 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-charcoal flex items-center justify-center shadow-xl mb-3 transform group-hover:scale-110 transition-transform">
+                                    <ZoomIn className="w-6 h-6" />
+                                  </div>
+                                  <p className="font-serif text-xl text-white font-medium drop-shadow-md">
+                                    View Full Haldi Invitation
+                                  </p>
+                                  <span className="text-xs text-amber-200 font-sans tracking-luxury uppercase mt-1">
+                                    Click to Inspect Motifs & Artwork
+                                  </span>
+                                </div>
+                              </div>
+
+                              {/* Quick Enlarge Prompt Button */}
+                              <button
+                                onClick={() =>
+                                  setSelectedInvite({
+                                    src: '/images/haldi-invite.png',
+                                    title: 'Royal Haldi Ceremony Invitation',
+                                    subtitle: 'Sameen & Anula • Friday, 20th November 2026',
+                                    downloadName: 'Sameen-Anula-Haldi-Invitation.png',
+                                  })
+                                }
+                                className="mt-3.5 inline-flex items-center gap-2 text-xs font-sans text-amber-300 hover:text-amber-100 tracking-wider uppercase transition-colors"
+                              >
+                                <Eye className="w-3.5 h-3.5" />
+                                <span>Click to Expand Full Invitation Artwork</span>
+                              </button>
+                            </div>
+                          )}
                         </div>
                       ) : fn.id === 'nikah-muhurat' ? (
                         /* Nikah & Muhurat with Authentic Patola Monogram Badge */
