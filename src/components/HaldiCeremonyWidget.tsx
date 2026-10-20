@@ -25,7 +25,7 @@ export default function HaldiCeremonyWidget({
   subtitle = "॥ शुभ हल्दी ॥ • Auspicious Turmeric Blessing",
   invitationText = "Join us as we bathe the bride & groom in sacred turmeric, fragrant marigold petals, and joyous laughter under the golden sun.",
   date = "Friday, 20th November 2026",
-  time = "10:30 AM onwards",
+  time = "9:30 AM – 12:30 PM",
   location = "Dwapara Convention Centre",
   address = "Bangalore",
   dressCode = "Yellow & Vibrant Festive",

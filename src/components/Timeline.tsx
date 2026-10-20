@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { 
   Sparkles, 
   Clock, 
@@ -11,14 +10,7 @@ import {
   Calendar, 
   Sun, 
   Moon, 
-  Heart, 
-  Check, 
-  CheckCircle2,
-  Share2,
-  ZoomIn,
-  Eye,
-  X,
-  Download
+  Heart
 } from 'lucide-react';
 import { weddingDetails, IndianFunction } from '@/data/weddingData';
 import { 
@@ -31,28 +23,14 @@ import {
 
 export default function Timeline() {
   const [activeTab, setActiveTab] = useState<string>('haldi');
-  const [selectedInvite, setSelectedInvite] = useState<{
-    src: string;
-    title: string;
-    subtitle: string;
-    downloadName: string;
-  } | null>(null);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedInvite(null);
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
 
   const generateSingleEventIcs = (fn: IndianFunction) => {
     let startIso = '';
     let endIso = '';
 
     if (fn.id === 'haldi') {
-      startIso = '20261120T050000Z'; // 10:30 AM IST
-      endIso = '20261120T090000Z';   // 2:30 PM IST
+      startIso = '20261120T040000Z'; // 9:30 AM IST
+      endIso = '20261120T070000Z';   // 12:30 PM IST
     } else if (fn.id === 'sangeet') {
       startIso = '20261120T123000Z'; // 6:00 PM IST
       endIso = '20261120T180000Z';   // 11:30 PM IST
@@ -80,7 +58,7 @@ export default function Timeline() {
       `UID:${fn.id}-sameen-anula-2026@bangalorewedding.com`,
       `SUMMARY:${fn.title} - Sameen & Anula Wedding`,
       `DESCRIPTION:${fn.description.replace(/\n/g, ' ')} Dress Code: ${fn.dressCode}`,
-      `LOCATION:${fn.location}, ${weddingDetails.location.city}`,
+      `LOCATION:${fn.location}`,
       `DTSTART:${startIso}`,
       `DTEND:${endIso}`,
       'STATUS:CONFIRMED',
@@ -184,8 +162,8 @@ export default function Timeline() {
         </div>
 
         {/* EXPANSIVE MULTI-FUNCTION SHOWCASE SECTIONS */}
-        <div className="space-y-24 sm:space-y-36">
-          {weddingDetails.functions.map((fn, index) => {
+        <div className="space-y-24 sm:space-y-32">
+          {weddingDetails.functions.map((fn) => {
             return (
               <motion.article
                 key={fn.id}
@@ -194,7 +172,7 @@ export default function Timeline() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-100px' }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className={`relative rounded-3xl overflow-hidden border-2 border-gold/40 shadow-2xl ${fn.patternClass} text-ivory`}
+                className={`relative max-w-4xl mx-auto rounded-3xl overflow-hidden border-2 border-gold/40 shadow-2xl ${fn.patternClass} text-ivory`}
               >
                 {/* Textile Scrim for 100% Crisp Text Contrast & Readability */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90 pointer-events-none" />
@@ -202,9 +180,9 @@ export default function Timeline() {
                 {/* Zari Gold Foil Accent Border Top */}
                 <div className="relative z-10 h-2 w-full bg-gradient-to-r from-gold-antique via-gold-metallic to-gold-antique" />
 
-                <div className="relative z-10 p-8 sm:p-12 lg:p-16">
+                <div className="relative z-10 p-6 sm:p-10 md:p-14">
                   {/* Top Day & Date Header Banner */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gold/30 pb-6 mb-10">
+                  <div className="max-w-2xl mx-auto flex flex-wrap items-center justify-between gap-4 border-b border-gold/30 pb-6 mb-10">
                     <div className="flex items-center gap-3">
                       <span className={`px-4 py-1.5 rounded-full text-xs font-sans tracking-luxury uppercase font-bold border ${fn.badgeBg}`}>
                         {fn.dayNumber}
@@ -220,12 +198,12 @@ export default function Timeline() {
                     </div>
                   </div>
 
-                  {/* Main Grid: Visual Showcase & Detailed Narrative */}
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                    {/* Visual Photography with Arch Frame & Overlays */}
-                    <div className="lg:col-span-6 relative">
+                  {/* Unified Centered Expanded Card & Footer Layout */}
+                  <div className="max-w-2xl mx-auto w-full flex flex-col items-center">
+                    {/* Bespoke Event Invitation Card */}
+                    <div className="w-full relative">
                       {fn.id === 'haldi' ? (
-                        /* Traditional Framed Haldi Ceremony Card (Direct Framing, No Nested Cards, No Tabs, No RSVP Button) */
+                        /* Event 1: The Radiant Haldi — Yellow Leheriya Outer Border, Rani Pink Inner Frame, Warm Ivory Canvas */
                         <div
                           className="relative w-full rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-6 shadow-2xl overflow-hidden"
                           style={{
@@ -248,7 +226,7 @@ export default function Timeline() {
                             </div>
 
                             {/* Inner Canvas Content */}
-                            <div className="relative z-10 px-5 sm:px-8 md:px-10 pt-7 sm:pt-9 pb-44 sm:pb-52 md:pb-60 flex flex-col items-center text-center">
+                            <div className="relative z-10 px-5 sm:px-10 md:px-12 pt-10 sm:pt-14 pb-48 sm:pb-56 md:pb-64 flex flex-col items-center text-center">
                               {/* Gentle Matte Paper Grain Texture */}
                               <div
                                 className="absolute inset-0 opacity-40 mix-blend-multiply pointer-events-none"
@@ -261,50 +239,43 @@ export default function Timeline() {
                               />
 
                               {/* Top Center: Delicate Traditional Marigold Mandala */}
-                              <div className="mt-2 mb-2 sm:mb-3 relative flex items-center justify-center">
+                              <div className="mt-2 mb-4 sm:mb-5 relative flex items-center justify-center">
                                 <TopMarigoldMandala />
                               </div>
 
-                              {/* Auspicious Invocation Tag */}
-                              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFF1F2] border border-[#FF4B91]/40 mb-3 shadow-xs">
-                                <Sparkles className="w-3 h-3 text-[#FF4B91]" />
-                                <span className="font-serif italic text-xs tracking-widest text-[#BE185D] font-medium">
-                                  ॥ शुभ हल्दी ॥ • Auspicious Turmeric Blessing
-                                </span>
-                                <Sparkles className="w-3 h-3 text-[#FF4B91]" />
-                              </div>
-
                               {/* Ceremony Title */}
-                              <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal text-[#1C1917] tracking-tight leading-tight">
-                                {fn.title}
+                              <h3 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal text-[#1C1917] tracking-tight leading-tight">
+                                The Radiant Haldi
                               </h3>
 
                               {/* Couple Name */}
-                              <p className="font-script text-2xl sm:text-3xl text-[#FF4B91] mt-1 mb-2">
-                                Sameen & Anula
+                              <p className="font-script text-3xl sm:text-4xl md:text-5xl text-[#FF4B91] mt-2 sm:mt-3 mb-5 sm:mb-6">
+                                Sameen &amp; Anula
                               </p>
 
-                              {/* Invitation Description */}
-                              <p className="font-sans text-xs sm:text-sm text-[#44403C] max-w-sm leading-relaxed mb-4">
-                                Join us as we bathe Sameen & Anula in sacred turmeric, fragrant marigold petals, and joyous laughter under the golden sun.
-                              </p>
-
-                              {/* Date, Time & Venue Details (Clean & Readable) */}
-                              <div className="w-full max-w-sm space-y-2 mb-3">
-                                <div className="flex items-center justify-center gap-2 text-xs font-sans text-[#292524] bg-white/90 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-amber-300 shadow-xs">
-                                  <Clock className="w-3.5 h-3.5 text-[#F59E0B] shrink-0" />
-                                  <span className="font-medium">{fn.dayDate} • {fn.timing}</span>
-                                </div>
-
-                                <div className="flex items-center justify-center gap-2 text-xs font-sans text-[#292524] bg-white/90 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-amber-300 shadow-xs">
-                                  <MapPin className="w-3.5 h-3.5 text-[#FF4B91] shrink-0" />
-                                  <span className="font-medium">{fn.location}, Bangalore</span>
-                                </div>
+                              {/* Ornamental Gold Divider */}
+                              <div className="flex items-center justify-center gap-3 mb-5 sm:mb-6">
+                                <span className="w-10 sm:w-14 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
+                                <Sparkles className="w-3.5 h-3.5 text-[#F59E0B]" />
+                                <span className="w-10 sm:w-14 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
                               </div>
 
-                              {/* Dress Code Subtext */}
-                              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FEF3C7] border border-amber-300/80 text-[11px] font-sans text-[#78350F] font-semibold tracking-wide">
-                                <span>Dress Code: {fn.dressCode}</span>
+                              {/* Date, Time & Venue Details */}
+                              <div className="w-full max-w-md space-y-2.5 sm:space-y-3">
+                                <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-serif uppercase tracking-[0.16em] text-[#292524] bg-white/90 backdrop-blur-xs px-4 py-2 rounded-full border border-amber-300 shadow-xs">
+                                  <Calendar className="w-3.5 h-3.5 text-[#F59E0B] shrink-0" />
+                                  <span className="font-semibold">Friday, 20th November 2026</span>
+                                </div>
+
+                                <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-serif uppercase tracking-[0.16em] text-[#292524] bg-white/90 backdrop-blur-xs px-4 py-2 rounded-full border border-amber-300 shadow-xs">
+                                  <Clock className="w-3.5 h-3.5 text-[#F59E0B] shrink-0" />
+                                  <span className="font-semibold">9:30 AM – 12:30 PM</span>
+                                </div>
+
+                                <div className="flex items-center justify-center gap-2 text-xs sm:text-sm font-serif uppercase tracking-[0.16em] text-[#292524] bg-white/90 backdrop-blur-xs px-4 py-2 rounded-full border border-amber-300 shadow-xs">
+                                  <MapPin className="w-3.5 h-3.5 text-[#FF4B91] shrink-0" />
+                                  <span className="font-bold">Dwapara Convention Centre</span>
+                                </div>
                               </div>
                             </div>
 
@@ -320,197 +291,324 @@ export default function Timeline() {
                             </div>
                           </div>
                         </div>
-                      ) : fn.id === 'nikah' ? (
-                        /* The Sacred Nikah Visual Showcase */
-                        <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group">
-                          <Image
-                            src={fn.image}
-                            alt={fn.alt}
-                            fill
-                            className="object-cover object-center brightness-90 contrast-[1.08] transition-transform duration-1000 group-hover:scale-105"
-                            sizes="(max-width: 1024px) 100vw, 50vw"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                      ) : fn.id === 'sangeet' ? (
+                        /* Event 2: Sangeet Night — Intricate Oriental/Ethnic Floral Border & Nocturnal Garden Theme */
+                        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
+                          {/* Outer Border Frame: Intricate Ethnic/Oriental Floral Textile Pattern */}
+                          <div
+                            className="relative w-full border-[18px] sm:border-[24px] md:border-[28px] bg-[#0F1218]"
+                            style={{
+                              borderStyle: 'solid',
+                              borderImageSource: "url('/images/sangeet-border-frame.png')",
+                              borderImageSlice: '48 56 49 55',
+                              borderImageRepeat: 'round',
+                            }}
+                          >
+                            {/* Inner Border: Solid Deep Charcoal Frame */}
+                            <div className="relative border-[6px] sm:border-[8px] border-[#1A1C23] shadow-2xl overflow-hidden bg-gradient-to-b from-[#0B0F19] via-[#101726] to-[#161F30]">
+                              {/* Subtle Inner Frame Trim */}
+                              <div className="absolute inset-1 border border-white/10 pointer-events-none z-30" />
 
-                          {/* Location Tag */}
-                          <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-gold/50 text-gold-metallic text-xs font-sans tracking-wider">
-                              <MapPin className="w-3.5 h-3.5" />
-                              {fn.location}
-                            </span>
+                              {/* Ambient Starlight & Nocturnal Glow Effect */}
+                              <div
+                                className="absolute inset-0 pointer-events-none opacity-65"
+                                style={{
+                                  backgroundImage:
+                                    'radial-gradient(circle at 50% 28%, rgba(251, 191, 36, 0.12) 0%, transparent 55%), radial-gradient(circle at 20% 22%, rgba(255, 253, 249, 0.5) 1px, transparent 1.5px), radial-gradient(circle at 82% 18%, rgba(251, 191, 36, 0.45) 1px, transparent 1.5px), radial-gradient(circle at 68% 36%, rgba(255, 253, 249, 0.35) 1px, transparent 1.5px), radial-gradient(circle at 28% 42%, rgba(251, 191, 36, 0.35) 1px, transparent 1.5px)',
+                                }}
+                              />
+
+                              {/* Top Accent: Overhanging Night Foliage & Warm Golden Fairy Light Strands */}
+                              <div className="relative w-full z-10 pointer-events-none select-none">
+                                <img
+                                  src="/images/sangeet-top-lights.png"
+                                  alt=""
+                                  aria-hidden="true"
+                                  className="w-full h-auto block"
+                                />
+                                {/* Animated Golden Fairy Light Bulbs Shimmer Overlay */}
+                                <svg
+                                  viewBox="0 0 600 130"
+                                  className="absolute inset-0 w-full h-full pointer-events-none"
+                                  preserveAspectRatio="none"
+                                >
+                                  <defs>
+                                    <radialGradient id="fairyBulbGlow" cx="50%" cy="50%" r="50%">
+                                      <stop offset="0%" stopColor="#FFFBEB" stopOpacity="1" />
+                                      <stop offset="40%" stopColor="#FBBF24" stopOpacity="0.85" />
+                                      <stop offset="100%" stopColor="#F59E0B" stopOpacity="0" />
+                                    </radialGradient>
+                                  </defs>
+                                  {/* Subtle Draped Golden Cords */}
+                                  <path
+                                    d="M 10,8 Q 160,65 340,12"
+                                    fill="none"
+                                    stroke="#FDE68A"
+                                    strokeWidth="0.75"
+                                    strokeOpacity="0.45"
+                                  />
+                                  <path
+                                    d="M 210,6 Q 380,78 590,18"
+                                    fill="none"
+                                    stroke="#FDE68A"
+                                    strokeWidth="0.75"
+                                    strokeOpacity="0.45"
+                                  />
+                                  <path
+                                    d="M 0,48 Q 250,115 595,52"
+                                    fill="none"
+                                    stroke="#FDE68A"
+                                    strokeWidth="0.75"
+                                    strokeOpacity="0.4"
+                                  />
+                                  {/* Warm Glowing Fairy Bulbs */}
+                                  {[
+                                    { cx: 65, cy: 26 },
+                                    { cx: 130, cy: 38 },
+                                    { cx: 195, cy: 36 },
+                                    { cx: 265, cy: 27 },
+                                    { cx: 335, cy: 40 },
+                                    { cx: 405, cy: 45 },
+                                    { cx: 475, cy: 39 },
+                                    { cx: 540, cy: 28 },
+                                    { cx: 95, cy: 68 },
+                                    { cx: 175, cy: 81 },
+                                    { cx: 260, cy: 86 },
+                                    { cx: 345, cy: 84 },
+                                    { cx: 430, cy: 76 },
+                                    { cx: 510, cy: 64 },
+                                  ].map((b, idx) => (
+                                    <g key={idx} className="animate-pulse">
+                                      <circle cx={b.cx} cy={b.cy} r="7" fill="url(#fairyBulbGlow)" />
+                                      <circle cx={b.cx} cy={b.cy} r="2" fill="#FFFDF9" />
+                                    </g>
+                                  ))}
+                                </svg>
+                              </div>
+
+                              {/* Card Typography & Event Details */}
+                              <div className="relative z-20 px-5 sm:px-8 md:px-10 pt-1 pb-2 flex flex-col items-center text-center">
+                                {/* Title: "Sangeet Night" in Elegant Flowing Script */}
+                                <h3 className="font-script text-5xl sm:text-6xl md:text-7xl text-[#FFFDF9] tracking-wide leading-none drop-shadow-[0_2px_14px_rgba(255,248,220,0.35)] mb-4 sm:mb-5">
+                                  Sangeet Night
+                                </h3>
+
+                                {/* Date, Time & Venue Details */}
+                                <div className="space-y-1.5 sm:space-y-2 text-[#F8FAFC]">
+                                  <p className="font-serif text-sm sm:text-base md:text-lg uppercase tracking-[0.2em] font-medium text-[#FFFDF9]">
+                                    Friday, 20th November 2026
+                                  </p>
+                                  <p className="font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.22em] text-amber-100/95 font-medium">
+                                    6:00 PM Onwards
+                                  </p>
+                                  <div className="pt-1 flex items-center justify-center gap-2">
+                                    <span className="w-6 h-[1px] bg-gradient-to-r from-transparent to-amber-300/60" />
+                                    <p className="font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.18em] text-[#FFFDF9] font-semibold">
+                                      Dwapara Convention Centre
+                                    </p>
+                                    <span className="w-6 h-[1px] bg-gradient-to-l from-transparent to-amber-300/60" />
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Mid/Bottom Accent: Romantic Night Garden Foliage, Soft Lantern Glows & Couple Illustration */}
+                              <div className="relative w-full z-10 -mt-1 pointer-events-none select-none">
+                                <img
+                                  src="/images/sangeet-garden-art.png"
+                                  alt="Romantic Night Garden Sangeet Illustration"
+                                  className="w-full h-auto block"
+                                />
+                                {/* Soft Ambient Lantern Glow Accents */}
+                                <div className="absolute bottom-[18%] left-[12%] w-16 h-16 rounded-full bg-amber-400/20 blur-xl animate-pulse" />
+                                <div className="absolute bottom-[16%] right-[12%] w-16 h-16 rounded-full bg-amber-400/20 blur-xl animate-pulse" />
+                                <div className="absolute bottom-[8%] left-[22%] w-20 h-20 rounded-full bg-amber-300/15 blur-xl animate-pulse" />
+                                <div className="absolute bottom-[8%] right-[22%] w-20 h-20 rounded-full bg-amber-300/15 blur-xl animate-pulse" />
+                              </div>
+
+                              {/* Bottom Sign-off: "With love ❤️ Sameen & Anula" with Subtle Sparkle Icons */}
+                              <div className="relative z-20 px-4 pt-1 pb-5 sm:pb-6 flex items-center justify-center gap-2 text-center">
+                                <Sparkles className="w-3.5 h-3.5 text-amber-300/90 shrink-0" />
+                                <p className="font-serif text-sm sm:text-base md:text-lg text-[#FFFDF9] tracking-wide font-normal">
+                                  With love <span className="text-rose-500 mx-0.5">❤️</span> Sameen &amp; Anula
+                                </p>
+                                <Sparkles className="w-3.5 h-3.5 text-amber-300/90 shrink-0" />
+                              </div>
+                            </div>
                           </div>
+                        </div>
+                      ) : fn.id === 'nikah' ? (
+                        /* Event 3: The Sacred Nikah — Crimson Brocade Frame, Mughal Arch, Tropical Palms, Lotuses & Stone Jali Balustrade */
+                        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-gold/40">
+                          <img
+                            src="/images/nikah-card-bg.png"
+                            alt="The Sacred Nikah Mughal Arch Invitation Frame"
+                            className="w-full h-auto block select-none pointer-events-none"
+                          />
 
-                          {/* Poetic Quote Overlay on Image */}
-                          <div className="absolute bottom-4 left-4 right-4 text-ivory">
-                            <p className="font-script text-2xl sm:text-3xl text-amber-200 italic mb-1">
-                              &ldquo;{fn.quote}&rdquo;
-                            </p>
+                          {/* Centered Typography Overlay Inside Mughal Arch Cutout */}
+                          <div className="absolute inset-x-[20%] top-[21%] bottom-[17%] flex flex-col items-center justify-center text-center px-2 sm:px-6">
+                            {/* Subtle Ornamental Top Flourish */}
+                            <div className="flex items-center justify-center gap-2 mb-2 sm:mb-4">
+                              <span className="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-transparent to-[#B4823E]" />
+                              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#B4823E]" />
+                              <span className="w-6 sm:w-10 h-[1px] bg-gradient-to-l from-transparent to-[#B4823E]" />
+                            </div>
+
+                            {/* Event Title */}
+                            <h3 className="font-serif text-lg sm:text-3xl md:text-4xl uppercase tracking-[0.14em] text-[#6B1D2F] font-semibold leading-tight mb-3 sm:mb-6">
+                              The Sacred Nikah
+                            </h3>
+
+                            {/* Couple Names with Minimalist Golden Hand-in-Hand Blessing Sketch Between Names */}
+                            <div className="flex flex-col items-center my-1 sm:my-2">
+                              <span className="font-script text-4xl sm:text-6xl md:text-7xl text-[#8A5A2B] leading-none">
+                                Sameen
+                              </span>
+                              <div className="my-1.5 sm:my-3 flex items-center justify-center gap-2">
+                                <span className="sr-only">&amp;</span>
+                                <img
+                                  src="/images/nikah-hands.png"
+                                  alt="Hand-in-hand blessing sketch"
+                                  className="w-16 sm:w-28 md:w-32 h-auto object-contain select-none pointer-events-none"
+                                />
+                              </div>
+                              <span className="font-script text-4xl sm:text-6xl md:text-7xl text-[#8A5A2B] leading-none">
+                                Anula
+                              </span>
+                            </div>
+
+                            {/* Ornamental Gold Divider */}
+                            <div className="w-20 sm:w-32 h-[1px] bg-gradient-to-r from-transparent via-[#B4823E]/70 to-transparent my-3 sm:my-6" />
+
+                            {/* Date, Time & Venue Details */}
+                            <div className="space-y-1 sm:space-y-2">
+                              <p className="font-serif text-[11px] sm:text-base md:text-lg uppercase tracking-[0.16em] text-[#5A2328] font-semibold">
+                                Saturday, 21st November 2026
+                              </p>
+                              <p className="font-serif text-[10px] sm:text-sm md:text-base uppercase tracking-[0.2em] text-[#7D4538] font-medium">
+                                10:00 AM Onwards
+                              </p>
+                              <p className="pt-1 font-serif text-[11px] sm:text-base md:text-lg uppercase tracking-[0.14em] text-[#6B1D2F] font-bold">
+                                Dwapara Convention Centre
+                              </p>
+                            </div>
                           </div>
                         </div>
                       ) : fn.id === 'muhurat' ? (
-                        /* The Auspicious Muhurat with Authentic Patola Artwork */
-                        <div className="relative">
-                          <div 
-                            onClick={() =>
-                              setSelectedInvite({
-                                src: '/images/patola-card-full.png',
-                                title: 'Vivah Patola Card',
-                                subtitle: 'Sameen & Anula • 21 November, 2026',
-                                downloadName: 'Sameen-Anula-Patola-Card.png',
-                              })
-                            }
-                            className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group cursor-pointer"
-                          >
-                            <Image
-                              src={fn.image}
-                              alt={fn.alt}
-                              fill
-                              className="object-cover object-center brightness-90 contrast-[1.08] transition-transform duration-1000 group-hover:scale-105"
-                              sizes="(max-width: 1024px) 100vw, 50vw"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                        /* Event 4: The Auspicious Muhurat — Green/Gold Kundan Border, Maroon Filigree Frame, Hanging Deepams, Temple Pillar & Brass Urli */
+                        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-gold/40">
+                          <img
+                            src="/images/muhurat-card-bg.png"
+                            alt="The Auspicious Muhurat South Indian Kundan & Temple Pillar Frame"
+                            className="w-full h-auto block select-none pointer-events-none"
+                          />
 
-                            {/* Location Tag */}
-                            <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-gold/50 text-gold-metallic text-xs font-sans tracking-wider">
-                                <MapPin className="w-3.5 h-3.5" />
-                                {fn.location}
-                              </span>
+                          {/* Centered Typography Overlay on Aged Ivory/Parchment Canvas */}
+                          <div className="absolute left-[23%] right-[22%] top-[19%] bottom-[13%] flex flex-col items-center justify-center text-center px-2 sm:px-4">
+                            {/* Twin Peacocks Emblem */}
+                            <img
+                              src="/images/muhurat-peacocks.png"
+                              alt=""
+                              aria-hidden="true"
+                              className="w-12 sm:w-20 md:w-24 h-auto object-contain mb-2 sm:mb-4 select-none pointer-events-none"
+                            />
+
+                            {/* Event Title */}
+                            <h3 className="font-serif text-base sm:text-2xl md:text-3xl uppercase tracking-[0.12em] text-[#5C1A1B] font-semibold leading-snug mb-2 sm:mb-4">
+                              The Auspicious Muhurat
+                            </h3>
+
+                            {/* Couple Names */}
+                            <p className="font-script text-3xl sm:text-5xl md:text-6xl text-[#7A1C1C] leading-tight my-1.5 sm:my-3">
+                              Sameen &amp; Anula
+                            </p>
+
+                            {/* Ornamental Maroon & Gold Divider */}
+                            <div className="flex items-center justify-center gap-2 my-2.5 sm:my-5">
+                              <span className="w-8 sm:w-14 h-[1px] bg-gradient-to-r from-transparent to-[#7A1C1C]/70" />
+                              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#8C6223]" />
+                              <span className="w-8 sm:w-14 h-[1px] bg-gradient-to-l from-transparent to-[#7A1C1C]/70" />
                             </div>
 
-                            {/* Poetic Quote Overlay on Image */}
-                            <div className="absolute bottom-4 left-4 right-4 text-ivory">
-                              <p className="font-script text-2xl sm:text-3xl text-amber-200 italic mb-1">
-                                &ldquo;{fn.quote}&rdquo;
+                            {/* Date, Time & Venue Details */}
+                            <div className="space-y-1 sm:space-y-2">
+                              <p className="font-serif text-[11px] sm:text-base md:text-lg uppercase tracking-[0.14em] text-[#3E1F14] font-semibold">
+                                Saturday, 21st November 2026
+                              </p>
+                              <p className="font-serif text-[10px] sm:text-sm md:text-base uppercase tracking-[0.18em] text-[#5C1A1B] font-semibold">
+                                6:00 PM – 9:00 PM
+                              </p>
+                              <p className="pt-1 font-serif text-[11px] sm:text-base md:text-lg uppercase tracking-[0.13em] text-[#4A1215] font-bold">
+                                Dwapara Convention Centre
                               </p>
                             </div>
-
-                            {/* Hover Overlay */}
-                            <div className="absolute inset-0 bg-black/50 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4">
-                              <div className="w-12 h-12 rounded-full bg-gold-metallic text-charcoal flex items-center justify-center mb-2">
-                                <ZoomIn className="w-6 h-6" />
-                              </div>
-                              <span className="text-xs font-sans uppercase tracking-widest text-amber-200 font-bold">
-                                Click to View Full Patola Card
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Patola Monogram Card Quick Bar */}
-                          <div className="mt-4 flex items-center justify-between p-3.5 rounded-xl bg-black/60 border border-gold/40">
-                            <div className="flex items-center gap-3">
-                              <div className="relative w-12 h-9 rounded-lg overflow-hidden border border-gold/50">
-                                <Image
-                                  src="/images/monogram-cartouche.png"
-                                  alt="S-A Monogram Cartouche"
-                                  fill
-                                  className="object-cover"
-                                />
-                              </div>
-                              <div>
-                                <span className="text-xs font-serif text-amber-100 block font-medium">
-                                  Vivah Patola Monogram
-                                </span>
-                                <span className="text-[11px] text-amber-300/80 font-sans">
-                                  21 November, 2026
-                                </span>
-                              </div>
-                            </div>
-                            <button
-                              onClick={() =>
-                                setSelectedInvite({
-                                  src: '/images/patola-card-full.png',
-                                  title: 'Vivah Patola Card',
-                                  subtitle: 'Sameen & Anula • 21 November, 2026',
-                                  downloadName: 'Sameen-Anula-Patola-Card.png',
-                                })
-                              }
-                              className="px-3.5 py-1.5 rounded-full bg-gold-metallic/20 hover:bg-gold-metallic/35 border border-gold-metallic/50 text-xs font-sans text-gold-metallic flex items-center gap-1.5 transition-all"
-                            >
-                              <Eye className="w-3 h-3" />
-                              <span>View Monogram</span>
-                            </button>
                           </div>
                         </div>
                       ) : (
-                        /* The Grand Sangeet Visual Showcase */
-                        <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-2xl group">
-                          <Image
-                            src={fn.image}
-                            alt={fn.alt}
-                            fill
-                            className="object-cover object-center brightness-90 contrast-[1.08] transition-transform duration-1000 group-hover:scale-105"
-                            sizes="(max-width: 1024px) 100vw, 50vw"
+                        /* Event 5: Wedding Reception — Royal Purple Temple Ikat Border, Saffron Grid & Scalloped Multi-Foil Arch with Bougainvillea */
+                        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-gold/40">
+                          <img
+                            src="/images/reception-card-bg.png"
+                            alt="Wedding Reception Temple Ikat & Bougainvillea Scalloped Arch Frame"
+                            className="w-full h-auto block select-none pointer-events-none"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
-                          {/* Location Tag */}
-                          <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-gold/50 text-gold-metallic text-xs font-sans tracking-wider">
-                              <MapPin className="w-3.5 h-3.5" />
-                              {fn.location}
-                            </span>
-                          </div>
+                          {/* Centered Typography Overlay Inside Scalloped Multi-Foil Arch */}
+                          <div className="absolute inset-x-[23%] top-[22%] bottom-[18%] flex flex-col items-center justify-center text-center px-2 sm:px-6">
+                            {/* Ornamental Top Flourish */}
+                            <div className="flex items-center justify-center gap-2 mb-2 sm:mb-4">
+                              <span className="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-transparent to-[#B47B2B]" />
+                              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#B47B2B]" />
+                              <span className="w-6 sm:w-10 h-[1px] bg-gradient-to-l from-transparent to-[#B47B2B]" />
+                            </div>
 
-                          {/* Poetic Quote Overlay on Image */}
-                          <div className="absolute bottom-4 left-4 right-4 text-ivory">
-                            <p className="font-script text-2xl sm:text-3xl text-amber-200 italic mb-1">
-                              &ldquo;{fn.quote}&rdquo;
+                            {/* Event Title */}
+                            <h3 className="font-serif text-lg sm:text-3xl md:text-4xl uppercase tracking-[0.14em] text-[#4A1D5E] font-semibold leading-tight mb-2 sm:mb-4">
+                              Wedding Reception
+                            </h3>
+
+                            {/* Couple Names */}
+                            <p className="font-script text-3xl sm:text-5xl md:text-6xl text-[#9B2C5A] leading-tight my-2 sm:my-4">
+                              Sameen &amp; Anula
                             </p>
+
+                            {/* Ornamental Gold Divider */}
+                            <div className="w-20 sm:w-32 h-[1px] bg-gradient-to-r from-transparent via-[#B47B2B]/70 to-transparent my-2.5 sm:my-5" />
+
+                            {/* Date, Time & Venue Details */}
+                            <div className="space-y-1 sm:space-y-2">
+                              <p className="font-serif text-[11px] sm:text-base md:text-lg uppercase tracking-[0.15em] text-[#3B184A] font-semibold">
+                                Sunday, 22nd November 2026
+                              </p>
+                              <p className="font-serif text-[10px] sm:text-sm md:text-base uppercase tracking-[0.18em] text-[#7A284B] font-semibold">
+                                7:00 PM Onwards
+                              </p>
+                              <p className="pt-1 font-serif text-[11px] sm:text-base md:text-lg uppercase tracking-[0.14em] text-[#4A1D5E] font-bold">
+                                Ebisu Convention Centre
+                              </p>
+                            </div>
                           </div>
                         </div>
                       )}
                     </div>
 
-                    {/* Detailed Content & Celebratory Breakdown */}
-                    <div className="lg:col-span-6 space-y-6">
-                      <div>
-                        <span className="text-xs uppercase tracking-luxury font-sans text-amber-300 font-bold block mb-1">
-                          {fn.theme}
-                        </span>
-                        <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-ivory leading-tight">
-                          {fn.title}
-                        </h3>
-                        <p className="text-amber-100/90 font-sans text-sm sm:text-base mt-2 font-medium">
-                          {fn.subtitle}
-                        </p>
-                      </div>
-
-                      <p className="font-sans text-sm sm:text-base text-amber-50/85 leading-relaxed">
-                        {fn.description}
-                      </p>
-
-                      {/* Ritual Highlights */}
-                      <div className="p-5 rounded-2xl bg-black/40 border border-gold/30">
-                        <h4 className="text-xs uppercase tracking-luxury font-sans text-gold-metallic font-bold mb-3 flex items-center gap-1.5">
-                          <Sparkles className="w-3.5 h-3.5" />
-                          <span>Ceremony Highlights & Rasm</span>
-                        </h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          {fn.highlights.map((item, i) => (
-                            <div key={i} className="flex items-start gap-2 text-xs font-sans text-amber-100">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-gold-metallic shrink-0 mt-0.5" />
-                              <span>{item}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
+                    {/* Unified Centered Bottom Bar: Attire & Palette Guide + Add to Calendar Button */}
+                    <div className="w-full mt-8 space-y-5 flex flex-col items-center">
                       {/* Dress Code & Color Palette Guide */}
-                      <div className="p-5 rounded-2xl bg-black/40 border border-gold/30 space-y-3">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                          <span className="text-xs uppercase tracking-luxury font-sans text-amber-200 font-semibold">
-                            Attire & Palette Guide
+                      <div className="w-full p-5 sm:p-6 rounded-2xl bg-black/45 border border-gold/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                        <div className="space-y-1">
+                          <span className="text-xs uppercase tracking-luxury font-sans text-amber-200 font-semibold block">
+                            Attire &amp; Palette Guide
                           </span>
-                          <span className="text-xs text-amber-300/80 font-sans italic">
+                          <span className="text-xs sm:text-sm text-amber-300/90 font-sans italic block">
                             {fn.dressCode}
                           </span>
                         </div>
 
                         {/* Visual Color Swatches */}
-                        <div className="flex items-center gap-3 pt-1">
-                          <span className="text-[11px] font-sans text-amber-200/70 uppercase">Colors:</span>
-                          <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-3">
+                          <span className="text-[11px] font-sans text-amber-200/70 uppercase">Palette:</span>
+                          <div className="flex items-center gap-2.5">
                             {fn.colorSwatches.map((swatch) => (
                               <div
                                 key={swatch.name}
@@ -531,15 +629,13 @@ export default function Timeline() {
                       </div>
 
                       {/* Add to Calendar Action */}
-                      <div className="pt-2 flex flex-wrap gap-4">
-                        <button
-                          onClick={() => generateSingleEventIcs(fn)}
-                          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-gold-metallic via-amber-400 to-gold-antique text-charcoal font-sans text-xs tracking-widest uppercase font-bold hover:shadow-lg hover:shadow-gold/30 hover:scale-105 transition-all"
-                        >
-                          <Calendar className="w-3.5 h-3.5" />
-                          <span>Add {fn.title} to Calendar</span>
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => generateSingleEventIcs(fn)}
+                        className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-gold-metallic via-amber-400 to-gold-antique text-charcoal font-sans text-xs tracking-widest uppercase font-bold hover:shadow-lg hover:shadow-gold/30 hover:scale-105 transition-all"
+                      >
+                        <Calendar className="w-4 h-4" />
+                        <span>Add {fn.title} to Calendar</span>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -548,77 +644,6 @@ export default function Timeline() {
           })}
         </div>
       </div>
-
-      {/* Interactive Full-Screen Invitation Lightbox Modal */}
-      <AnimatePresence>
-        {selectedInvite && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-xl"
-            onClick={() => setSelectedInvite(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="relative max-w-2xl w-full bg-[#18030B] border-2 border-gold-metallic/60 rounded-3xl overflow-hidden shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Top Header */}
-              <div className="p-4 sm:p-5 flex items-center justify-between border-b border-gold/30 bg-black/60">
-                <div>
-                  <h3 className="font-serif text-lg sm:text-2xl text-amber-200 font-medium">
-                    {selectedInvite.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm font-sans text-amber-100/70">
-                    {selectedInvite.subtitle}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSelectedInvite(null)}
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-ivory flex items-center justify-center transition-colors border border-gold/30"
-                  aria-label="Close modal"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Modal Image Showcase */}
-              <div className="relative aspect-[3/4] max-h-[70vh] w-full bg-[#FFFBEB] flex items-center justify-center p-2">
-                <div className="relative w-full h-full">
-                  <Image
-                    src={selectedInvite.src}
-                    alt={selectedInvite.title}
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-              </div>
-
-              {/* Modal Footer with Actions */}
-              <div className="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 border-t border-gold/30 bg-black/80">
-                <span className="text-xs font-sans text-amber-300 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  Sameen & Anula • Bangalore Wedding
-                </span>
-
-                <a
-                  href={selectedInvite.src}
-                  download={selectedInvite.downloadName}
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-gold-metallic via-amber-400 to-gold-antique text-charcoal font-sans text-xs tracking-wider uppercase font-bold hover:shadow-lg hover:shadow-gold/30 transition-all"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>Download Card</span>
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
