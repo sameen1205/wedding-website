@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Sparkles, 
   Clock, 
@@ -12,7 +13,7 @@ import {
   Moon, 
   Heart
 } from 'lucide-react';
-import { weddingDetails, IndianFunction } from '@/data/weddingData';
+import { weddingDetails, IndianFunction, getTierConfig } from '@/data/weddingData';
 import { 
   LeftChhatriAndUrli, 
   RightBananaLeavesAndDholak, 
@@ -21,8 +22,28 @@ import {
   CornerOrnaments 
 } from '@/components/HaldiCeremonyWidget';
 
-export default function Timeline() {
-  const [activeTab, setActiveTab] = useState<string>('haldi');
+function TimelineContent() {
+  const searchParams = useSearchParams();
+  const tierParam = searchParams.get('tier');
+  const tierConfig = getTierConfig(tierParam);
+  const allowedIds = tierConfig.allowedEventIds;
+
+  const visibleFunctions = weddingDetails.functions.filter((fn) =>
+    allowedIds.includes(fn.id)
+  );
+
+  const [activeTab, setActiveTab] = useState<string>(
+    visibleFunctions[0]?.id || 'reception'
+  );
+
+  useEffect(() => {
+    if (
+      visibleFunctions.length > 0 &&
+      !visibleFunctions.some((fn) => fn.id === activeTab)
+    ) {
+      setActiveTab(visibleFunctions[0].id);
+    }
+  }, [tierParam, visibleFunctions, activeTab]);
 
   const generateSingleEventIcs = (fn: IndianFunction) => {
     let startIso = '';
@@ -35,14 +56,14 @@ export default function Timeline() {
       startIso = '20261120T123000Z'; // 6:00 PM IST
       endIso = '20261120T180000Z';   // 11:30 PM IST
     } else if (fn.id === 'nikah') {
-      startIso = '20261121T043000Z'; // 10:00 AM IST
+      startIso = '20261121T053000Z'; // 11:00 AM IST
       endIso = '20261121T083000Z';   // 2:00 PM IST
     } else if (fn.id === 'muhurat') {
       startIso = '20261121T123000Z'; // 6:00 PM IST
       endIso = '20261121T153000Z';   // 9:00 PM IST
     } else if (fn.id === 'reception') {
-      startIso = '20261122T133000Z'; // 7:00 PM IST
-      endIso = '20261122T183000Z';   // 12:00 AM IST
+      startIso = '20261122T130000Z'; // 6:30 PM IST
+      endIso = '20261122T180000Z';   // 11:30 PM IST
     } else {
       startIso = '20261120T050000Z';
       endIso = '20261120T090000Z';
@@ -91,10 +112,15 @@ export default function Timeline() {
   return (
     <section
       id="itinerary"
-      className="relative py-28 sm:py-36 bg-[#16060B] text-ivory overflow-hidden"
+      className="relative py-28 sm:py-36 bg-gradient-to-b from-[#240612] via-[#36091E] to-[#1F030E] text-ivory overflow-hidden"
     >
-      {/* Background Subtle Jaal Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-gradient-to-b from-crimson-deep/40 via-transparent to-transparent pointer-events-none" />
+      {/* Background Subtle Gold Vignette Glow */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
+        }}
+      />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header Banner */}
@@ -107,10 +133,10 @@ export default function Timeline() {
             className="flex items-center justify-center gap-3 mb-4"
           >
             <span className="w-12 h-[1.5px] bg-gradient-to-r from-transparent via-gold-metallic to-gold" />
-            <span className="text-xs uppercase tracking-luxury font-sans text-amber-300 font-bold flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-gold-metallic" />
+            <span className="text-xs uppercase tracking-widest font-sans text-[#E2C799] font-bold flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
               The Grand Itinerary
-              <Sparkles className="w-3.5 h-3.5 text-gold-metallic" />
+              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
             </span>
             <span className="w-12 h-[1.5px] bg-gradient-to-l from-transparent via-gold-metallic to-gold" />
           </motion.div>
@@ -120,9 +146,13 @@ export default function Timeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-ivory tracking-tight"
+            className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-[#F5E6C8] tracking-tight"
           >
-            Three Days of Sacred Celebrations
+            {tierParam?.toLowerCase().trim() === 'reception'
+              ? 'An Evening of Sacred Celebration'
+              : tierParam?.toLowerCase().trim() === 'wedding'
+              ? 'Sacred Wedding & Reception Celebrations'
+              : 'Three Days of Sacred Celebrations'}
           </motion.h2>
 
           <motion.p
@@ -130,50 +160,64 @@ export default function Timeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.2 }}
-            className="mt-4 text-amber-100/80 font-sans text-sm sm:text-base leading-relaxed max-w-2xl mx-auto"
+            className="mt-4 text-[#F3F4F6] font-sans text-sm sm:text-base leading-relaxed max-w-2xl mx-auto"
           >
-            From the radiant marigold showers of the Haldi to the euphoric beats of the Grand Sangeet, the sacred vows of the Nikah, and the auspicious rituals of the Muhurat.
+            {tierParam?.toLowerCase().trim() === 'reception'
+              ? 'Join us for an enchanting evening of felicitations, music, and joyous celebration at The Wedding Reception.'
+              : tierParam?.toLowerCase().trim() === 'wedding'
+              ? 'Join us for the sacred vows of Mehfil-e-Nikah, the auspicious rituals of the Muhurat, and an evening of celebration at the Wedding Reception.'
+              : 'From the radiant marigold showers of The Haldi to the euphoric beats of Sangeet Night, the sacred vows of Mehfil-e-Nikah, and the auspicious rituals of the Muhurat.'}
           </motion.p>
 
           {/* Quick Jump Function Navigation Bar */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            {weddingDetails.functions.map((fn) => {
-              const isActive = activeTab === fn.id;
-              return (
-                <button
-                  key={fn.id}
-                  onClick={() => scrollToFunction(fn.id)}
-                  className={`px-5 py-2.5 rounded-full text-xs font-sans tracking-luxury uppercase transition-all duration-300 flex items-center gap-2 border ${
-                    isActive
-                      ? 'bg-gradient-to-r from-gold-metallic via-amber-400 to-gold-antique text-charcoal font-bold shadow-lg shadow-gold/20 border-gold-metallic scale-105'
-                      : 'bg-black/40 text-ivory/80 border-gold/30 hover:border-gold-metallic hover:text-ivory'
-                  }`}
-                >
-                  {fn.id === 'haldi' && <Sun className="w-3.5 h-3.5" />}
-                  {fn.id === 'sangeet' && <Music className="w-3.5 h-3.5" />}
-                  {fn.id === 'nikah' && <Heart className="w-3.5 h-3.5" />}
-                  {fn.id === 'muhurat' && <Sparkles className="w-3.5 h-3.5" />}
-                  {fn.id === 'reception' && <Moon className="w-3.5 h-3.5" />}
-                  <span>{fn.title}</span>
-                </button>
-              );
-            })}
+            <AnimatePresence mode="popLayout">
+              {visibleFunctions.map((fn) => {
+                const isActive = activeTab === fn.id;
+                return (
+                  <motion.button
+                    key={fn.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                    transition={{ duration: 0.35 }}
+                    onClick={() => scrollToFunction(fn.id)}
+                    className={`px-5 py-2.5 rounded-full text-xs font-sans tracking-luxury uppercase transition-all duration-300 flex items-center gap-2 border ${
+                      isActive
+                        ? 'bg-gradient-to-r from-gold-metallic via-amber-400 to-gold-antique text-charcoal font-bold shadow-lg shadow-gold/20 border-gold-metallic scale-105'
+                        : 'bg-black/40 text-ivory/80 border-gold/30 hover:border-gold-metallic hover:text-ivory'
+                    }`}
+                  >
+                    {fn.id === 'haldi' && <Sun className="w-3.5 h-3.5" />}
+                    {fn.id === 'sangeet' && <Music className="w-3.5 h-3.5" />}
+                    {fn.id === 'nikah' && <Heart className="w-3.5 h-3.5" />}
+                    {fn.id === 'muhurat' && <Sparkles className="w-3.5 h-3.5" />}
+                    {fn.id === 'reception' && <Moon className="w-3.5 h-3.5" />}
+                    <span>{fn.title}</span>
+                  </motion.button>
+                );
+              })}
+            </AnimatePresence>
           </div>
         </div>
 
         {/* EXPANSIVE MULTI-FUNCTION SHOWCASE SECTIONS */}
         <div className="space-y-24 sm:space-y-32">
-          {weddingDetails.functions.map((fn) => {
-            return (
-              <motion.article
-                key={fn.id}
-                id={`function-${fn.id}`}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className={`relative max-w-4xl mx-auto rounded-3xl overflow-hidden border-2 border-gold/40 shadow-2xl ${fn.patternClass} text-ivory`}
-              >
+          <AnimatePresence mode="popLayout">
+            {visibleFunctions.map((fn, index) => {
+              return (
+                <motion.article
+                  key={fn.id}
+                  layout
+                  id={`function-${fn.id}`}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className={`relative max-w-4xl mx-auto rounded-3xl overflow-hidden border-2 border-gold/40 shadow-2xl ${fn.patternClass} text-ivory`}
+                >
                 {/* Textile Scrim for 100% Crisp Text Contrast & Readability */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/75 to-black/90 pointer-events-none" />
 
@@ -245,7 +289,7 @@ export default function Timeline() {
 
                               {/* Ceremony Title */}
                               <h3 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal text-[#1C1917] tracking-tight leading-tight">
-                                The Radiant Haldi
+                                The Haldi
                               </h3>
 
                               {/* Couple Name */}
@@ -437,11 +481,11 @@ export default function Timeline() {
                           </div>
                         </div>
                       ) : fn.id === 'nikah' ? (
-                        /* Event 3: The Sacred Nikah — Crimson Brocade Frame, Mughal Arch, Tropical Palms, Lotuses & Stone Jali Balustrade */
+                        /* Event 3: Mehfil-e-Nikah — Crimson Brocade Frame, Mughal Arch, Tropical Palms, Lotuses & Stone Jali Balustrade */
                         <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-gold/40">
                           <img
                             src="/images/nikah-card-bg.png"
-                            alt="The Sacred Nikah Mughal Arch Invitation Frame"
+                            alt="Mehfil-e-Nikah Mughal Arch Invitation Frame"
                             className="w-full h-auto block select-none pointer-events-none"
                           />
 
@@ -456,7 +500,7 @@ export default function Timeline() {
 
                             {/* Event Title */}
                             <h3 className="font-serif text-lg sm:text-3xl md:text-4xl uppercase tracking-[0.14em] text-[#6B1D2F] font-semibold leading-tight mb-3 sm:mb-6">
-                              The Sacred Nikah
+                              Mehfil-e-Nikah
                             </h3>
 
                             {/* Couple Names with Minimalist Golden Hand-in-Hand Blessing Sketch Between Names */}
@@ -486,7 +530,7 @@ export default function Timeline() {
                                 Saturday, 21st November 2026
                               </p>
                               <p className="font-serif text-[10px] sm:text-sm md:text-base uppercase tracking-[0.2em] text-[#7D4538] font-medium">
-                                10:00 AM Onwards
+                                11:00 AM Onwards
                               </p>
                               <p className="pt-1 font-serif text-[11px] sm:text-base md:text-lg uppercase tracking-[0.14em] text-[#6B1D2F] font-bold">
                                 Dwapara Convention Centre
@@ -545,8 +589,15 @@ export default function Timeline() {
                           </div>
                         </div>
                       ) : (
-                        /* Event 5: Wedding Reception — Royal Purple Temple Ikat Border, Saffron Grid & Scalloped Multi-Foil Arch with Bougainvillea */
-                        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-gold/40">
+                        /* Event 5: Wedding Reception — Royal Purple Temple Ikat Border, Deep Royal Burnt Orange / Rich Terracotta Grid (#9E3205 / #B43E08 / #882903) & Scalloped Multi-Foil Arch with Bougainvillea */
+                        <div
+                          className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-[#B43E08]/60 bg-[#9E3205]"
+                          style={{
+                            backgroundImage:
+                              'linear-gradient(to right, rgba(180, 62, 8, 0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(180, 62, 8, 0.35) 1px, transparent 1px), radial-gradient(circle at center, #B43E08 0%, #9E3205 60%, #882903 100%)',
+                            backgroundSize: '24px 24px, 24px 24px, 100% 100%',
+                          }}
+                        >
                           <img
                             src="/images/reception-card-bg.png"
                             alt="Wedding Reception Temple Ikat & Bougainvillea Scalloped Arch Frame"
@@ -557,31 +608,31 @@ export default function Timeline() {
                           <div className="absolute inset-x-[23%] top-[22%] bottom-[18%] flex flex-col items-center justify-center text-center px-2 sm:px-6">
                             {/* Ornamental Top Flourish */}
                             <div className="flex items-center justify-center gap-2 mb-2 sm:mb-4">
-                              <span className="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-transparent to-[#B47B2B]" />
-                              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#B47B2B]" />
-                              <span className="w-6 sm:w-10 h-[1px] bg-gradient-to-l from-transparent to-[#B47B2B]" />
+                              <span className="w-6 sm:w-10 h-[1px] bg-gradient-to-r from-transparent to-[#9E3205]" />
+                              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#9E3205]" />
+                              <span className="w-6 sm:w-10 h-[1px] bg-gradient-to-l from-transparent to-[#9E3205]" />
                             </div>
 
                             {/* Event Title */}
                             <h3 className="font-serif text-lg sm:text-3xl md:text-4xl uppercase tracking-[0.14em] text-[#4A1D5E] font-semibold leading-tight mb-2 sm:mb-4">
-                              Wedding Reception
+                              The Wedding Reception
                             </h3>
 
                             {/* Couple Names */}
-                            <p className="font-script text-3xl sm:text-5xl md:text-6xl text-[#9B2C5A] leading-tight my-2 sm:my-4">
+                            <p className="font-script text-3xl sm:text-5xl md:text-6xl text-[#882903] leading-tight my-2 sm:my-4">
                               Sameen &amp; Anula
                             </p>
 
-                            {/* Ornamental Gold Divider */}
-                            <div className="w-20 sm:w-32 h-[1px] bg-gradient-to-r from-transparent via-[#B47B2B]/70 to-transparent my-2.5 sm:my-5" />
+                            {/* Ornamental Gold & Terracotta Divider */}
+                            <div className="w-20 sm:w-32 h-[1px] bg-gradient-to-r from-transparent via-[#9E3205]/75 to-transparent my-2.5 sm:my-5" />
 
                             {/* Date, Time & Venue Details */}
                             <div className="space-y-1 sm:space-y-2">
                               <p className="font-serif text-[11px] sm:text-base md:text-lg uppercase tracking-[0.15em] text-[#3B184A] font-semibold">
                                 Sunday, 22nd November 2026
                               </p>
-                              <p className="font-serif text-[10px] sm:text-sm md:text-base uppercase tracking-[0.18em] text-[#7A284B] font-semibold">
-                                7:00 PM Onwards
+                              <p className="font-serif text-[10px] sm:text-sm md:text-base uppercase tracking-[0.18em] text-[#882903] font-semibold">
+                                6:30 PM Onwards
                               </p>
                               <p className="pt-1 font-serif text-[11px] sm:text-base md:text-lg uppercase tracking-[0.14em] text-[#4A1D5E] font-bold">
                                 Ebisu Convention Centre
@@ -640,10 +691,19 @@ export default function Timeline() {
                   </div>
                 </div>
               </motion.article>
-            );
-          })}
+              );
+            })}
+          </AnimatePresence>
         </div>
       </div>
     </section>
+  );
+}
+
+export default function Timeline() {
+  return (
+    <Suspense fallback={<div>Loading celebrations...</div>}>
+      <TimelineContent />
+    </Suspense>
   );
 }

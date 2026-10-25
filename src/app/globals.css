@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #FFFDF9;
-  --foreground: #1F1513;
+  --background: #240612;
+  --foreground: #F3F4F6;
   --gold-zari: #D4AF37;
   --crimson-royal: #881337;
   --marigold-vibrant: #F59E0B;
@@ -16,17 +16,24 @@
   }
   
   html {
-    background-color: #FFFDF9;
-    color: #1F1513;
+    background-color: #240612;
+    color: #F3F4F6;
     scroll-behavior: auto;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
+  body {
+    background-color: #240612;
+    background-image:
+      radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 65%),
+      radial-gradient(ellipse at top, #36091E 0%, #240612 55%, #1F030E 100%);
+  }
+
   ::selection {
-    background: #BE123C;
-    color: #FFFFFF;
+    background: #D4AF37;
+    color: #240612;
   }
 }
 

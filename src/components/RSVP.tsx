@@ -1,22 +1,52 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Heart, Send, CheckCircle2, Music, Utensils, Users, Sparkles, RefreshCw, Sun, Moon } from 'lucide-react';
-import { weddingDetails } from '@/data/weddingData';
+import { Heart, Send, CheckCircle2, Users, Sparkles, RefreshCw, Phone } from 'lucide-react';
+import { getTierConfig } from '@/data/weddingData';
 
-export default function RSVP() {
+const ALL_RSVP_FUNCTIONS = [
+  { id: 'haldi', name: 'The Haldi', date: '20 Nov • 9:30 AM – 12:30 PM' },
+  { id: 'sangeet', name: 'Sangeet Night', date: '20 Nov • 6:00 PM Onwards' },
+  { id: 'nikah', name: 'Mehfil-e-Nikah', date: '21 Nov • 11:00 AM Onwards' },
+  { id: 'muhurat', name: 'The Auspicious Muhurat', date: '21 Nov • 6:00 PM – 9:00 PM' },
+  { id: 'reception', name: 'The Wedding Reception', date: '22 Nov • 6:30 PM Onwards' },
+];
+
+const ATTENDING_OPTION = 'Yes, Excited! to attend.....';
+const DECLINE_OPTION = 'Sending love from Afar';
+
+function RSVPContent() {
+  const searchParams = useSearchParams();
+  const currentTier = searchParams.get('tier');
+  const tierConfig = getTierConfig(currentTier);
+  const normalizedTier = tierConfig.tier;
+  const allowedIds = tierConfig.allowedEventIds;
+
+  const visibleFunctions = ALL_RSVP_FUNCTIONS.filter((fn) =>
+    allowedIds.includes(fn.id)
+  );
+
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
+    name: '',
     phone: '',
-    attending: 'yes',
-    guestCount: '1',
-    functionsAttending: ['haldi', 'sangeet', 'nikah', 'reception'],
-    dietary: 'vegetarian',
-    songRequest: '',
+    attendance: ATTENDING_OPTION,
+    guests: '1',
+    events: visibleFunctions.map((fn) => fn.name),
   });
+
+  useEffect(() => {
+    const validIds = getTierConfig(currentTier).allowedEventIds;
+    const validEvents = ALL_RSVP_FUNCTIONS.filter((fn) =>
+      validIds.includes(fn.id)
+    ).map((fn) => fn.name);
+    setFormData((prev) => ({
+      ...prev,
+      events: prev.attendance === ATTENDING_OPTION ? validEvents : [],
+    }));
+  }, [currentTier]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -37,22 +67,22 @@ export default function RSVP() {
     setBtnPos({ x: 0, y: 0 });
   };
 
-  const toggleFunctionAttending = (id: string) => {
-    if (formData.functionsAttending.includes(id)) {
+  const toggleFunctionAttending = (eventName: string) => {
+    if (!visibleFunctions.some((fn) => fn.name === eventName)) return;
+    if (formData.events.includes(eventName)) {
       setFormData({
         ...formData,
-        functionsAttending: formData.functionsAttending.filter((f) => f !== id),
+        events: formData.events.filter((f) => f !== eventName),
       });
     } else {
       setFormData({
         ...formData,
-        functionsAttending: [...formData.functionsAttending, id],
+        events: [...formData.events, eventName],
       });
     }
   };
 
   const fireIndianCelebrationConfetti = () => {
-    // Vibrant Indian marigold yellow, crimson, emerald & gold zari explosion
     const count = 250;
     const defaults = {
       origin: { y: 0.7 },
@@ -91,17 +121,44 @@ export default function RSVP() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
+    // Format the data to match the Apps Script expectations
+    const payload = {
+      name: formData.name,
+      phone: formData.phone,
+      attendance: formData.attendance,
+      events: formData.events.join(', '), // Convert array to comma-separated string
+      guests: formData.guests,
+      tier: currentTier || 'all', // Pass the URL tier parameter if available
+    };
+
+    try {
+      await fetch(
+        'https://script.google.com/macros/s/AKfycbxMQwhL4xO-5XWgRy5J2Z3RMPZuImobFIV7JhQoEqkF29jWk0AS9yCuYc3hak54pwU/exec',
+        {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      // Because 'no-cors' makes the response opaque, we assume success if no error is thrown
       setIsSubmitted(true);
-      if (formData.attending === 'yes') {
+      if (formData.attendance === ATTENDING_OPTION) {
         fireIndianCelebrationConfetti();
       }
-    }, 1000);
+    } catch (error) {
+      console.error('Error submitting RSVP:', error);
+      alert('Something went wrong. Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetForm = () => {
@@ -109,11 +166,19 @@ export default function RSVP() {
   };
 
   return (
-    <section id="rsvp" className="relative py-28 sm:py-36 bg-ivory text-charcoal overflow-hidden bg-raw-silk border-t border-gold/30">
+    <section
+      id="rsvp"
+      className="relative py-28 sm:py-36 bg-gradient-to-b from-[#240612] via-[#36091E] to-[#1F030E] text-[#F3F4F6] overflow-hidden border-t border-[#D4AF37]/30"
+    >
       {/* Background Ambience */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] rounded-full bg-gradient-to-br from-marigold-light/50 via-crimson-light/30 to-peacock-light/30 blur-3xl -z-10 pointer-events-none" />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
+        }}
+      />
 
-      <div className="max-w-4xl mx-auto px-6 sm:px-8">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8">
         {/* Header */}
         <div className="text-center max-w-xl mx-auto mb-14">
           <motion.div
@@ -123,11 +188,11 @@ export default function RSVP() {
             transition={{ duration: 0.8 }}
             className="flex items-center justify-center gap-3 mb-4"
           >
-            <span className="w-10 h-[1.5px] bg-gradient-to-r from-transparent to-gold" />
-            <span className="text-xs uppercase tracking-luxury font-sans text-crimson font-bold">
+            <span className="w-10 h-[1.5px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
+            <span className="text-xs uppercase tracking-luxury font-sans text-[#E2C799] font-bold">
               Kripya Pratigya Karein • Kindly Respond
             </span>
-            <span className="w-10 h-[1.5px] bg-gradient-to-l from-transparent to-gold" />
+            <span className="w-10 h-[1.5px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
           </motion.div>
 
           <motion.h2
@@ -135,20 +200,12 @@ export default function RSVP() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light text-charcoal tracking-tight"
+            className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light text-[#F5E6C8] tracking-tight"
           >
-            Will You Grace Our Celebrations?
+            {normalizedTier === 'reception'
+              ? 'Will You Join Us For The Reception?'
+              : 'Will You Grace Our Celebrations?'}
           </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="mt-4 text-charcoal-soft/80 font-sans text-sm sm:text-base leading-relaxed"
-          >
-            Please confirm your presence by October 15, 2026 so we may prepare your hospitality in Bangalore.
-          </motion.p>
         </div>
 
         {/* Floating Card Container */}
@@ -181,76 +238,111 @@ export default function RSVP() {
                 {/* Attendance Radio Pills */}
                 <div>
                   <label className="block text-xs font-sans tracking-luxury uppercase text-crimson font-bold mb-3 text-center">
-                    Attendance Status
+                    {normalizedTier === 'reception'
+                      ? 'Reception Attendance Status (22 Nov)'
+                      : 'Attendance Status'}
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <button
                       type="button"
-                      onClick={() => setFormData({ ...formData, attending: 'yes' })}
-                      className={`p-4 rounded-xl border text-sm font-sans tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2.5 ${
-                        formData.attending === 'yes'
+                      onClick={() =>
+                        setFormData({
+                          ...formData,
+                          attendance: ATTENDING_OPTION,
+                          events:
+                            formData.events.length > 0
+                              ? formData.events
+                              : visibleFunctions.map((fn) => fn.name),
+                        })
+                      }
+                      className={`p-4 rounded-xl border text-sm font-sans tracking-wider transition-all duration-300 flex items-center justify-center gap-2.5 ${
+                        formData.attendance === ATTENDING_OPTION
                           ? 'border-gold-metallic bg-gold/15 text-charcoal font-bold shadow-md ring-2 ring-gold/40'
                           : 'border-sand-dark bg-ivory text-charcoal-soft/70 hover:border-gold/50'
                       }`}
                     >
                       <Sparkles className="w-4 h-4 text-gold-metallic" />
-                      <span>Joyfully Accepts with Blessings</span>
+                      <span>Yes, Excited! to attend.....</span>
                     </button>
 
                     <button
                       type="button"
-                      onClick={() => setFormData({ ...formData, attending: 'no' })}
-                      className={`p-4 rounded-xl border text-sm font-sans tracking-wider uppercase transition-all duration-300 flex items-center justify-center gap-2.5 ${
-                        formData.attending === 'no'
+                      onClick={() =>
+                        setFormData({
+                          ...formData,
+                          attendance: DECLINE_OPTION,
+                          events: [],
+                        })
+                      }
+                      className={`p-4 rounded-xl border text-sm font-sans tracking-wider transition-all duration-300 flex items-center justify-center gap-2.5 ${
+                        formData.attendance === DECLINE_OPTION
                           ? 'border-crimson bg-crimson/10 text-crimson font-bold shadow-md ring-2 ring-crimson/30'
                           : 'border-sand-dark bg-ivory text-charcoal-soft/70 hover:border-crimson/40'
                       }`}
                     >
                       <Heart className="w-4 h-4 text-crimson" />
-                      <span>Sending Love From Afar</span>
+                      <span>Sending love from Afar</span>
                     </button>
                   </div>
                 </div>
 
-                {/* Multiday Functions Selector (If Attending) */}
-                {formData.attending === 'yes' && (
-                  <div className="p-5 rounded-2xl bg-amber-500/10 border border-gold/40 space-y-3">
+                {/* Tier-Filtered Functions Selector (If Attending) */}
+                {formData.attendance === ATTENDING_OPTION && (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="p-5 rounded-2xl bg-amber-500/10 border border-gold/40 space-y-3"
+                  >
                     <label className="block text-xs font-sans tracking-luxury uppercase text-charcoal font-bold">
-                      Which Functions Will You Attend?
+                      {normalizedTier === 'reception'
+                        ? 'Confirm Your Reception Attendance'
+                        : 'Which Functions Will You Attend?'}
                     </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {[
-                        { id: 'haldi', name: 'Haldi Ceremony', date: '20 Nov Morning' },
-                        { id: 'sangeet', name: 'Sangeet & Mehendi', date: '20 Nov Night' },
-                        { id: 'nikah', name: 'Nikah & Muhurat', date: '21 Nov Union' },
-                        { id: 'reception', name: 'Grand Reception', date: '22 Nov Night' },
-                      ].map((fn) => {
-                        const isChecked = formData.functionsAttending.includes(fn.id);
-                        return (
-                          <button
-                            key={fn.id}
-                            type="button"
-                            onClick={() => toggleFunctionAttending(fn.id)}
-                            className={`p-3 rounded-xl border text-xs font-sans text-left flex items-center justify-between transition-all ${
-                              isChecked
-                                ? 'bg-ivory border-gold font-semibold text-charcoal shadow-sm'
-                                : 'bg-transparent border-sand-dark text-charcoal-soft/60 hover:border-gold/50'
-                            }`}
-                          >
-                            <div>
-                              <strong className="block text-charcoal">{fn.name}</strong>
-                              <span className="text-[11px] text-amber-700">{fn.date}</span>
-                            </div>
-                            <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-                              isChecked ? 'bg-gold border-gold text-charcoal' : 'border-sand-dark'
-                            }`}>
-                              {isChecked && <CheckCircle2 className="w-4 h-4 text-charcoal" />}
-                            </div>
-                          </button>
-                        );
-                      })}
+                    <div
+                      className={`grid grid-cols-1 ${
+                        visibleFunctions.length === 1 ? 'sm:grid-cols-1' : 'sm:grid-cols-2'
+                      } gap-3`}
+                    >
+                      <AnimatePresence mode="popLayout">
+                        {visibleFunctions.map((fn) => {
+                          const isChecked = formData.events.includes(fn.name);
+                          return (
+                            <motion.button
+                              key={fn.id}
+                              layout
+                              initial={{ opacity: 0, scale: 0.95 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.95 }}
+                              transition={{ duration: 0.25 }}
+                              type="button"
+                              onClick={() => toggleFunctionAttending(fn.name)}
+                              className={`p-3 rounded-xl border text-xs font-sans text-left flex items-center justify-between transition-all ${
+                                isChecked
+                                  ? 'bg-ivory border-gold font-semibold text-charcoal shadow-sm'
+                                  : 'bg-transparent border-sand-dark text-charcoal-soft/60 hover:border-gold/50'
+                              }`}
+                            >
+                              <div>
+                                <strong className="block text-charcoal">{fn.name}</strong>
+                                <span className="text-[11px] text-amber-700">{fn.date}</span>
+                              </div>
+                              <div
+                                className={`w-5 h-5 rounded-full border flex items-center justify-center ${
+                                  isChecked
+                                    ? 'bg-gold border-gold text-charcoal'
+                                    : 'border-sand-dark'
+                                }`}
+                              >
+                                {isChecked && <CheckCircle2 className="w-4 h-4 text-charcoal" />}
+                              </div>
+                            </motion.button>
+                          );
+                        })}
+                      </AnimatePresence>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
 
                 {/* Inputs Grid */}
@@ -261,8 +353,8 @@ export default function RSVP() {
                       type="text"
                       id="fullName"
                       required
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder=" "
                       className="peer w-full px-4 pt-6 pb-2 bg-ivory border-2 border-sand-dark rounded-xl text-charcoal font-sans text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all"
                     />
@@ -270,26 +362,26 @@ export default function RSVP() {
                       htmlFor="fullName"
                       className="absolute left-4 top-2 text-[10px] font-sans tracking-luxury uppercase text-crimson font-semibold transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-xs peer-placeholder-shown:text-charcoal-soft/60 peer-focus:top-2 peer-focus:text-[10px] peer-focus:text-crimson"
                     >
-                      Full Name(s) *
+                      Full Name (Guest Name) *
                     </label>
                   </div>
 
-                  {/* Email */}
+                  {/* Phone Number / WhatsApp */}
                   <div className="relative">
                     <input
-                      type="email"
-                      id="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      type="tel"
+                      id="phone"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder=" "
                       className="peer w-full px-4 pt-6 pb-2 bg-ivory border-2 border-sand-dark rounded-xl text-charcoal font-sans text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all"
                     />
                     <label
-                      htmlFor="email"
-                      className="absolute left-4 top-2 text-[10px] font-sans tracking-luxury uppercase text-crimson font-semibold transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-xs peer-placeholder-shown:text-charcoal-soft/60 peer-focus:top-2 peer-focus:text-[10px] peer-focus:text-crimson"
+                      htmlFor="phone"
+                      className="absolute left-4 top-2 text-[10px] font-sans tracking-luxury uppercase text-crimson font-semibold transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-xs peer-placeholder-shown:text-charcoal-soft/60 peer-focus:top-2 peer-focus:text-[10px] peer-focus:text-crimson flex items-center gap-1.5"
                     >
-                      Email Address *
+                      <Phone className="w-3 h-3 text-gold" />
+                      <span>Phone Number / WhatsApp</span>
                     </label>
                   </div>
 
@@ -297,72 +389,24 @@ export default function RSVP() {
                   <div className="relative sm:col-span-2">
                     <div className="flex items-center gap-2 mb-2 text-xs font-sans tracking-luxury uppercase text-charcoal font-bold">
                       <Users className="w-3.5 h-3.5 text-gold" />
-                      <span>Total Traveling Party Size</span>
+                      <span>Number of Guests</span>
                     </div>
                     <div className="grid grid-cols-4 gap-3">
                       {['1', '2', '3', '4+'].map((count) => (
                         <button
                           key={count}
                           type="button"
-                          onClick={() => setFormData({ ...formData, guestCount: count })}
+                          onClick={() => setFormData({ ...formData, guests: count })}
                           className={`py-2.5 rounded-lg border-2 text-xs font-sans tracking-wider uppercase transition-all font-semibold ${
-                            formData.guestCount === count
+                            formData.guests === count
                               ? 'bg-crimson text-ivory border-crimson'
                               : 'bg-ivory text-charcoal-soft border-sand-dark hover:border-gold'
                           }`}
                         >
-                          {count === '1' ? 'Just Me' : `${count} Guests`}
+                          {count === '1' ? 'Just Me (1)' : `${count} Guests`}
                         </button>
                       ))}
                     </div>
-                  </div>
-
-                  {/* Dietary Preferences (Indian Culinary Specializations) */}
-                  <div className="relative sm:col-span-2">
-                    <div className="flex items-center gap-2 mb-2 text-xs font-sans tracking-luxury uppercase text-charcoal font-bold">
-                      <Utensils className="w-3.5 h-3.5 text-gold" />
-                      <span>Dietary Preference for Wedding Feasts</span>
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                      {[
-                        { id: 'vegetarian', label: 'Vegetarian' },
-                        { id: 'jain', label: 'Jain (No Onion/Garlic)' },
-                        { id: 'halal', label: 'Halal / Non-Veg' },
-                        { id: 'vegan', label: 'Vegan' },
-                      ].map((diet) => (
-                        <button
-                          key={diet.id}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, dietary: diet.id })}
-                          className={`py-2 px-3 rounded-lg border text-xs font-sans text-center transition-all ${
-                            formData.dietary === diet.id
-                              ? 'bg-gold-metallic text-charcoal font-bold border-gold-metallic shadow-sm'
-                              : 'bg-ivory text-charcoal border-sand-dark hover:border-gold'
-                          }`}
-                        >
-                          {diet.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Song Request for the Sangeet Night */}
-                  <div className="relative sm:col-span-2">
-                    <input
-                      type="text"
-                      id="songRequest"
-                      value={formData.songRequest}
-                      onChange={(e) => setFormData({ ...formData, songRequest: e.target.value })}
-                      placeholder=" "
-                      className="peer w-full px-4 pt-6 pb-2 bg-ivory border-2 border-sand-dark rounded-xl text-charcoal font-sans text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all"
-                    />
-                    <label
-                      htmlFor="songRequest"
-                      className="absolute left-4 top-2 text-[10px] font-sans tracking-luxury uppercase text-crimson font-semibold transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-xs peer-placeholder-shown:text-charcoal-soft/60 peer-focus:top-2 peer-focus:text-[10px] peer-focus:text-crimson flex items-center gap-1.5"
-                    >
-                      <Music className="w-3 h-3 text-gold" />
-                      The Bollywood track that will get you on the Sangeet dance floor
-                    </label>
                   </div>
                 </div>
 
@@ -410,21 +454,21 @@ export default function RSVP() {
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
 
-                <span className="font-script text-4xl text-crimson mb-1">Shukriya & Dhanyawad</span>
+                <span className="font-script text-4xl text-crimson mb-1">Shukriya &amp; Dhanyawad</span>
 
                 <h3 className="font-serif text-3xl sm:text-4xl text-charcoal font-light leading-snug">
-                  Thank You, {formData.fullName || 'Beloved Guest'}!
+                  Thank You, {formData.name || 'Beloved Guest'}!
                 </h3>
 
                 <p className="font-sans text-sm sm:text-base text-charcoal-soft/85 mt-4 max-w-md leading-relaxed">
-                  {formData.attending === 'yes'
+                  {formData.attendance === ATTENDING_OPTION
                     ? "We are overjoyed and blessed to celebrate this sacred journey with you in Bangalore! A confirmation with your itinerary and hospitality details has been dispatched."
                     : "We will dearly miss your presence by our side in Bangalore, but your heartfelt love and blessings will remain with us throughout our sacred rituals."}
                 </p>
 
                 <div className="mt-8 pt-6 border-t border-gold/30 w-full max-w-md flex flex-col items-center gap-3">
                   <p className="text-xs uppercase tracking-luxury text-crimson font-sans font-semibold">
-                    November 20 — 22, 2026 • Bangalore, Karnataka
+                    {tierConfig.dateDisplay} • {tierConfig.locationDisplay}
                   </p>
 
                   <button
@@ -440,5 +484,13 @@ export default function RSVP() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+export default function RSVP() {
+  return (
+    <Suspense fallback={<div>Loading celebrations...</div>}>
+      <RSVPContent />
+    </Suspense>
   );
 }

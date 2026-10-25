@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import { Menu, X, Sparkles } from 'lucide-react';
-import { weddingDetails } from '@/data/weddingData';
+import { weddingDetails, getTierConfig } from '@/data/weddingData';
 
-export default function Navbar() {
+function NavbarContent() {
+  const searchParams = useSearchParams();
+  const tierConfig = getTierConfig(searchParams.get('tier'));
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -44,31 +46,23 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${
-          isScrolled
-            ? 'py-3.5 bg-crimson-deep/90 backdrop-blur-md border-b border-gold/30 shadow-lg text-ivory'
-            : 'py-6 bg-gradient-to-b from-black/60 via-black/20 to-transparent text-ivory'
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 bg-[#240612]/85 backdrop-blur-md border-b border-[#D4AF37]/20 text-[#F3F4F6] ${
+          isScrolled ? 'py-3 shadow-[0_8px_32px_rgba(0,0,0,0.65)]' : 'py-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
-          {/* Logo / Monogram */}
+          {/* Logo / Golden "SA" Monogram & Couple Names */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="group flex items-center gap-2.5 text-left focus:outline-none"
+            className="group flex items-center gap-3 sm:gap-3.5 text-left focus:outline-none"
           >
-            <div className="relative w-9 h-7 rounded-md overflow-hidden border border-gold-metallic/60 shadow-md bg-black/40">
-              <Image
-                src="/images/monogram-cartouche.png"
-                alt="Sameen & Anula Monogram"
-                fill
-                className="object-cover object-center"
-                sizes="36px"
-              />
-            </div>
-            <span className="font-serif text-xl sm:text-2xl tracking-widest font-normal text-ivory hero-text-shadow">
-              {weddingDetails.couple.groom}
-              <span className="text-gold-metallic font-script text-2xl sm:text-3xl mx-1.5">&</span>
-              {weddingDetails.couple.bride}
+            <img
+              src="/images/monogram.png"
+              alt="SA Golden Monogram"
+              className="h-10 sm:h-12 w-auto object-contain select-none drop-shadow-[0_0_12px_rgba(212,175,55,0.4)] transition-transform duration-300 group-hover:scale-105"
+            />
+            <span className="font-serif text-base sm:text-xl tracking-[0.22em] uppercase font-normal text-[#F5E6C8] group-hover:text-[#D4AF37] transition-colors">
+              {weddingDetails.couple.groom} &amp; {weddingDetails.couple.bride}
             </span>
           </button>
 
@@ -78,27 +72,24 @@ export default function Navbar() {
               <button
                 key={link.label}
                 onClick={() => handleLinkClick(link.href)}
-                className={`relative text-xs tracking-luxury uppercase font-sans transition-all duration-300 py-1.5 flex items-center gap-1.5 ${
+                className={`relative text-xs tracking-widest uppercase font-sans transition-all duration-300 py-1.5 flex items-center gap-1.5 ${
                   link.isFeatured
-                    ? 'text-gold-metallic font-semibold px-3 py-1 rounded-full bg-gold/15 border border-gold/40 shadow-sm hover:bg-gold/25'
-                    : 'text-ivory/90 hover:text-gold-metallic'
+                    ? 'text-[#F5E6C8] font-semibold px-3.5 py-1.5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 shadow-sm hover:bg-[#D4AF37]/25 hover:text-[#E5C07B]'
+                    : 'text-[#F3F4F6] hover:text-[#E5C07B]'
                 }`}
               >
-                {link.isFeatured && <Sparkles className="w-3 h-3 text-gold-metallic animate-pulse" />}
+                {link.isFeatured && <Sparkles className="w-3 h-3 text-[#D4AF37] animate-pulse" />}
                 <span>{link.label}</span>
-                {!link.isFeatured && (
-                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-gold-metallic transition-all duration-300 group-hover:w-full" />
-                )}
               </button>
             ))}
           </nav>
 
           {/* Right Action Controls */}
           <div className="flex items-center gap-3.5">
-            {/* Quick RSVP CTA Button */}
+            {/* High-Contrast Gold RSVP Button */}
             <button
               onClick={() => handleLinkClick('#rsvp')}
-              className="hidden sm:inline-flex items-center px-5 py-2 rounded-full text-xs tracking-widest uppercase font-sans font-bold transition-all duration-500 bg-gradient-to-r from-gold-metallic via-amber-400 to-gold-antique text-charcoal shadow-md hover:shadow-gold/30 hover:scale-105"
+              className="hidden sm:inline-flex items-center px-5 py-2 rounded-full text-xs tracking-widest uppercase font-sans bg-[#D4AF37] text-black font-semibold hover:bg-[#F3E5AB] transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.25)] hover:scale-105"
             >
               RSVP
             </button>
@@ -107,7 +98,7 @@ export default function Navbar() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle mobile menu"
-              className="md:hidden p-2 rounded-full focus:outline-none text-ivory hover:text-gold transition-colors"
+              className="md:hidden p-2 rounded-full focus:outline-none text-[#F3F4F6] hover:text-[#E5C07B] transition-colors"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -115,7 +106,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Sleek Indian Mobile Drawer Menu */}
+      {/* Royal Burgundy & Gold Mobile Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -124,27 +115,31 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-gradient-to-b from-crimson-deep via-[#2A0410] to-[#2E0854] flex flex-col justify-between px-8 py-10 md:hidden bg-banarasi-pattern text-ivory"
+            className="fixed inset-0 z-50 bg-gradient-to-b from-[#240612] via-[#36091E] to-[#1F030E] flex flex-col justify-between px-8 py-10 md:hidden text-[#F3F4F6]"
           >
+            {/* Ambient Gold Radial Vignette */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
+              }}
+            />
+
             {/* Top Bar */}
-            <div className="flex items-center justify-between border-b border-gold/30 pb-4">
+            <div className="relative z-10 flex items-center justify-between border-b border-[#D4AF37]/25 pb-4">
               <div className="flex items-center gap-3">
-                <div className="relative w-10 h-8 rounded-md overflow-hidden border border-gold-metallic/60 shadow-md">
-                  <Image
-                    src="/images/monogram-cartouche.png"
-                    alt="Sameen & Anula Monogram"
-                    fill
-                    className="object-cover object-center"
-                    sizes="40px"
-                  />
-                </div>
-                <span className="text-xs text-amber-200/90 font-sans tracking-luxury uppercase font-semibold">
+                <img
+                  src="/images/monogram.png"
+                  alt="SA Golden Monogram"
+                  className="h-10 w-auto object-contain select-none drop-shadow-[0_0_10px_rgba(212,175,55,0.35)]"
+                />
+                <span className="text-xs text-[#E2C799] font-sans tracking-widest uppercase font-semibold">
                   ✦ Bangalore 2026
                 </span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-ivory hover:text-gold-metallic transition-colors"
+                className="p-2 text-[#F3F4F6] hover:text-[#E5C07B] transition-colors"
                 aria-label="Close menu"
               >
                 <X className="w-7 h-7" />
@@ -152,7 +147,7 @@ export default function Navbar() {
             </div>
 
             {/* Navigation Links */}
-            <nav className="flex flex-col space-y-6 my-auto">
+            <nav className="relative z-10 flex flex-col space-y-6 my-auto">
               {navLinks.map((link, index) => (
                 <motion.div
                   key={link.label}
@@ -162,12 +157,12 @@ export default function Navbar() {
                 >
                   <button
                     onClick={() => handleLinkClick(link.href)}
-                    className="font-serif text-3xl sm:text-4xl text-ivory hover:text-gold-metallic transition-colors duration-300 tracking-wide text-left flex items-center justify-between w-full group"
+                    className="font-serif text-3xl sm:text-4xl text-[#F3F4F6] hover:text-[#E5C07B] transition-colors duration-300 tracking-wide text-left flex items-center justify-between w-full group"
                   >
-                    <span className={link.isFeatured ? 'text-gold-metallic font-medium' : ''}>
+                    <span className={link.isFeatured ? 'text-[#F5E6C8] font-medium' : ''}>
                       {link.label}
                     </span>
-                    <span className="font-sans text-xs tracking-widest text-gold-metallic opacity-60 group-hover:opacity-100">
+                    <span className="font-sans text-xs tracking-widest text-[#E2C799] opacity-70 group-hover:opacity-100">
                       0{index + 1}
                     </span>
                   </button>
@@ -176,13 +171,21 @@ export default function Navbar() {
             </nav>
 
             {/* Bottom Info */}
-            <div className="border-t border-gold/30 pt-6 flex flex-col gap-2 text-amber-100/80 font-sans text-xs tracking-widest uppercase">
-              <p className="text-gold-metallic font-medium">{weddingDetails.date.formatted}</p>
-              <p>{weddingDetails.location.venue} • {weddingDetails.location.city}, {weddingDetails.location.state}</p>
+            <div className="relative z-10 border-t border-[#D4AF37]/25 pt-6 flex flex-col gap-2 text-[#E2C799] font-sans text-xs tracking-widest uppercase">
+              <p className="text-[#F5E6C8] font-semibold">{tierConfig.dateDisplay}</p>
+              <p className="text-[#F3F4F6]">{tierConfig.locationDisplay}</p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+export default function Navbar() {
+  return (
+    <Suspense fallback={null}>
+      <NavbarContent />
+    </Suspense>
   );
 }

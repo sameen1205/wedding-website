@@ -1,188 +1,181 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import Image from 'next/image';
-import { weddingDetails } from '@/data/weddingData';
-import { Heart, Sparkles } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+
+const storyMilestones = [
+  {
+    year: "2012",
+    tag: "High School Sweethearts",
+    title: "Where It All Began",
+    description:
+      "He was in 10th grade; she was in 9th. Between school bus rides, hallway smiles, and classroom bells, a simple teenage crush quietly blossomed into a bond that would weather every test of time.",
+    image: "/images/story-1.jpg",
+    alt: "Sameen and Anula in school uniform in 2012",
+  },
+  {
+    year: "2023",
+    tag: "Milestones in the UK",
+    title: "Growing Up & Graduating Together",
+    description:
+      "From school corridors to universities abroad in the United Kingdom. Celebrating each other’s convocations and walking side-by-side through life's biggest milestones proved that home isn't a place—it's each other.",
+    // Note: check for /images/story-2.jpg or /images/story-2.png in the public folder
+    image: "/images/story-2.jpg",
+    alt: "Sameen and Anula attending UK convocations together in 2023",
+  },
+  {
+    year: "2026",
+    tag: "Fourteen Years to Forever",
+    title: "The Easiest 'Yes'",
+    description:
+      "Fourteen years of friendship, endless laughter, and unconditional love culminated beneath a canopy of roses, candlelight, and starlight. Taking each other's hands for a lifetime was the easiest choice in the world.",
+    image: "/images/story-3.jpg",
+    alt: "Sameen proposing to Anula in 2026",
+  },
+];
+
+function MilestoneImage({ src, alt }: { src: string; alt: string }) {
+  const [imgSrc, setImgSrc] = useState(src);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
+  const handleFallback = () => {
+    setImgSrc((current) => {
+      if (current.endsWith('.jpg')) {
+        return current.replace(/\.jpg$/i, '.png');
+      }
+      return current;
+    });
+  };
+
+  useEffect(() => {
+    setImgSrc(src);
+  }, [src]);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth === 0) {
+      handleFallback();
+    }
+  }, [imgSrc]);
+
+  return (
+    <img
+      ref={imgRef}
+      src={imgSrc}
+      alt={alt}
+      onError={handleFallback}
+      loading="lazy"
+      className="w-full h-full object-cover object-center transition-all duration-500 ease-out group-hover:scale-105 group-hover:contrast-105 group-hover:brightness-105"
+    />
+  );
+}
 
 export default function Story() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const parallaxY1 = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const parallaxY2 = useTransform(scrollYProgress, [0, 1], [80, -60]);
-  const parallaxY3 = useTransform(scrollYProgress, [0, 1], [100, -80]);
-
   return (
     <section
       id="story"
-      ref={containerRef}
-      className="relative py-28 sm:py-36 bg-ivory text-charcoal overflow-hidden bg-raw-silk"
+      className="relative py-28 sm:py-36 bg-gradient-to-b from-[#240612] via-[#36091E] to-[#1F030E] text-[#F3F4F6] overflow-hidden"
     >
-      {/* Decorative Warm Ambient Glows */}
-      <div className="absolute top-1/4 left-0 w-96 h-96 rounded-full bg-marigold-light/60 blur-3xl -z-10" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 rounded-full bg-crimson-light/40 blur-3xl -z-10" />
+      {/* Subtle Ambient Warm Gold Vignette Glows */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="absolute top-1/4 left-0 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="absolute bottom-1/4 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
+        }}
+      />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-24">
+      {/* Section Header */}
+      <div className="relative z-10 text-center max-w-2xl mx-auto px-6 mb-16 sm:mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex items-center justify-center gap-3 mb-4"
+        >
+          <span className="w-10 h-[1.5px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
+          <span className="text-xs uppercase tracking-widest font-sans text-[#E2C799] font-semibold">
+            Humari Dastaan • Our Story
+          </span>
+          <span className="w-10 h-[1.5px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, delay: 0.1 }}
+          className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light text-[#F5E6C8] tracking-tight"
+        >
+          Fourteen Years in the Making
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="mt-4 text-[#E5E7EB] font-sans text-sm sm:text-base leading-relaxed"
+        >
+          From high school hallways to university graduations abroad and a starlit proposal, every chapter has led us to forever.
+        </motion.p>
+      </div>
+
+      {/* 3-Card Responsive Milestone Grid */}
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
+        {storyMilestones.map((milestone, index) => (
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            key={milestone.year}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex items-center justify-center gap-3 mb-4"
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{
+              duration: 0.7,
+              delay: index * 0.15,
+              ease: 'easeOut',
+            }}
+            className="group bg-white/[0.03] backdrop-blur-md rounded-2xl p-5 border border-[#D4AF37]/20 hover:border-[#D4AF37]/60 transition-all duration-300 shadow-2xl flex flex-col"
           >
-            <span className="w-10 h-[1.5px] bg-gradient-to-r from-transparent to-gold" />
-            <span className="text-xs uppercase tracking-luxury font-sans text-crimson font-bold">
-              Humari Dastaan • Our Journey
-            </span>
-            <span className="w-10 h-[1.5px] bg-gradient-to-l from-transparent to-gold" />
-          </motion.div>
+            {/* Portrait Photo Container */}
+            <div className="relative aspect-[4/5] w-full overflow-hidden border border-[#D4AF37]/30 rounded-2xl mb-5 bg-[#1F030E]">
+              <MilestoneImage src={milestone.image} alt={milestone.alt} />
+              {/* Subtle Warm Gold Hover Contrast Vignette */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1F030E]/40 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-300 pointer-events-none" />
+            </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-            className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light text-charcoal tracking-tight"
-          >
-            Two Worlds, One Sacred Harmony
-          </motion.h2>
+            {/* Card Content */}
+            <div className="flex flex-col flex-1">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <span className="text-xs font-semibold text-[#F5E6C8] bg-[#D4AF37]/20 border border-[#D4AF37]/40 px-3 py-1 rounded-full uppercase tracking-wider">
+                  {milestone.year}
+                </span>
+                <span className="text-xs font-sans uppercase tracking-wider text-[#E2C799]/85 font-medium">
+                  {milestone.tag}
+                </span>
+              </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="mt-4 text-charcoal-soft/80 font-sans text-sm sm:text-base leading-relaxed"
-          >
-            A love story born in heritage alleyways, nurtured across horizons, and blessed beneath the starlit skies of Bangalore.
-          </motion.p>
-        </div>
-
-        {/* Editorial Split-Screen Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Sticky Narrative Block */}
-          <div className="lg:col-span-5 lg:sticky lg:top-32 space-y-8">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="p-8 sm:p-10 rounded-3xl bg-ivory border-2 border-gold/40 shadow-xl relative overflow-hidden"
-            >
-              {/* Gold Brocade Accent Corner */}
-              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-bl from-gold/20 via-marigold/10 to-transparent pointer-events-none" />
-
-              <span className="font-script text-3xl sm:text-4xl text-crimson block mb-2">
-                Auspicious Beginnings
-              </span>
-
-              <h3 className="font-serif text-2xl sm:text-3xl font-light text-charcoal leading-snug">
-                &ldquo;When hearts connect across traditions, every ritual becomes a celebration of eternity.&rdquo;
+              <h3 className="text-[#F5E6C8] text-xl font-serif mt-3 mb-2">
+                {milestone.title}
               </h3>
 
-              <div className="w-16 h-[2px] bg-gradient-to-r from-gold via-marigold to-crimson my-6" />
-
-              <p className="font-sans text-sm sm:text-base text-charcoal-soft/85 leading-relaxed">
-                What started over warm coffee in Bangalore grew into an unbreakable bond that brought two vibrant families together in laughter, respect, and boundless love.
+              <p className="text-[#E5E7EB] text-sm leading-relaxed">
+                {milestone.description}
               </p>
-
-              <p className="font-sans text-sm sm:text-base text-charcoal-soft/85 leading-relaxed mt-4">
-                Now, surrounded by the joy of family and friends at Dwapara Convention Centre, Bangalore, we invite you to be part of our most sacred vows, vibrant folk dances, and celebratory moments.
-              </p>
-
-              {/* Couple Crest Seal */}
-              <div className="mt-8 pt-6 border-t border-gold/30 flex items-center justify-between">
-                <div>
-                  <p className="font-serif text-2xl tracking-wider text-charcoal">
-                    {weddingDetails.couple.groom} & {weddingDetails.couple.bride}
-                  </p>
-                  <p className="text-[11px] font-sans tracking-luxury uppercase text-crimson font-medium mt-0.5">
-                    Bangalore • November 2026
-                  </p>
-                </div>
-                <div className="w-12 h-12 rounded-full border border-gold bg-gold/10 flex items-center justify-center text-crimson">
-                  <Heart className="w-5 h-5 fill-crimson/20" />
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Right Column: Parallax Story Cards */}
-          <div className="lg:col-span-7 space-y-16 sm:space-y-24">
-            {weddingDetails.ourStory.map((chapter, index) => {
-              const parallaxStyles = [parallaxY1, parallaxY2, parallaxY3];
-              const currentParallax = parallaxStyles[index % parallaxStyles.length];
-
-              return (
-                <motion.div
-                  key={chapter.title}
-                  style={{ y: currentParallax }}
-                  initial={{ opacity: 0, y: 50, filter: 'blur(8px)' }}
-                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{
-                    type: 'spring',
-                    stiffness: 60,
-                    damping: 20,
-                    delay: 0.15,
-                  }}
-                  className={`group relative flex flex-col ${
-                    index % 2 === 1 ? 'sm:ml-10' : 'sm:mr-10'
-                  }`}
-                >
-                  {/* Photo Container with Gold Border */}
-                  <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl border-2 border-gold/50 bg-charcoal shadow-xl transition-all duration-700 group-hover:border-gold-metallic group-hover:shadow-2xl">
-                    <Image
-                      src={chapter.image}
-                      alt={chapter.alt}
-                      fill
-                      className="object-cover object-center transition-transform duration-1000 ease-out group-hover:scale-105 brightness-95"
-                      sizes="(max-width: 1024px) 100vw, 55vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-                    {/* Badge */}
-                    <div className="absolute top-4 left-4 px-4 py-1.5 rounded-full bg-crimson-deep/90 backdrop-blur-md border border-gold/40 text-gold-metallic text-xs font-sans tracking-luxury uppercase font-bold">
-                      {chapter.year}
-                    </div>
-
-                    {/* Bottom Caption Overlay */}
-                    <div className="absolute bottom-5 left-5 right-5 text-ivory">
-                      <p className="font-sans text-xs tracking-luxury uppercase text-amber-300 font-semibold mb-1">
-                        {chapter.subtitle}
-                      </p>
-                      <h4 className="font-serif text-2xl sm:text-3xl font-light">
-                        {chapter.title}
-                      </h4>
-                    </div>
-                  </div>
-
-                  {/* Description & Quote */}
-                  <div className="mt-5 px-3">
-                    <p className="font-sans text-sm sm:text-base text-charcoal-soft/85 leading-relaxed">
-                      {chapter.description}
-                    </p>
-
-                    {chapter.quote && (
-                      <p className="font-serif italic text-base sm:text-lg text-crimson font-medium mt-3 flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-gold shrink-0" />
-                        &ldquo;{chapter.quote}&rdquo;
-                      </p>
-                    )}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

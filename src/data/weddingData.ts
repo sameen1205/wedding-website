@@ -50,17 +50,17 @@ export const weddingDetails = {
     blessing: "Sacred Wedding Celebrations",
   },
   date: {
-    formatted: "November 20 — 22, 2026",
+    formatted: "20th – 22nd November 2026",
     short: "20 . 11 . 2026",
     iso: "2026-11-20T09:30:00+05:30",
   },
   location: {
-    venue: "Dwapara Convention Centre",
-    estate: "Bangalore",
-    city: "Bangalore",
+    venue: "Dwapara Convention Centre & Ebisu Convention Centre",
+    estate: "Bengaluru",
+    city: "Bengaluru",
     state: "Karnataka",
     country: "India",
-    fullAddress: "Dwapara Convention Centre, Bengaluru, Karnataka, India",
+    fullAddress: "Dwapara Convention Centre & Ebisu Convention Centre, Bengaluru, Karnataka, India",
   },
   hero: {
     tagline: "Together with our families, we invite you to three days of sacred rituals, music, and celebration",
@@ -106,7 +106,7 @@ export const weddingDetails = {
       id: "haldi",
       dayNumber: "DAY 01",
       dayDate: "Friday, 20th November 2026",
-      title: "The Radiant Haldi",
+      title: "The Haldi",
       subtitle: "Ubtan, Marigolds & Phoolon Ki Holi",
       timing: "9:30 AM – 12:30 PM",
       location: "Dwapara Convention Centre",
@@ -121,7 +121,7 @@ export const weddingDetails = {
       accentColor: "#F59E0B",
       badgeBg: "bg-amber-500/20 text-amber-200 border-amber-400/40",
       image: "/images/haldi-invite.png",
-      alt: "The Radiant Haldi Ceremony Official Card",
+      alt: "The Haldi Ceremony Official Card",
       quote: "Rang barse tere naam ka, lage ubtan khushiyon ka.",
       description:
         "A joyful morning of sacred turmeric blessings and fragrant marigold showers.",
@@ -162,9 +162,9 @@ export const weddingDetails = {
       id: "nikah",
       dayNumber: "DAY 02",
       dayDate: "Saturday, 21st November 2026",
-      title: "The Sacred Nikah",
+      title: "Mehfil-e-Nikah",
       subtitle: "The Holy Union & Sacred Vows",
-      timing: "10:00 AM Onwards",
+      timing: "11:00 AM Onwards",
       location: "Dwapara Convention Centre",
       theme: "Crimson Brocade, Mughal Arch & Lotus Botanicals",
       dressCode: "Pastel Elegance / Traditional Festive",
@@ -177,10 +177,10 @@ export const weddingDetails = {
       accentColor: "#E11D48",
       badgeBg: "bg-rose-500/20 text-rose-200 border-rose-400/40",
       image: "/images/nikah-card-bg.png",
-      alt: "The Sacred Nikah wedding ceremony card",
+      alt: "Mehfil-e-Nikah wedding ceremony card",
       quote: "Bound by sacred vows, united by love.",
       description:
-        "The solemnization of sacred Nikah vows surrounded by loved ones.",
+        "The solemnization of sacred Nikah vows surrounded by loved ones from 11:00 AM onwards at Dwapara Convention Centre.",
       highlights: [
         "Sacred Nikah ceremony",
         "Rose petal blessing shower",
@@ -218,25 +218,25 @@ export const weddingDetails = {
       id: "reception",
       dayNumber: "DAY 03",
       dayDate: "Sunday, 22nd November 2026",
-      title: "Wedding Reception",
+      title: "The Wedding Reception",
       subtitle: "An Elegant Evening of Felicitations & Celebrations",
-      timing: "7:00 PM Onwards",
+      timing: "6:30 PM Onwards",
       location: "Ebisu Convention Centre",
-      theme: "Royal Purple Temple Ikat, Saffron Grid & Bougainvillea Arch",
+      theme: "Royal Purple Temple Ikat, Deep Burnt Terracotta Grid & Bougainvillea Arch",
       dressCode: "Formal Western / Modern Indo-Western",
       colorSwatches: [
-        { name: "Black Tie", hex: "#18181B" },
+        { name: "Royal Burnt Orange", hex: "#9E3205" },
         { name: "Deep Jewel Plum", hex: "#581C87" },
-        { name: "Rose Gold", hex: "#E0A99A" },
+        { name: "Champagne Gold", hex: "#D4AF37" },
       ],
       patternClass: "bg-leheriya-pattern",
-      accentColor: "#D4AF37",
+      accentColor: "#B43E08",
       badgeBg: "bg-amber-500/20 text-amber-200 border-amber-400/40",
       image: "/images/reception-card-bg.png",
       alt: "Wedding Reception celebration card",
       quote: "A toast to new beginnings and a lifetime of happiness.",
       description:
-        "An elegant evening celebrating Sameen and Anula with family and friends.",
+        "An elegant evening celebrating Sameen and Anula with family and friends from 6:30 PM onwards at Ebisu Convention Centre.",
       highlights: [
         "Grand couple entrance & felicitation stage",
         "Evening celebration & music",
@@ -301,3 +301,56 @@ export const weddingDetails = {
     },
   ] as GalleryItem[],
 };
+
+export type GuestTier = "all" | "wedding" | "reception";
+
+export interface TierConfig {
+  tier: GuestTier;
+  dateDisplay: string;
+  locationDisplay: string;
+  isoTarget: string;
+  allowedEventIds: string[];
+  heroTagline: string;
+  heroCtaLabel: string;
+}
+
+export function getTierConfig(tierParam?: string | null): TierConfig {
+  const normalized = tierParam?.toLowerCase().trim();
+  if (normalized === "reception") {
+    return {
+      tier: "reception",
+      dateDisplay: "Sunday, 22nd November 2026",
+      locationDisplay: "Ebisu Convention Centre, Bengaluru",
+      isoTarget: "2026-11-22T18:30:00+05:30",
+      allowedEventIds: ["reception"],
+      heroTagline:
+        "Together with our families, we invite you to an enchanting evening of felicitations, music, and celebration at our Wedding Reception",
+      heroCtaLabel: "Discover The Reception Celebration",
+    };
+  }
+  if (normalized === "wedding") {
+    return {
+      tier: "wedding",
+      dateDisplay: "21st – 22nd November 2026",
+      locationDisplay:
+        "Dwapara Convention Centre (21st Nov) & Ebisu Convention Centre (22nd Nov)",
+      isoTarget: "2026-11-21T11:00:00+05:30",
+      allowedEventIds: ["nikah", "muhurat", "reception"],
+      heroTagline:
+        "Together with our families, we invite you to celebrate our sacred wedding vows and reception festivities",
+      heroCtaLabel: "Discover The Wedding Celebrations",
+    };
+  }
+  return {
+    tier: "all",
+    dateDisplay: "20th – 22nd November 2026",
+    locationDisplay:
+      "Dwapara Convention Centre & Ebisu Convention Centre, Bengaluru",
+    isoTarget: "2026-11-20T09:30:00+05:30",
+    allowedEventIds: ["haldi", "sangeet", "nikah", "muhurat", "reception"],
+    heroTagline:
+      "Together with our families, we invite you to three days of sacred rituals, music, and celebration",
+    heroCtaLabel: "Discover The 3-Day Celebrations",
+  };
+}
+

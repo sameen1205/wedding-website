@@ -26,19 +26,19 @@ const pinyon = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Sameen & Anula | November 20 — 22, 2026 — Dwapara Convention Centre, Bangalore",
+  title: "Sameen & Anula | Wedding Celebrations — Bengaluru",
   description:
-    "Together with their families, Sameen and Anula invite you to three days of sacred rituals, music, and joyful celebration at Dwapara Convention Centre, Bangalore, India.",
+    "Together with their families, Sameen and Anula invite you to celebrate their sacred wedding festivities in Bengaluru, India.",
   keywords: [
     "Sameen and Anula Wedding",
     "Indian Wedding Website",
-    "Bangalore Wedding",
+    "Bengaluru Wedding",
     "Sameen Anula Vivah",
     "Luxury Wedding Website",
   ],
   openGraph: {
     title: "Sameen & Anula Wedding Celebration",
-    description: "November 20 — 22, 2026 • Dwapara Convention Centre, Bangalore",
+    description: "Dwapara Convention Centre & Ebisu Convention Centre, Bengaluru",
     type: "website",
     images: [
       {
@@ -61,7 +61,7 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${montserrat.variable} ${pinyon.variable} scroll-smooth`}
     >
-      <body className="bg-ivory text-charcoal font-sans antialiased selection:bg-champagne selection:text-charcoal relative overflow-x-hidden">
+      <body className="bg-[#240612] text-[#F3F4F6] font-sans antialiased selection:bg-[#D4AF37] selection:text-[#240612] relative overflow-x-hidden">
         <SmoothScroll>
           <FloatingPetals />
           {children}

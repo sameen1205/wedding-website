@@ -1,12 +1,15 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { Heart, ArrowUp, Sparkles, Flower2 } from 'lucide-react';
-import { weddingDetails } from '@/data/weddingData';
+import { weddingDetails, getTierConfig } from '@/data/weddingData';
 
-export default function Footer() {
+function FooterContent() {
+  const searchParams = useSearchParams();
+  const tierConfig = getTierConfig(searchParams.get('tier'));
+
   const scrollToTop = () => {
     if ((window as unknown as { lenis?: { scrollTo: (target: number, opts: { duration: number }) => void } }).lenis) {
       (window as unknown as { lenis: { scrollTo: (target: number, opts: { duration: number }) => void } }).lenis.scrollTo(0, { duration: 1.5 });
@@ -16,7 +19,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#170513] text-ivory py-20 px-6 sm:px-8 border-t-2 border-gold/40 overflow-hidden bg-patola-pattern bg-blend-soft-light">
+    <footer className="relative bg-[#1F030E] text-ivory py-20 px-6 sm:px-8 border-t-2 border-gold/40 overflow-hidden bg-patola-pattern bg-blend-soft-light">
       {/* Decorative Velvet Gradient Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-96 bg-gradient-to-b from-crimson/20 via-marigold/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
@@ -56,11 +59,11 @@ export default function Footer() {
 
         {/* Date & Palace Location */}
         <p className="font-sans text-xs tracking-luxury uppercase text-sand-light/90 mt-3">
-          {weddingDetails.date.formatted} • {weddingDetails.location.venue} • {weddingDetails.location.city}, {weddingDetails.location.state}
+          {tierConfig.dateDisplay} • {tierConfig.locationDisplay}
         </p>
 
         {/* Blessings Note (Ashirwaad) */}
-        <div className="mt-10 p-6 sm:p-8 rounded-2xl bg-[#240316]/90 border border-gold/30 max-w-xl text-center shadow-2xl relative overflow-hidden">
+        <div className="mt-10 p-6 sm:p-8 rounded-2xl bg-[#240612]/90 border border-gold/30 max-w-xl text-center shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-marigold/5 rounded-full blur-2xl pointer-events-none" />
           
           <div className="flex items-center justify-center gap-2 text-gold-light text-xs font-sans tracking-luxury uppercase mb-3">
@@ -88,12 +91,20 @@ export default function Footer() {
             Sameen & Anula • Celebrating Love, Heritage & Unity
           </p>
           <p className="flex items-center gap-1.5">
-            <span>Bangalore, Karnataka</span>
+            <span>Bengaluru, Karnataka</span>
             <span className="text-gold-metallic">•</span>
             <Heart className="w-3.5 h-3.5 text-crimson fill-crimson inline" />
           </p>
         </div>
       </div>
     </footer>
+  );
+}
+
+export default function Footer() {
+  return (
+    <Suspense fallback={null}>
+      <FooterContent />
+    </Suspense>
   );
 }
