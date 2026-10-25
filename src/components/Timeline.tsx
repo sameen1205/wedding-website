@@ -45,56 +45,12 @@ function TimelineContent() {
     }
   }, [tierParam, visibleFunctions, activeTab]);
 
-  const generateSingleEventIcs = (fn: IndianFunction) => {
-    let startIso = '';
-    let endIso = '';
-
-    if (fn.id === 'haldi') {
-      startIso = '20261120T040000Z'; // 9:30 AM IST
-      endIso = '20261120T070000Z';   // 12:30 PM IST
-    } else if (fn.id === 'sangeet') {
-      startIso = '20261120T123000Z'; // 6:00 PM IST
-      endIso = '20261120T180000Z';   // 11:30 PM IST
-    } else if (fn.id === 'nikah') {
-      startIso = '20261121T053000Z'; // 11:00 AM IST
-      endIso = '20261121T083000Z';   // 2:00 PM IST
-    } else if (fn.id === 'muhurat') {
-      startIso = '20261121T123000Z'; // 6:00 PM IST
-      endIso = '20261121T153000Z';   // 9:00 PM IST
-    } else if (fn.id === 'reception') {
-      startIso = '20261122T130000Z'; // 6:30 PM IST
-      endIso = '20261122T180000Z';   // 11:30 PM IST
-    } else {
-      startIso = '20261120T050000Z';
-      endIso = '20261120T090000Z';
+  const getVenueMapUrl = (fn: IndianFunction) => {
+    if (fn.mapUrl) return fn.mapUrl;
+    if (fn.id === 'reception') {
+      return 'https://maps.app.goo.gl/paFszvpXDbi91AgJ8';
     }
-
-    const icsData = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//Sameen and Anula Wedding//EN',
-      'CALSCALE:GREGORIAN',
-      'METHOD:PUBLISH',
-      'BEGIN:VEVENT',
-      `UID:${fn.id}-sameen-anula-2026@bangalorewedding.com`,
-      `SUMMARY:${fn.title} - Sameen & Anula Wedding`,
-      `DESCRIPTION:${fn.description.replace(/\n/g, ' ')} Dress Code: ${fn.dressCode}`,
-      `LOCATION:${fn.location}`,
-      `DTSTART:${startIso}`,
-      `DTEND:${endIso}`,
-      'STATUS:CONFIRMED',
-      'END:VEVENT',
-      'END:VCALENDAR',
-    ].join('\r\n');
-
-    const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${fn.id}-Sameen-Anula-Wedding.ics`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    return 'https://maps.app.goo.gl/ecJLEKXWBF5nQWD68';
   };
 
   const scrollToFunction = (id: string) => {
@@ -679,14 +635,16 @@ function TimelineContent() {
                         </div>
                       </div>
 
-                      {/* Add to Calendar Action */}
-                      <button
-                        onClick={() => generateSingleEventIcs(fn)}
-                        className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-gold-metallic via-amber-400 to-gold-antique text-charcoal font-sans text-xs tracking-widest uppercase font-bold hover:shadow-lg hover:shadow-gold/30 hover:scale-105 transition-all"
+                      {/* View Venue on Google Maps Action */}
+                      <a
+                        href={getVenueMapUrl(fn)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-gold-metallic via-amber-400 to-gold-antique text-charcoal font-sans text-xs tracking-widest uppercase font-bold hover:shadow-lg hover:shadow-gold/30 hover:scale-105 transition-all text-center"
                       >
-                        <Calendar className="w-4 h-4" />
-                        <span>Add {fn.title} to Calendar</span>
-                      </button>
+                        <MapPin className="w-4 h-4 shrink-0" />
+                        <span>View Venue on Google Maps</span>
+                      </a>
                     </div>
                   </div>
                 </div>

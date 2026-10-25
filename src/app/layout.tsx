@@ -59,7 +59,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${montserrat.variable} ${pinyon.variable} scroll-smooth`}
+      className={`${cormorant.variable} ${montserrat.variable} ${pinyon.variable} scroll-smooth overflow-x-hidden`}
     >
       <body className="bg-[#240612] text-[#F3F4F6] font-sans antialiased selection:bg-[#D4AF37] selection:text-[#240612] relative overflow-x-hidden">
         <SmoothScroll>

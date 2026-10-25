@@ -115,7 +115,7 @@ function HeroContent() {
       <div className="w-full pt-16 sm:pt-20" />
 
       {/* Main Foreground Typography & Golden "SA" Monogram Showcase */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center box-border">
         {/* Large Illuminated Golden "SA" Monogram Above Couple's Names */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
@@ -142,13 +142,14 @@ function HeroContent() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-white/[0.04] backdrop-blur-md border border-[#D4AF37]/35 mb-3 shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
+          style={{ boxSizing: 'border-box' }}
+          className="w-full sm:w-auto max-w-[92vw] mx-auto box-border inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-1.5 rounded-full bg-white/[0.04] backdrop-blur-md border border-[#D4AF37]/35 mb-3 shadow-[0_4px_24px_rgba(0,0,0,0.8)]"
         >
-          <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
-          <span className="font-sans text-xs tracking-widest uppercase text-[#E2C799] font-semibold">
+          <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse shrink-0" />
+          <span className="font-sans text-[11px] sm:text-xs tracking-widest uppercase text-[#E2C799] font-semibold break-words">
             {weddingDetails.couple.blessing}
           </span>
-          <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
+          <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse shrink-0" />
         </motion.div>
 
         {/* Tagline / Formal Invitation Line */}
@@ -156,7 +157,7 @@ function HeroContent() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.45 }}
-          className="font-sans text-xs sm:text-sm tracking-widest uppercase text-[#F3F4F6] font-normal mb-4 max-w-2xl leading-relaxed px-2"
+          className="w-full max-w-[90vw] sm:max-w-2xl mx-auto px-4 text-center break-words text-xs sm:text-sm leading-relaxed font-sans tracking-widest uppercase text-[#F3F4F6] font-normal mb-4"
         >
           {tierConfig.heroTagline}
         </motion.p>
@@ -214,25 +215,26 @@ function HeroContent() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 1.15 }}
-          className="mt-6 px-6 py-3 rounded-2xl sm:rounded-full bg-[#2D0818]/90 backdrop-blur-md border border-[#D4AF37]/35 shadow-2xl flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs sm:text-sm tracking-widest uppercase font-sans text-[#E2C799]"
+          style={{ boxSizing: 'border-box' }}
+          className="w-full sm:w-auto max-w-[92vw] mx-auto box-border mt-6 px-4 sm:px-6 py-3 rounded-2xl sm:rounded-full bg-[#2D0818]/90 backdrop-blur-md border border-[#D4AF37]/35 shadow-2xl flex flex-wrap items-center justify-center gap-y-2.5 gap-x-6 text-xs sm:text-sm tracking-widest uppercase font-sans text-[#E2C799]"
         >
-          <span className="flex items-center gap-2 font-semibold text-[#F3F4F6]">
+          <span className="inline-flex items-center justify-center gap-2 font-semibold text-[#F3F4F6] max-w-full">
             <Calendar className="w-4 h-4 text-[#D4AF37] shrink-0" />
-            {tierConfig.dateDisplay}
+            <span className="break-words text-center">{tierConfig.dateDisplay}</span>
           </span>
           {tierConfig.tier === 'reception' && (
             <>
-              <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
-              <span className="flex items-center gap-2 font-semibold text-[#F3F4F6]">
+              <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#D4AF37] shrink-0" />
+              <span className="inline-flex items-center justify-center gap-2 font-semibold text-[#F3F4F6] max-w-full">
                 <Clock className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                6:30 PM Onwards
+                <span className="break-words text-center">6:30 PM Onwards</span>
               </span>
             </>
           )}
-          <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
-          <span className="flex items-center gap-2 font-semibold text-[#F3F4F6]">
+          <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#D4AF37] shrink-0" />
+          <span className="inline-flex items-center justify-center gap-2 font-semibold text-[#F3F4F6] max-w-full">
             <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0" />
-            {tierConfig.locationDisplay}
+            <span className="break-words text-center leading-snug">{tierConfig.locationDisplay}</span>
           </span>
         </motion.div>
 
@@ -241,34 +243,44 @@ function HeroContent() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 1.35 }}
-          className="mt-6 px-7 py-3.5 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-[#D4AF37]/35 shadow-2xl flex items-center gap-5 sm:gap-8 text-center"
+          className="mt-6 w-full flex justify-center"
         >
-          <div className="flex flex-col">
-            <span className="font-serif text-2xl sm:text-3xl font-medium text-[#F5E6C8] tabular-nums drop-shadow-[0_2px_8px_rgba(212,175,55,0.25)]">
-              {String(timeLeft.days).padStart(2, '0')}
-            </span>
-            <span className="text-[10px] uppercase tracking-widest text-[#E2C799] font-sans font-semibold">Days</span>
-          </div>
-          <span className="text-[#D4AF37]/70 text-base font-light">✦</span>
-          <div className="flex flex-col">
-            <span className="font-serif text-2xl sm:text-3xl font-medium text-[#F5E6C8] tabular-nums drop-shadow-[0_2px_8px_rgba(212,175,55,0.25)]">
-              {String(timeLeft.hours).padStart(2, '0')}
-            </span>
-            <span className="text-[10px] uppercase tracking-widest text-[#E2C799] font-sans font-semibold">Hours</span>
-          </div>
-          <span className="text-[#D4AF37]/70 text-base font-light">✦</span>
-          <div className="flex flex-col">
-            <span className="font-serif text-2xl sm:text-3xl font-medium text-[#F5E6C8] tabular-nums drop-shadow-[0_2px_8px_rgba(212,175,55,0.25)]">
-              {String(timeLeft.minutes).padStart(2, '0')}
-            </span>
-            <span className="text-[10px] uppercase tracking-widest text-[#E2C799] font-sans font-semibold">Mins</span>
-          </div>
-          <span className="text-[#D4AF37]/70 text-base font-light">✦</span>
-          <div className="flex flex-col">
-            <span className="font-serif text-2xl sm:text-3xl font-medium text-[#F5E6C8] tabular-nums drop-shadow-[0_2px_8px_rgba(212,175,55,0.25)]">
-              {String(timeLeft.seconds).padStart(2, '0')}
-            </span>
-            <span className="text-[10px] uppercase tracking-widest text-[#E2C799] font-sans font-semibold">Secs</span>
+          <div
+            style={{ boxSizing: 'border-box' }}
+            className="grid grid-cols-4 gap-2 w-full max-w-[92vw] sm:max-w-md mx-auto px-2 py-3 bg-white/[0.04] border border-[#D4AF37]/30 rounded-2xl backdrop-blur-md shadow-2xl"
+          >
+            <div className="flex flex-col items-center justify-center min-w-0">
+              <span className="text-lg sm:text-2xl font-serif text-[#F5E6C8] tabular-nums drop-shadow-[0_2px_8px_rgba(212,175,55,0.25)]">
+                {String(timeLeft.days).padStart(2, '0')}
+              </span>
+              <span className="text-[10px] sm:text-xs tracking-widest text-[#E5C07B] uppercase font-sans font-semibold">
+                Days
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center min-w-0">
+              <span className="text-lg sm:text-2xl font-serif text-[#F5E6C8] tabular-nums drop-shadow-[0_2px_8px_rgba(212,175,55,0.25)]">
+                {String(timeLeft.hours).padStart(2, '0')}
+              </span>
+              <span className="text-[10px] sm:text-xs tracking-widest text-[#E5C07B] uppercase font-sans font-semibold">
+                Hours
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center min-w-0">
+              <span className="text-lg sm:text-2xl font-serif text-[#F5E6C8] tabular-nums drop-shadow-[0_2px_8px_rgba(212,175,55,0.25)]">
+                {String(timeLeft.minutes).padStart(2, '0')}
+              </span>
+              <span className="text-[10px] sm:text-xs tracking-widest text-[#E5C07B] uppercase font-sans font-semibold">
+                Mins
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center min-w-0">
+              <span className="text-lg sm:text-2xl font-serif text-[#F5E6C8] tabular-nums drop-shadow-[0_2px_8px_rgba(212,175,55,0.25)]">
+                {String(timeLeft.seconds).padStart(2, '0')}
+              </span>
+              <span className="text-[10px] sm:text-xs tracking-widest text-[#E5C07B] uppercase font-sans font-semibold">
+                Secs
+              </span>
+            </div>
           </div>
         </motion.div>
       </div>

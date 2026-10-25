@@ -16,6 +16,7 @@ export interface IndianFunction {
   subtitle: string;
   timing: string;
   location: string;
+  mapUrl: string;
   theme: string;
   dressCode: string;
   colorSwatches: { name: string; hex: string }[];
@@ -110,6 +111,7 @@ export const weddingDetails = {
       subtitle: "Ubtan, Marigolds & Phoolon Ki Holi",
       timing: "9:30 AM – 12:30 PM",
       location: "Dwapara Convention Centre",
+      mapUrl: "https://maps.app.goo.gl/ecJLEKXWBF5nQWD68",
       theme: "Radiant Turmeric Sunshine & Marigold Leheriya",
       dressCode: "Sunshine Yellows & Vibrant Festive",
       colorSwatches: [
@@ -138,6 +140,7 @@ export const weddingDetails = {
       subtitle: "A Starlit Night Garden of Music, Rhythm & Romance",
       timing: "6:00 PM Onwards",
       location: "Dwapara Convention Centre",
+      mapUrl: "https://maps.app.goo.gl/ecJLEKXWBF5nQWD68",
       theme: "Nocturnal Garden Romance, Starlight & Oriental Floral Silk",
       dressCode: "Evening Glamour — Deep Emeralds, Navy & Metallics",
       colorSwatches: [
@@ -166,6 +169,7 @@ export const weddingDetails = {
       subtitle: "The Holy Union & Sacred Vows",
       timing: "11:00 AM Onwards",
       location: "Dwapara Convention Centre",
+      mapUrl: "https://maps.app.goo.gl/ecJLEKXWBF5nQWD68",
       theme: "Crimson Brocade, Mughal Arch & Lotus Botanicals",
       dressCode: "Pastel Elegance / Traditional Festive",
       colorSwatches: [
@@ -194,6 +198,7 @@ export const weddingDetails = {
       subtitle: "Sacred Vows & Traditional South Indian Rituals",
       timing: "6:00 PM – 9:00 PM",
       location: "Dwapara Convention Centre",
+      mapUrl: "https://maps.app.goo.gl/ecJLEKXWBF5nQWD68",
       theme: "Kundan Gemstone Border, Temple Gold & Maroon Filigree",
       dressCode: "Traditional Ethnic / Kanjeevaram & Silk",
       colorSwatches: [
@@ -222,6 +227,7 @@ export const weddingDetails = {
       subtitle: "An Elegant Evening of Felicitations & Celebrations",
       timing: "6:30 PM Onwards",
       location: "Ebisu Convention Centre",
+      mapUrl: "https://maps.app.goo.gl/paFszvpXDbi91AgJ8",
       theme: "Royal Purple Temple Ikat, Deep Burnt Terracotta Grid & Bougainvillea Arch",
       dressCode: "Formal Western / Modern Indo-Western",
       colorSwatches: [

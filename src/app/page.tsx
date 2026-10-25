@@ -11,7 +11,7 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#240612] text-[#F3F4F6]">
+    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#240612] text-[#F3F4F6]">
       {/* SVG Path Monogram Preloader with Curtain Reveal */}
       <Suspense fallback={null}>
         <Preloader />
