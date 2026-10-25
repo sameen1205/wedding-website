@@ -36,11 +36,11 @@ export const metadata: Metadata = {
     siteName: "Sameen & Anula Wedding",
     images: [
       {
-        url: "/images/story-3.jpg?v=2",
-        width: 900,
-        height: 1600,
+        url: "/images/og-monogram.jpg",
+        width: 1200,
+        height: 630,
         type: "image/jpeg",
-        alt: "Sameen proposing to Anula",
+        alt: "Sameen & Anula Monogram",
       },
     ],
     locale: "en_US",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sameen & Anula — Wedding Celebrations",
-    images: ["/images/story-3.jpg?v=2"],
+    images: ["/images/og-monogram.jpg"],
   },
 };
 
