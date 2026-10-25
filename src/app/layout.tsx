@@ -26,28 +26,29 @@ const pinyon = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Sameen & Anula | Wedding Celebrations — Bengaluru",
-  description:
-    "Together with their families, Sameen and Anula invite you to celebrate their sacred wedding festivities in Bengaluru, India.",
-  keywords: [
-    "Sameen and Anula Wedding",
-    "Indian Wedding Website",
-    "Bengaluru Wedding",
-    "Sameen Anula Vivah",
-    "Luxury Wedding Website",
-  ],
+  title: "Sameen & Anula — Wedding Celebrations",
+  description: "Celebrate with Sameen & Anula as they begin their forever.",
+  metadataBase: new URL("https://samanulaweb.vercel.app"),
   openGraph: {
-    title: "Sameen & Anula Wedding Celebration",
-    description: "Dwapara Convention Centre & Ebisu Convention Centre, Bengaluru",
-    type: "website",
+    title: "Sameen & Anula — Wedding Celebrations",
+    description: "Celebrate with Sameen & Anula as they begin their forever.",
+    url: "https://samanulaweb.vercel.app",
+    siteName: "Sameen & Anula Wedding",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80",
+        url: "/images/story-3.jpg",
         width: 1200,
         height: 630,
-        alt: "Sameen & Anula Wedding Celebration",
+        alt: "Sameen proposing to Anula",
       },
     ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sameen & Anula — Wedding Celebrations",
+    images: ["/images/story-3.jpg"],
   },
 };
 

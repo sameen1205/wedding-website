@@ -65,7 +65,7 @@ export const weddingDetails = {
   },
   hero: {
     tagline: "Together with our families, we invite you to three days of sacred rituals, music, and celebration",
-    backgroundImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=2400&q=85",
+    backgroundImage: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80",
     ambientAudioUrl: "https://cdn.freesound.org/previews/415/415804_5121236-lq.mp3",
   },
   ourStory: [
